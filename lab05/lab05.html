@@ -1,0 +1,551 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>CS 150 - Lab 05</title>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<link rel="stylesheet" type="text/css" href="labs.css">
+</head>
+<body>
+<br>
+    <div id='container'>
+	<div id='top'>
+
+
+	    <h1><a href="http://www.cs.oberlin.edu/~ctaylor/150/" style="text-decoration:none; color:black">Lab 05</a></h1>
+	    <b>The Game of Life</b><br>
+	    <em>Due by 10pm on Tuesday, October 7th</em>
+	    <br>
+	    <br>
+
+	</div>
+	<div id='top'>
+
+
+
+<p>
+The purpose of this lab is to:
+<ul>
+	<li>Learn about reading from files</li>
+	<li>Practice using lists</li>
+	<li>Explore the Game of Life</li>
+	<li>Animate a simulation</li>
+</ul>
+</p>
+
+<p>
+Before you begin, please create a folder called <tt>lab05</tt> inside your <tt>cs150</tt> folder. This is where you should put all files made for this lab.
+</p>
+
+<!--
+<h2>Part 1 - Palindromes</h2>
+
+<p>
+As you are probably aware, a palindrome is any string that reads the same forward as backwards.  "UFO tofu" is one such example.  "No, sir, away! A papaya war is on!" is not only a palindrome but also an unexpectedly ominous declaration.  
+</p>
+
+<p>
+Create a program called <tt>Palindrome.java</tt> that takes in a String from the user (you'll need to use the Scanner's <tt>next()</tt> method) and determines whether it is a palindrome or not.  If not, it should report the first pair of characters that do not match.
+</p>
+
+<p>
+Your program should ignore any symbol that is not a letter, and should be indifferent to capitalization.  That is, your program should identify "I prefer Pi!" as a palindrome, despite the fact that there are non matching spaces, an unmatched exclamation point, and only one 'i' and one 'p' is capitalized.
+</p>
+
+<p>
+Two things that might be helpful.  First, don't forget that all Strings have a <tt>toLowerCase()</tt> method.  Second, binary comparators (like &lt; and &gt;=)  can be applied to characters!  Java will evaluate <tt>'a' &lt; 'b'</tt> as true, and <tt>'z' &lt; 'b'</tt> as false.
+</p>
+
+-->
+
+<h2>Part 1 - Looking for a Match</h2>
+<p>
+<b><i>20 points, individual</i></b>
+
+<p>
+As you may know, proteins are chains of molecules called amino acids.  There are 20 amino acids, each of which is typically represented by a single letter, and any protein can be specified by its sequence of amino acids. This sequence determines the properties of the protein, including its 3D structure.  
+</p>
+
+<p>
+<center>
+<img src="amino.png" border=0>    <img src="protein.png" border=0>
+</center>    
+</p>
+
+<p>
+<center>
+Left: A general amino acid (structure of R determines the particular amino acid).<br>  Right: 3D structure of a protein.  Image source: wikipedia.org. 
+</center>    
+</p>
+
+<p>
+When a new protein is found, one way in which we might attempt to guess the functionality of that protein would be to see if it contains certain markers common to a known class of proteins.  For example (and an entirely bogus example at that), suppose we discover a new protein, that we've named Duane, with the following amino acid sequence:
+</p>
+
+<p>
+<center>
+<pre>STTECQLKDNRAWTSLFIHTGHTECA</pre>
+</center>
+</p>
+
+<p>
+We may also suspect that Duane might belong to one of two possible classes of proteins: Splunkers and Munkatoos.  As you well know, most Splunkers contain the pattern TECQRKMN or at least something close to it.  That is, most of the sequences in the class of Splunker proteins have the subsequence TECQRKMN with only a few of the letters changed.  Munkatoos, meanwhile, have the pattern ALFHHTTGT, or something very similar.
+</p>
+
+<p>
+In this case, we can deduce that Duane is most likely a Splunker: Duane contains the pattern TECQLKDN which only has 2 mismatches from TECQRKMN (the errors are marked with a ^ below).  
+</p>
+
+
+<center>
+<pre>TECQLKDN
+TECQRKMN
+    ^ ^ 
+</pre>
+</center>
+
+<p>
+The closest pattern to the Munkatoo sequence is 
+</p>
+
+<center>
+<pre>SLFIHTGHT
+ALFHHTTGT
+^  ^  ^^ 
+</pre>
+</center>
+
+<p>
+which has 4 mismatches.
+</p>
+
+<br>
+<br>
+<p>
+<b>Describe the Problem:</b><br>
+Write a program <tt>match.py</tt> that patterns matches as follows.<br>
+<b>input:</b> a file that contains a string <tt>s</tt> representing a protein sequence, along with some number of strings, each representing a pattern sequence.<br>
+<b>goal:</b> for each pattern sequence, find its best match in the protein sequence and report its location and the number of errors in the match.
+
+<br>
+<br>
+<p>
+<b>Understand the Problem:</b><br>
+The file <a href="test.txt">test.txt</a> is in the format you should expect for your input (and is the file you should use to test your program).  In particular, the first line  will always contain the protein sequence.  Following the protein sequence will be some number of pattern sequences.  For each of these sequences, you should report the location of the best match, and the number of errors at that location.   
+</p>
+
+<p>
+For example, the contents of <tt>test.txt</tt> are as follows:
+</p>
+
+<pre>
+STTECQLKDNRAWTSLFIHTGHTECA
+TECQRKMN
+ALFHHTTGT
+TTECQ
+HT
+ZZZ
+TTZZZRAWT
+</pre>
+
+<p>
+For this file your program should have something like the following output:
+</p>
+
+<div class="boxed">
+<h3>Example Output</h3>
+<pre>
+Sequence 1 has 2 errors at position 2.
+Sequence 2 has 4 errors at position 14.
+Sequence 3 has 0 errors at position 1.
+Sequence 4 has 0 errors at position 18.
+Sequence 5 has 3 errors at position 0.
+Sequence 6 has 5 errors at position 5.
+</pre>
+
+</div>
+
+
+<br>
+<br>
+<p>
+<b>Design an Algorithm:</b><br>
+Make sure you come up with a plan of attack (on paper) before you begin coding.  
+<br>
+<br>
+<p>
+<b>Implement a Design:</b><br>
+Unlike previous assignments in which data was entered by the user or hard-coded into the program, here your data will come from a file.  As such, you'll need a few tools for handling files.
+</p>
+
+<div class="boxed">
+<h3>Reading from a File</h3>
+
+    <p>
+    To work with an external file, you'll use the <tt>open</tt> function:
+    
+    <pre>
+    <tt>&ltvariable&gt = open(&ltfilename&gt, &ltmode&gt)</tt></pre>
+    
+    This function opens the file with the given name and loads it into the specified variable.  The <tt>&ltmode&gt</tt> can be either <tt>"r"</tt> or <tt>"w"</tt>, depending on whether you intend to read from the file or write to the file (you can only do one type of operation at a time).  In this case we're just reading from the file, so you'll want something like this:
+
+    <pre>
+    <tt>inputFile = open("test.txt","r")</tt>
+    </pre>
+    
+    You can now use functions associated with a file object, including:
+    <ul>
+    <li><tt>&ltfile&gt.read()</tt> Returns the rest of the file as a single string.
+    <li><tt>&ltfile&gt.readline()</tt> Returns the next line of the file as a string.
+    <li><tt>&ltfile&gt.readlines()</tt> Returns a list of all remaining lines.
+    </ul>
+    
+    Note that the <tt>&ltfile&gt</tt> keeps track of what you've read so far.  So if you call the <tt>read()</tt> function twice, the first call will return the first line of the file while the second call will return the second.  If you want to start at the beginning again, <tt>&ltfile&gt.seek(0)</tt> resets the implicit cursor to the beginning of the file.   
+    
+    <p>
+    Keep in mind that the lines returned by all these functions include the newline character at the end of each line.  So if you call the print function on one of these lines, you'll print two newlines (creating a blank line).  If you want to avoid this, you can either tell print not to add a newline at the end (<tt>end=''</tt>) or you can just work with all but the last character in the line (<tt>myLine[:-1]</tt>).
+    </p>
+
+    <p>
+	You can also use a for loop to iterate through all the remaining lines in the file.  For example,
+ 	
+ 	<pre>
+ 	<tt>
+ 	for line in inputFile :
+ 	   print(line[0],len(line))
+ 	</tt>
+ 	</pre>
+ 	
+ 	will print the first character and the length of each line in the file.  Note that if some lines had already been read before this for-loop, those lines wouldn't be interated through. 
+ 	</p>
+</div>
+
+<p>
+Your program should allow the user to pick the name of the file to be read.  You can make sure your program works by creating other txt files and testing it on them.  Be sure your program works for an arbitrary number of sequences.  I.e. don't have a loop that is coded to grab 6 lines and then stop; there may be more or fewer.  Using the for-loop to iterate through the file is helpful here.
+</p>
+
+<br>
+<p>
+<b>Test the Program:</b><br>
+Try your program on a variety of sequences and inputs. Make sure the program still works when the protein sequence or some pattern sequence is empty.
+</p>
+
+<br>
+<p>
+<b>Maintain:</b><br>
+Make sure your code is "readable": use short but meaningful variable names, use constants where appropriate, use functions where you can, and comment any code that does anything substantial (for example, it would be a good idea to put a comment before your for loops explaining the purpose of the for loops, before each function explaining the function's parameters and purpose, etc.) It is not necessary to comment assignment statements and simple things like that.</p>
+
+<p>
+You should also handle exceptions so as to make your program robust to runtime errors (e.g. the user if enters a file name that doesn't exist).  
+</p>
+
+
+<br>
+
+<br>
+<p>
+<b>Handin</b><br>
+Be sure to hand in what you have finished so far.
+</p>
+
+<br>
+<br>
+<h2>Part 2 - The Game of Life</h2>
+<p><b><i>20 points, partner</b></i>
+
+<p>
+The Game of Life, created by mathematician John Conway, is what is referred to as a cellular automaton.  It is a set of rules which are used to generate patterns that evolve over time.  Despite the name, the Game of Life is not a game; it is really a simulation.  In some ways, it can be thought of as an extremely simplified biological simulator which produces unexpectedly complex behavior.
+</p>
+
+<p>
+The Game of Life is played on an infinite board made up of square cells.  It takes way too long to draw an infinite board, so we'll make do with a small finite piece.  Each cell can be either live or dead.  We'll indicate a live cell as a red square, and a dead cell as a black one.  The board begins in some initial configuration, which just mean a setting of each cell to be either live or dead (generally we'll start mostly dead cells, and only a few live cells).
+</p>
+
+<p>
+<center>
+<img src="ex1.bmp" border=0>
+</center>    
+</p>
+
+<p>
+<center>A configuration of a 10-by-10 portion of the board with 9 live cells.</center>
+</p>
+
+<p>The board is repeatedly updated according to a set of rules, thereby generating a new configuration based on the previous configuration.  Some dead cells will become live, some live cells will die, and some cells will be unchanged.  This configuration is then updated according to those same rules, producing yet another configuration.  This continues in a series of rounds indefinitely (or until you get bored of running your simulation).     
+</p>
+
+<h3>Rules of Life</h3>
+
+<p>The rules are pretty simple: to figure out whether a cell (x,y) will be live or dead in the following round, you just look at the 8 neighbors of that cell (those that share a corner or an edge, so N, S, W, E, NW, NE, SW and SE).  What happens to (x,y) next round depends on the number of its neighbors who are live and whether it is currently live or not.  In particular:</p>
+
+<ul>
+<li>If a cell has 4 or more live neighbors, it dies (overcrowding).
+<li>If a cell has 0 or 1 live neighbors, it dies (loneliness... *sniff*).
+<li>If a cell has exactly 2 live neighbors, nothing changes (if it was live, it stays live, if it was dead, it stays dead).
+<li>If a cell has exactly 3 live neighbors, it comes to life (I don't have a good explanation for this one, but it does seem to make for cool patterns).  
+</ul>
+
+<p>
+For example, consider the following 3 initial configurations, and the two configurations that follow each.
+</p>
+
+<p>
+<center>
+<img src="ex2.bmp" border=0>
+</center>    
+</p>
+
+<p>
+<center>Three initial configurations and two subsequent iterations.</center>
+</p>
+
+<p>
+In the first example, both live cells have only one live neighbor, so they both die.  Any dead cell has at most two live neighbors, so no new live cells spawn.  Thus in one step, there are no live cells.  Clearly, at this point, the configuration is stable. 
+</p>
+
+<p>
+In the second example, two live cells have only one neighbor, so both die.  But the third cell lives, and the cell to its immediate left has exactly 3 live neighbors, so it spawns.  On the next iteration, we find ourselves in a case similar to the previous example, and all cells die.
+</p>
+
+<p>
+Note that we can't set a cell to be live or dead the instant we determine its status for the subsequent round; we will likely need to know whether it is alive or dead on this round to determine the future status of other nearby cells.  To see this, consider the second example.  We can immediately tell that the top-most live cell will die.  But had we set it to dead immediately, then when we got to the second live cell, it would have only had 1 live neighbor and we would have (erroneously) determined that it too must die.  Thus it is critical that we first determine for every cell whether or not it will be live, and only after doing so update the status of each.  
+</p>
+
+<p>
+In the last example, all currently living cells die; the middle cell has too many neighbors, and the other have too few.  However, four dead cells have exactly 3 live neighbors, and so those cells spawn.  In the following round, there are neither cells that die nor cells that spawn, so we have a stable configuration.  In general, a pattern that doesn't change is called a still-life.
+</p>
+
+<p>
+While all of these patterns stabilized quickly, some patterns take a long time to stabilize, and some never do.  Of those that never stabilize, some at least have a regularity to them; they eventually eventually repeat states.  These are said to be oscillators.  Others never repeat the same state again, and produce an infinite number of configurations. 
+</p>
+
+
+
+<b>Describe the Problem:</b><br>
+Write a program <em>life.py</em> that simulates the game of life for a given number of iterations, displaying the state of the board graphically at each step. <br><br>
+
+<b>Understand the Problem:</b><br>
+Make sure your answers from your prelab were correct.  If not, go back and figure out what went wrong.<br><br>
+
+<b>Design an Algorithm:</b><br>
+Let's think about how we might go about setting up our Life simulator.  Since this program is relatively complex, we won't try to get everything working at once.  For example, we won't do anything graphically until the logic of the simulation is working.
+
+<p>  So what components do we need to run our simulation?
+First, we'll want to keep track of our current board: which cells are alive, and which aren't.   We'll encode these with a 2-dimensional table of integers (a list of lists), called <tt>board</tt>, using 1 to represent live cells and 0 to represent dead cells. 
+</p>
+
+<p>
+Now let's think about how to perform a single update to <tt>board</tt>.  At a high level, we simply want to update every cell in <tt>board</tt>.  But remember, we'll run into problems if we update one cell and then update the cell next to it, since each update needs to be done as if none of the others have been done.  To solve this, we'll do our updates on a new board, cleverly called <tt>newBoard</tt>, based on -- but without changing -- the original board.  Now we can view our overall strategy as follows: 
+</p>
+
+<ul>
+<li>Declare and initialize <tt>board</tt> and <tt>newBoard</tt>.  
+<li>Assign <tt>board</tt> whatever starting configuration you'd like.
+<li>Update each cell in <tt>newBoard</tt> according to the rules of Life, referring to <tt>board</tt> to count the number of live neighbors for any given cell.
+<li>Swap <tt>board</tt> and <tt>newBoard</tt> so the process can be repeated.
+<li>Print the contents of <tt>board</tt>.
+</ul>
+
+<p>
+This list immediately suggests a few functions that will be useful to create: a function to print the board in a manner as suggested on the prelab so we can see if things are working; a function that creates a board of zeroes of a given width and height; a function that counts the number of live cells neighboring a particular cell in an array; and finally, a function that uses the previous function to update a board.
+</p>
+
+<p>
+As we saw in class, we can make a two dimensional array -- a list of lists -- with all values initialized to 0 as follows:
+<pre>
+<tt>
+   a = []
+   for i in range(w) :
+      a.append([0]*h)
+</tt>
+</pre>
+</p>
+
+<p>
+Something like 
+<pre>
+<tt>
+   a = [[0]*h]*w
+</tt>
+</pre>
+doesn't give us what we want?  Why not?  Hint: what happens when we change a single entry in this table?
+</p>
+
+
+<div class="boxed">
+<b>Dealing with Edges (Donuts!)</b>
+
+<p> 
+ The edges of the board tend to be problematic.  For example, if you are considering cell (WIDTH-1,HEIGHT-1) and you attempt to check the liveness of its neighbors as you would for most cells, you'll end up attempting to access positions whose indices are too large.  You may have run into this problem in the previous lab doing operations such as blur.
+ </p>
+ 
+ <p>
+ One natural fix is to simply create a board that is 2 units taller and 2 units wider than you actually want, and only do updates on non-border cells.  This approach would work fine, but on this lab you're going to do something a bit different; we're going to use a torus rather than a plane for our game board.  A torus is just the technical name for the shape of a donut.  
+</p>
+
+<p>
+OK, so what does that mean here?  It means that if you were to walk off the right side of the board, you'd appear on the left side at the corresponding position, and vice-versa.  Likewise if you walked off the top of the board, you'd appear on the bottom.  This means every cell has 8 neighbors now.  Consider cell (0,0).  It has the 3 obvious neighbors in the directions E, SE and S.  If we want to find the N neighbor, we have to wrap around the top of the board, bringing us to (0, h-1).  Similarly, the NE neighbor would be (1, h-1).  The NW neighbor would be (w-1, h-1), and so on.  One reason this is so handy is that if you use the mod operator appropriately, you don't need any special cases to handle edges or corners.
+</p>
+
+<p>
+Alright, so what did this have to do with donuts?  Well, since the top of the board is now effectively connected to the bottom of the board, you could imagine the board as a flexible square of rubber, and this connection could be represented by gluing the top edge to the bottom edge.  Now we've created a rubber tube.  But the left and right edges are also connected.  If we bend our tube and glue these edges together, we've created a torus.  Mmmm... donuts.
+</p>
+</div>
+<br>
+
+<b>Implement a Design</b>
+
+Start by implementing the basic algorithm we discussed above.  Create the functions described above, and test each function after you've created it to make sure it works properly.  
+Declare two class constants <tt>HEIGHT</tt> and <tt>WIDTH</tt> representing the size of your board, and hard-code a starting configuration so you can tell whether your simulation does what it is supposed to.  
+
+<p>  Once you've got these basic pieces working and can simulate a single step of Life and display the results to the terminal, add the following features.
+</p>
+
+<p>
+<b>Iterate:</b> Declare a class constant called <tt>ROUNDS</tt> and run your simulation for that many iterations.
+</p>
+
+<p>
+<b>Pictures:</b> To create an animated visualization of life, we'll be using the original <a href="../code/picture.py">picture.py</a> module.  In particular, you'll want to make use of the functions 
+
+<pre>
+<tt>
+   pic = picture.Picture((w,h))	    # create a w-by-h pixel picture object
+   pic.setFillColor((r,g,b))	    # set shape fill color to (r,g,b)
+   pic.setOutlineColor((r,g,b))	    # set shape border color to (r,g,b)
+   pic.getWidth()                   # return the picture width in pixels
+   pic.getHeight()                  # return the picture height in pixels
+   pic.drawRectFill(x,y,w,h)        # draw a w-by-h rectangle with upper-left corner at (x,y)
+   pic.display()                    # display any updates in the picture to the screen
+</tt>
+</pre>
+
+This would be enough to get things up and running, but if you repeatedly drew the board using <tt>drawRectFill</tt>, you'd notice that your program would start to slow down considerably within a few seconds.  The problem is that when you call the <tt>drawRectFill</tt> function, your picture object actually creates its own object -- a rectangle object -- that is drawn on the canvas every time the picture gets redisplayed.  If, on every iteration of the simulation, you add a whole board's worth of rectangles, this becomes increasingly inefficient.    
+</p>
+
+<p>
+To get around this problem, you'll make use of a function available to all the shapes you can create in the picture module.
+
+<pre>
+<tt>
+   s.changeFillColor((r,g,b))       # changes the fill color of shape s
+</tt>
+</pre>
+
+Of course, to call this function, you'll need to have a handle on the shape <tt>s</tt>.  Luckily, when you call <tt>drawRectFill</tt> in the picture module, this actually returns a pointer to the shape object created by that call.  So the plan is to make another two-dimensional array containing pointers to all the rectangles used in the board.  
+</p>
+
+<p>First, make a two dimensional array called <tt>tiles</tt> with one entry for each tile on the board.  For simplicity, reuse your  function that make a board of zeros, and we'll replace them with actual tiles next.
+</p>
+
+<p>Second, for each tile on the board, use <tt>drawRectFill</tt> to draw a black (for now) square in the appropriate position on the board.  Assign the result of that function call to the corresponding position of <tt>tiles</tt>.
+</p>
+
+<p>
+Now you should be able to update the board with an instruction like 
+<pre>
+<tt>
+   tiles[x][y].changeFillColor((r,g,b))       
+</tt>
+</pre> 
+</p>
+
+<p>
+<b>Aging Cells (Optional):</b> Keep track of how many rounds each live cell has been alive, and color the cell based on that age.  For example, you might have newborn cells begin red but slowly turn blue as long as they stay alive.  
+</p>
+
+
+
+<p>
+<b>Initial Conditions:</b> Set your class constants so that the board size is 50-by-80 tiles, each tile is 6-by-6 pixels, and the simulation runs for 500 iterations.  
+</p>
+
+<p>
+<b>Initial Configuration:</b> Create 3 (or more if you want) preset configurations that the user can choose from for the starting condition.  The first starting configuration should include just the 5-cell pattern below, somewhere in the middle of the board.  For the other two, find a couple configurations that generate interesting effects.  
+</p>
+
+<p>
+<center>
+<img src="ex4.bmp" border=0>
+</center>    
+</p>
+
+<p>
+<center>The first starting configuration.</center>
+</p>
+
+
+<br>
+<p>
+<b>Test the Program:</b><br>
+Try your program on a few of the configurations you've solved manually. Make sure the program works properly not just on the first iteration, but on subsequent iterations as well.  Does the simulation behave correctly on the edges of the board?  If something isn't working, what functions might you add to try to pinpoint the problem?  
+</p>
+
+<br>
+<p>
+<b>Maintain:</b><br>
+Make sure your code is "readable": use short but meaningful variable names, use constants where appropriate, use functions where you can, and comment any code that does anything substantial (for example, it would be a good idea to put a comment before your for loops explaining the purpose of the for loops, before each function explaining the function's parameters and purpose, etc.) It is not necessary to comment assignment statements and simple things like that.
+</p>
+
+<br>
+<p>
+<b>Handin</b><br>
+Be sure to hand in what you have finished so far.
+</p>
+
+
+
+<h2>Handin</h2>
+
+<p> If you followed the Honor Code in this assignment, insert a
+paragraph attesting to the fact within one of your <tt>.py</tt> files.</p>
+
+<blockquote class="honor">
+  <p class="centered"> <q class="honor">I
+affirm that I have adhered to the Honor Code in this assignment.</q>
+  </p>
+</blockquote>
+
+<p> You now just need to electronically handin all your files. As
+a reminder
+</p>
+
+<pre> 
+     % <span class="typed">cd</span>             # changes to your home directory
+     % <span class="typed">cd cs150</span>       # goes to your cs150 folder
+     % <span class="typed">handin</span>         # starts the handin program
+                      # class is 150
+                      # assignment is 5
+                      # file/directory is lab05
+     % <span class="typed">lshand</span>         # should show that you've handed in something
+</pre>
+
+<p> You can also specify the options to handin from the command
+line
+</p>
+
+<pre> 
+     % <span class="typed">cd ~/cs150</span>     # goes to your cs150 folder
+     % <span class="typed">handin -c 150 -a 5 lab05</span>
+</pre>
+<br>
+<h4>File Checklist</h4>
+<br>
+
+You should have submitted the following files:
+
+<pre>
+   match.py
+   life.py
+</pre>
+If you worked with a partner, they will turn in life.py with both of your names in it, and you will turn in a README with their name.
+<br>
+<hr>
+<small>T. Wexler, A. Sharp, C. Taylor.</small>
+</div>
+</div>
+<br>
+
+</body>
+</html>
+

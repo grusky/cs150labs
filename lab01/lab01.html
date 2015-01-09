@@ -1,0 +1,674 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>CS 150 - Lab 01</title>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<link rel="stylesheet" type="text/css" href="labs.css">
+</head>
+<body>
+<br>
+    <div id='container'>
+	<div id='top'>
+
+
+	    <h1><a href="../index.html" style="text-decoration:none; color:black">Lab 01</a></h1>
+	    <b>Hello World!</b><br>
+	    <em>Due by 10pm on Tuesday, September 9th</em>
+	    <br>
+	    <br>
+
+	</div>
+	<div id='top'>
+	
+
+
+<p style="text-align:justify">
+In this lab you will be learning how to use the CS lab machines and create Python 
+programs.  At the end of this lab you should be able to:
+</p>
+<ul>
+    <li>Log into a lab machine</li>
+    <li>Create a directory for a homework assignment</li>
+    <li>Use some basic Unix commands</li>
+    <li>Create some simple python programs, and run them</li>
+    <li>Learn how to get input from the user</li>
+    <li>Submit a lab using our <tt>handin</tt> program.</li>
+</ul>
+<p>
+Note that each portion of the lab will be labeled with how many points its worth, and whether it is an individual or partner exercise.  For partner exercises, you can <b>optionally</b> work with a partner.  If you choose to work with a partner, one of you should turn in the lab assignment with both of your names listed on top.  The partner who does not turn in the assignments should submit a text file named README with the name of their partner in it. If you work with a partner, do NOT just split up the assignments and do half each - I expect you to work on them together and discuss them with each other.  I will consider dividing the assignment in half and each doing half to be an honor code violation.  Additionally, you will be tested on material from the labs, so not doing all of the assignments is a very bad idea.  If you need to find a partner, you can post on <a href="https://piazza.com/class/hyak6pqk3076ev">Piazza</a> to find one.<p>
+
+A reminder about the Honor Code - While you are encouraged to discuss the labs with each other, you should never copy anyone's code, and no one else should ever have a copy of your code.  If you do discuss the lab with someone else, or look up resources online, please write that you did so above the honor code in your assignment.  On partner assignments, you may work with a single partner, but no one else. (Again, it is fine to discuss the lab with others, but you should never copy their code directly.)<p>
+
+
+<h2>Part 1 - Unix basics</h2>
+<b><i>0 points, individual</i></b>
+<p style="text-align:justify">
+To use these labs, you'll need a CS lab account. 
+If you registered for this class before, say, Tuesday, then one is already created for you. If you registered late or haven't registered yet, please talk to the lab instructor or a TA (or go see Chris Mohler in OCTET in King 125.)
+</p>
+
+Before you login, you will need to get a piece of paper with your username and password from the lab instructor.  Make sure you get this!<p>
+
+<h3>Logging in</h3>
+<p style="text-align:justify">
+You should see a login screen with a window asking you for your username.  <em>This should not be the MS-Windows login screen.</em>  If it is
+asking you to press <tt>ctrl-alt-del</tt> then you'll need to hit those keys
+and select <tt>restart</tt> from the window that appears.
+</p>
+
+<ul>
+  <li>Enter your username (from the piece of paper).
+  <li>Enter your randomly generated password (from the paper). <em>NOTE: </em> You will not see your password on the screen (you might see
+<tt>*</tt>'s instead).
+<li>The next step will be to change your password.  You will start by re-entering the same randomly generated password.
+<li>Enter a new password that you would like to use for this account.  If it is not secure enough, you may be asked to choose a new one.
+<li>Next, enter that same password again.
+<li>Now that you've changed your password, you'll be asked to login again.  Enter your username, and then the new password you just chose.  You should now be logged in!  In the future, you will just have to enter your username and password to log in.
+</ul>
+
+<h3>Web browser</h3>
+<ul>
+    <li>Open a web browser by clicking on the globe icon (which will either be at the bottom or the top left of the screen).</li>
+    <li>The very first time you do this it may take a while as the system needs to set up your user information.  Don't try clicking repeatedly, as that will just slow things down further.</li>
+    <li>Go to the <a href="../index.html">CS 150 home page</a> (<tt>www.cs.oberlin.edu/~ctaylor/150</tt>), and familiarize yourself with the policies and the course schedule.</li>
+
+    <li>Create a shortcut link by dragging the picture to the left of the URL to your bookmark bar.</li>
+</ul>
+
+<h3>Be sure to get grade reports</h3>
+<p>
+
+You should also add a rule into your OCMail so that mail from the grader doesn't go into your Spam folder. (This seems to happen randomly throughout the semester.)
+<ul>
+<li>Go to <a href="http://ocmail.oberlin.edu/">http://ocmail.oberlin.edu/</a> and log in to your Oberlin email.
+<li>Do a search for from:gr150@cs.oberlin.edu
+<li>After you've searched, on the right side of the search box, you should hit the gray downward facing triangle, and then select "Create filter with this search" in the bottom right.
+<li>Check the box for the line "Never send it to Spam"
+<li>Click on "Create Filter" in the blue button below, and you should be all set.</ul>
+
+
+<h3>Create a folder for the class</h3>
+<p>
+Now you need a place to keep all your fantastic stuff. The following instructions will walk you through the creation of a folder to store your work for this course.  Items
+that start with a '%' and <span class="typed">look like this</span> are what
+you should type (without the '%'). Anything after the '#' are informational comments.
+</p>
+<pre>
+    % <span class="typed">cd</span>                 # changes the current directory to your home directory
+    % <span class="typed">pwd</span>                # prints out the directory (to verify where you are)
+    % <span class="typed">mkdir cs150</span>        # creates a directory named 'cs150'
+    % <span class="typed">ls</span>                 # lists the contents of your current directory
+    % <span class="typed">cd cs150</span>           # changes your current directory to the one you just made
+    % <span class="typed">pwd</span>                # prints out your current directory
+</pre>
+
+    <p style="text-align:justify">
+    Now you'll create a folder for this week's lab.  You'll be doing this for
+    each of your lab assignments.
+</p>
+<pre>
+    % <span class="typed">cd</span>                # goes back to your home directory
+    % <span class="typed">cd cs150</span>          # goes into your class folder
+    % <span class="typed">mkdir lab01</span>       # creates a folder for this lab
+    % <span class="typed">cd lab01</span>          # goes into that folder
+    % <span class="typed">pwd</span>               # should show that you are in that folder
+</pre>
+
+
+
+<h2>Part 2 - Create your first Python program</h2>
+<p>
+<b><i>helloworld.py: 4 points, individual</i></b>
+
+<p>
+   Alright, on to the good stuff! 
+   You are going to participate in a ritual that has
+<a href="http://en.wikipedia.org/wiki/Hello_world">been around since at
+least 1974</a>, the creation of your first program.
+</p>
+
+<a name="SixSteps"></a>
+<p>
+   There are six steps involved in creating programs in python (or in any other programming language).
+</p>
+<table align="center" border=0 cellpadding="2" cellspacing="0" width="92%">
+    <col width="90">
+    <tbody>
+    
+	<tr>
+	    <td align="left" valign="top"><b>Describe the Problem</b></td>
+	    <td align="left" style="text-align:justify">
+	    Before writing a program, you must first decide what your program is meant to do.  This may seem obvious, but it is surprising how often this critical step is ignored. 
+	    You should know what the goal and function of the program is. 
+	   <!-- Exactly how a problem is described is something you'll get see over and over again in this course.-->
+	    Generally, the problem description will specify what the inputs to the problem are, and what the desired outputs and behaviour are. Usually this is given to you as part of the lab specification. 
+	    <br>
+	    <br> 
+	    For your first program we'll just be creating a program that takes in no inputs, and outputs "Hello, world!" to the screen.
+	    <br>
+	    <br>
+	    </td>
+	    </tr>
+	    
+	    <tr>
+	    <td align="left" valign="top"><b>Understand the Problem</b></td>
+	    <td align="left" style="text-align:justify">
+	    Try some examples, that is, solve the problem (by hand) for a variety of inputs. For one, this will either confirm or deny that you understand what problem you are trying to solve. Furthermore, by trying examples by hand, you may get ideas for how to approach the solution for the problem. 
+	    <br>
+	    <br> 
+	    For this program there isn't much to test because we don't have any input.
+	    <br>
+	    <br>
+	    </td>
+	    </tr>
+
+	    <tr>
+	    <td align="left" valign="top"><b>Design an Algorithm</b></td>
+	    <td align="left" style="text-align:justify">
+	    Once you know what problem you are trying to solve and have a feel for its intricacies, you can begin to think about the steps your program will need to take. This set of steps constitutes an algorithm.  For all but the simplest of programs, you should have a fully specified algorithm (in pseudocode, a mixture of code-like English and math) before you even think about programming.  Exactly how an algorithm should be specified is something you'll get practice with during the course. 
+	    <br>
+	    <br>
+
+	    Today we'll just be creating a program that prints "Hello, world!"  Therefore our algorithm can be specified quite simply: Print "Hello, world!"
+	    <br>
+	    <br>
+	    </td>
+	</tr>
+	<tr>
+	    <td align="left" valign="top"><b>Implement a Design</b></td>
+	    <td align="left" style="text-align:justify">
+	    Once an algorithm has been specified, we need to translate those steps into Python source code and save them to a file on the computer. This is done with a text editor.  In principle, any simple text editor would suffice, but we'll be using an editor called <a href="http://www.activestate.com/komodo-edit">Komodo Edit</a> (NOT Komodo IDE, which is larger and not free). Komodo Edit is a text editor specifically intended for the creation of Python programs. As such, it has a number of functions that streamline the process of editing code.  For example, Komodo Edit color-codes terms and instructions based on their meaning and suggests helpful indentation, both of which make reading programs easier. 
+	    <br>
+<h3>Creating a file</h3>
+<p>
+    You need to create a file in your <span class="typed">lab01</span> folder, as follows. You'll want to append a <tt>&amp;</tt> at the end to run
+    the program in the background.  (This means you can still type in the
+    Terminal window.)
+</p>
+<pre>
+    % <span class="typed">komodo helloworld.py &amp;</span>
+</pre>
+
+<p>
+    If this is your first time using Komodo, then there will be an information screen that you can ignore for now (you may want to do some tutorials later, up to you). Find the window with 'helloworld.py' in the top bar, and type in the following python code into the file and save it:
+</p>
+<br>
+<div class="boxed">
+<pre>
+    # helloworld.py
+    # Say hello to the world.  My first Python program.
+    # 
+    # &lt;your name&gt;
+    # &lt;today's date&gt;
+
+    print("Hello, World!")
+
+</pre>
+</div>
+<br>
+
+<p>
+If you type "<tt class="typed">ls</tt>" in your terminal window you should see
+ one file: <tt>helloworld.py</tt>.  "<tt class="typed">ls</tt>" gives you a <u>l</u>i<u>s</u>t of
+the files in a directory.
+</p>
+
+<pre>
+    % <span class="typed">ls</span>                         # show the files
+</pre>
+<br>
+
+
+	    </td>
+	</tr>
+
+	<tr>
+	    <td align="left" valign="top"><b>Test the Program</b></td>
+	    <td align="left" style="text-align:justify">The execution of your program is where you get to see the fruits of your labors. In general, you should try running your program on a variety of inputs -- however, since this program does not take any inputs, you can just run it.  If the program does what you intended, congratulations!  If not, you may need to either go back to the Implementation phase (if you simply failed to implement your algorithm properly), or back to the Design phase (if your algorithm itself contains a flaw).
+	    <br>
+	    <h3>Running your Program</h3>
+<p>
+You should now use the command "<tt class="typed">python3</tt>":
+</p>
+<pre>   
+    % <span class="typed">python3 helloworld.py</span>         # run the program
+</pre> 
+<p>
+The output</p>
+<pre>
+    <span class="typed">Hello, world!</span></pre>
+<p>should appear in the terminal window. 
+    If everything went as planned, congratulations! You've just edited and executed your first Python program!		If there were any error messages, just go back to editing the file and try to make it look like the example above.
+</p>
+
+	    </td>
+	</tr>
+	    <td align="left" valign="top"><b>Maintain</b></td>
+	    <td align="left" style="text-align:justify">
+	    Even after you have a running program, you should keep on developing it in response to the needs of your users. Although you don't have clients to answer to in this course, it is good to get in the habit of writing code that can be easily maintained, so we will encourage you to think about this step.
+	    </td>
+    </tbody>
+</table>
+
+
+
+<p>
+A few things to note.  There are definitely parts of this program that won't mean much to you.  That's OK.  As we continue through the course, more and more of the pieces we use will be understood, and we'll have to rely less and less on "black magic."  That said, a few pieces of the program aren't too hard to understand:
+</p>
+
+<p>
+All text that appears after the hash tag (<tt>#</tt>) is a comment.  Komodo Edit colors comments gray.  Comments have no effect when the program is run.  They are just notes you can leave for yourself and anyone else who ends up reading your code.  Making good use of comments is an important skill that we'll talk more about as the course progresses.  A standard convention in programming is to have a comment header at the beginning of any program that states the name of the program, the author, the date, and a brief description of what the program does.  All your programs should begin this way.
+</p>
+
+
+<p>
+The next line is a call to the print function. Its function is probably pretty clear; it prints whatever is specified in the parentheses.  The text is contained within double quotes, which is Python's way of indicating that the text is a literal string of characters, and should be printed just as written.
+</p>
+
+<p>
+You can now experiment with modifications of your program.  Try changing the contents of the string that is printed, and making a second copy of the print statement. Just make sure the program works before you hand it in!
+</p>
+
+
+
+<h2>Part 3 - Callsign</h2>
+<b><i>greetings.py: 4 points, individual</i></b><br>
+<b><i>fancy.py: 8 points, partner</i></b><br>
+
+<p style="text-align: justify;">
+This will be the first program in which we get input from the user.  
+Start editing a file <tt>greetings.py</tt>: 
+
+<pre>
+    <span class="typed">% komodo greetings.py &amp; </span>
+</pre>
+
+</p>
+
+<p>
+We will use the following code to get input from the user.
+</p>
+
+<pre>
+    <span class="typed">name = input("Enter your name: ")</span>
+</pre>
+
+
+<p>
+This should be somewhat familiar; it's just an assignment statement. The expression on the right hand side is a <i>function invocation</i> that uses a built-in python function (input) to get a string from the user. That is, when the program gets to this statement, it will print the statement in the parentheses and pause for the user to enter something and hit enter. Whatever the user types before hitting the enter key will be returned and now stored in the name variable. After the value is assigned, you should print a greeting with a statement such as
+</p>
+
+<pre>
+    <span class="typed">print("So, we meet again,", name, "!")</span>
+</pre>
+
+
+<p>
+Notice that we didn't need to add a space after the comma (the comma after "again"), because Python inserts a space automatically. Of course, it will also automatically insert a space before the exclamation point... but we'll fix that in a bit.
+</p>
+
+<p>
+Just to confirm, your <tt>greetings.py</tt> should look something like <a href="Greetings.txt">this</a>, and when you run it, it should ask the user to enter their name, and then prints "So, we meet again, &lt;their name&gt;&nbsp;!"
+</p>
+
+<p>
+Now create a program called <tt>fancy.py</tt> which prompts the user to enter three strings, one at a time, in the following order: First name, last name, and nickname.  It should then print "Welcome back, &lt;first name&gt; "&lt;nickname&gt;" &lt;last name&gt;!"  For example, for me, assuming I enter my data correctly, it should print:
+
+</p>
+
+<pre>
+    <span class="typed">Welcome back, Cynthia "The Pink Panther" Taylor!</span>
+</pre>
+
+<p>
+Hint: To print a double quote, you can't just put a double quote in your string; Python will think you're saying that that's where the string ends.  To get around this, you use what is called an <em>escape sequence</em>.  An escape sequence is a pair of characters, the first of which is always a backslash (\).  To tell Python you want the double quotes character, you'll use the escape sequence \".  For example, the statement
+</p>
+
+<pre>
+    <span class="typed">print("Here we have a double quote: \"  Pretty, ain't it?")</span>
+</pre>
+
+will generate
+
+<pre>
+    <span class="typed">Here we have a double quote: "  Pretty, ain't it?</span>
+</pre>
+
+<p>
+Similarly, you can use \', \\, \t and \n to generate a single quote, a backslash, a tab, and a newline respectively.  Note that if the quote is at the end of the sentence, you will end up with two quote marks in a row, which will look kind of funny.  So printing 
+<pre>
+<span class="typed">My nickname is "The Destroyer"</span>
+</pre>
+
+ will look like 
+<pre>
+<span class="typed">print("My nickname is \"The Destroyer\"")</span>
+</pre>
+
+Think about what it will look like if the entire string consists of one quotation mark.   
+</p>
+
+
+<a name="PrintFormat"></a>
+<p>
+Also, in case you don't want to have whitespace before and after the nickname (you want those double quotes right up snug against the nickname) you need to tell Python by including <tt>sep=''</tt> in your print call. Similarly, if you don't want a new line after the print statement, you can add <tt>end=''</tt>. For example, the statement
+</p>
+<pre>
+    <span class="typed">print("no", "white", "space", sep='', end='')</span>
+</pre>
+
+will generate
+
+<pre>
+    <span class="typed">nowhitespace</span>
+</pre>
+
+all on one line, and the cursor will be at the end of that line (not on the next one.)  
+</p>
+
+<p>
+You may have noticed that Komodo has undersquiggled some of your code in red, even though you did everything we asked.  The problem is that by default, Komodo assumes you're working with Python 2, which has slightly different syntax.  To fix this, use the drop-down menu in the lower right corner of the editor to switch the file type from Python to Python3.  
+</p>
+<br>
+<br>
+
+
+
+<h2>Part 4 - Modify a Program</h2>
+<b><i>sum.py: 4 points, individual</i></b><br>
+<b><i>factorial.py: 8 points, partner</i></b><br>
+<b><i>choose.py: 2 bonus points, individual</i></b>
+<p>
+Here is a program called <tt>sum.py</tt> that calculates the sum of the first 4 positive integers.
+</p>
+
+<div class="boxed">
+<h4>Program Outline</h4>
+<br>
+
+<pre>
+   # sum.py
+   # Computes the sum of the first 4 positive integers
+   # 
+   
+
+   sum = 0
+   for i in range(1,5):
+       sum = sum + i
+   print("The sum of the first", i, "positive integers is", sum)
+
+
+   </pre>
+   </div>
+
+<h3>Sum</h3>
+<p>
+Your goal is to modify the program so that it prompts the user for a number <tt>n</tt> and outputs the sum of the first n positive integers. If you can figure out how to do this directly, by all means, go ahead. If you want a bit more guidance, consider the following suggestions:
+<ul>
+<li>To understand the program better, add a print statement that prints out the sum and the number added in each iteration.
+</li>
+<li>Change the program so that it sums the first 10 integers instead of the first 4.
+</li>
+<li>Now change it so that it prompts the user for an integer n, then calculates the sum of the first n integers.</li>
+</ul>
+</p>
+
+<p>
+Note: You will want to "evaluate" the user input as an integer number because by default, what the user types is considered a string literal. You can do this by using the built-in Python "eval" function <tt>eval(expression-you-want-to-evaluate)</tt>
+<pre>
+<span class="typed">
+   n = eval(input( "Please give me a number: "))
+   </span>
+</pre>
+
+
+<p>
+Test your progam to make sure it's calculating the correct sums. Try a variety of numbers, such as n=5, 10, 100, as well as other critical values such as n=0, -5, etc. Is the behavior of your program on the latter examples sensical?
+</p>
+
+<h3>Factorial</h3>
+<p>
+Now create another program called <tt>factorial.py</tt> based on <tt>sum.py</tt>. The factorial program will still get a number <tt>n</tt> from the user, but now instead of calculating the <em>sum</em> for the first n positive integers, it should compute their <em>product</em>. That is, factorial.py should output <tt>n!</tt> ("n factorial", where n! = n * (n-1) * (n-2) * ... * 3 * 2 * 1).  Recall the steps described in part 1: You should start by coming up with a psuedocode algorithm for factorial before you code anything.
+</p>
+
+<p>
+Don't forget to test your program on a variety of values of n.
+</p>
+
+
+<h3>Bonus</h3>
+<p>
+If you feel like you're getting the hang of things and want a little bit more of a challenge, write a program called <tt>choose.py</tt> that gets <em>two</em> integers from the user (let's call them <tt>n</tt> and <tt>k</tt> for now) and computes <tt>n</tt> <em>choose</em> <tt>k</tt>.  The value <tt>n</tt> <em>choose</em> <tt>k</tt> counts the number of ways you can choose k objects from a set of n distinct objects, and can be computed as n! / (k! * (n-k)!).
+
+</p>
+<br>
+
+
+<h2>Part 5 - Time Warp</h2>
+<b><i>secondconverter.py: 10 points, partner</b></i><br>
+<b><i>README: 2 points, partner</b></i>
+<p>
+In this problem, we'll think about converting units of time.  Suppose we have some number of seconds stored in a variable called <tt>sec</tt>, which may have a value of 60 or greater.  Since we're typically not used to thinking about how long 795 seconds is, we might like to improve readability by formatting the time (<tt>sec</tt>) into minutes and seconds (<tt>m</tt> and <tt>s</tt>) such that <tt>s < 60</tt>.  For example, if <tt>sec = 137</tt>, then we'd like to compute <tt>m = 2</tt> and <tt>s = 17</tt>, since 137 seconds is the same as 2 minutes and 17 seconds. 
+</p>
+
+<p>
+Similarly, we might want to do the same with but with hours too.  That is, suppose we're given seconds (<tt>sec</tt>).  We'd like to calculate how many hours (<tt>h</tt>), minutes (<tt>m</tt>) and seconds (<tt>s</tt>) are in <tt>sec</tt> seconds, such that <tt>m < 60</tt> and <tt>s < 60</tt>. 
+</p>
+
+<br>
+<p>
+<b>Describe the Problem:</b> <br>
+The problem we are trying to solve is as follows. 
+<br>
+<b>input:</b> get a non-negative integer <tt>sec</tt> from the user, representing some number of seconds.<br>
+<b>goal:</b> convert <tt>sec</tt> into its equivalent hours, minutes, and seconds, and output the result to the terminal window.
+</p>
+
+<br>
+<p>
+<b>Understand the Problem:</b><br>
+For example, if the user enters 137, the output should read
+</p>
+
+<pre>
+	<span class="typed">137 seconds is equal to 0 hours, 2 minutes and 17 seconds.</span>
+</pre>
+
+Or if the user enters 3601, the output should read
+
+<pre>
+	<span class="typed">3601 seconds is equal to 1 hours, 0 minutes and 1 seconds.</span>
+</pre>
+
+<p>
+Notice I'm ignoring grammatical issues such as "hours" vs. "hour".  
+</p>
+<br>
+
+<p>
+<b>Design an Algorithm:</b> <br>
+The program has 3 main steps:
+<ol>
+<li> Get the number of seconds from the user, store in a variable named <tt>sec</tt>.<br><br>
+</li>
+
+<li> Calculate the number of hours (<tt>h</tt>), minutes (<tt>m</tt>), and seconds (<tt>s</tt>) that are in <tt>sec</tt>, where <tt>m</tt> &lt; 60 and <tt>s</tt> &lt; 60.  The mod, or remainder operator (%), as well as the integer division operator (//) will be particularly useful here.  We'll be talking about these operator in class soon, but if you'd like to get started on this section of the lab now, you can either check out Section 3.1 of the text, or read on.  
+<br>
+<br>
+
+<div class="boxed">
+<h4>Integer Division ( // ) and Remainder ( % ) </h4>
+<br>
+Consider dividing fourteen by four, i.e. (14/4).  We'd normally say we 14/4 equals 3.5.  But we could also think in terms of "integer division", where we'd say 14/4 equals 3 with a remainder of 2.  
+<br><br>
+
+In Python 14/4 evaluates to 3.5, whereas 14//4 gives the integer component of integer division, and thus evaluates to 3.  Similarly 14%4 indicates the remainder component (also known as mod), and gives 2.  More generally, x//y evaluates to the number of times y goes wholly into x, and x%y evaluates to what's left over afterwards.  These operations turn out to be surprisingly useful, as we'll now see.
+</div>
+<br>
+Since this step of the algorithm is a bit more complex than the previous one, we'll break it into three sub-steps, one for each variable that we're calculating.<br><br>
+<ol style="list-style-type:lower-alpha;">
+<li>
+Set <tt>s = sec % 60</tt>.  To see why, note that <tt>s</tt> should be the number of extra seconds that aren't used up by whole minutes.  That is, <tt>s</tt> should be whatever remains after we divide <tt>sec</tt> by 60 to get minutes, which is exactly what <tt>sec % 60</tt> means. <br><br>
+</li>
+<li>
+Set <tt>m = </tt>???  (This part is for you to figure out.  Before you start programming.)<br><br>
+</li>
+<li>
+Set <tt>h = </tt>???  (This part is also for you to figure out.  Likewise, before you start programming.)
+</li>
+</ol>
+
+<br>
+
+
+
+<!--<li> We can compute <tt>m = <font color=#FFFFFF>(sec // 60) % 60</font></tt>. (Try to compute this yourself. If you are really stuck, just highlight the formula and secret text will appear.)
+<li> We can compute <tt>h = <font color=#FFFFFF>sec // 3600</font></tt>. (Again, try this yourself and if you're stuck, highlight the formula to get the answer.)-->
+
+</li>
+<li> Print the equivalent number of hours, minutes, and seconds for the user.
+</li>
+</ol>
+
+</p>
+
+<br>
+<p>
+<b>Implement a Design:</b> <br>
+Create a program called <tt>secondconverter.py</tt> that implements the design above.
+If you want you can start with the following code in a file named <tt>secondconverter.py</tt>,
+and fill in the necessary code under each corresponding comment.
+
+<div class="boxed">
+<h4>Program Outline</h4>
+<br>
+
+<pre>
+   # secondconverter.py
+   # Translate seconds into a more readable hours, minutes, and seconds.
+   # 
+   # &lt;your name&gt;
+   # &lt;today's date&gt;
+   
+  
+	  
+   # Explain on the terminal (via print function) what this program does.
+   # Prompt the user to enter a number of seconds, store in a variable.
+   # Compute hours, mins, and seconds for this input.
+   # Print the results.
+         
+
+</pre>
+</div>
+
+
+<br>
+<p>
+<b>Test the Program:</b> <br>
+Test your program by trying a variety of inputs. You can start with the example below, but you should try others as well, especially numbers that you think could be troublesome.
+<div class="boxed">
+<h4>Sample Output</h4>
+<br>
+
+<pre>
+   Welcome to my Second Converter!
+
+   This program will properly calculate the number of
+   minutes and seconds under 60 from a given number of seconds.
+
+   How many seconds have you got? 3601 
+   3601 seconds is equal to 1 hours, 0 minutes and 1 seconds.	
+</pre>
+</div>
+</p>
+
+<!--<p style="text-align: justify;">
+Note: if your output is not cleanly rounded to integers, you have two options: either you can use the Python integer division (<tt>//</tt>) which will automatically return a whole number, or you can first calculate the hours and minutes as floats and <em>cast</em> your final answer as an integer using <tt>int(stuff-you-want-to-cast)</tt>.</p>-->
+<br>
+<p>
+<b>Maintain:</b> <br>
+Suppose that in ten years the world leaders decide that a minute should have 80 seconds and an hour 80 minutes. What changes would you need to make to your program to make it accurate? Put your answers in a README file (just a text file created with any text editor and saved with the name README) and hand it in electronically with the rest of your submission.
+</p>
+
+<br>
+<h2>Part 6 - Handin</h2>
+<p>
+    If you followed the Honor Code in this assignment, insert a paragraph
+    attesting to the fact within your <tt>README</tt> file. 
+</p>
+<blockquote class="honor">
+    <p class="centered">
+    <q class="honor">I affirm that I have adhered to the Honor Code in this assignment.</q>
+    </p>
+</blockquote>
+<p>
+    You now just need to electronically handin all your files.  This will make
+    a copy of your files available to the instructor and the graders.  If you make any changes
+    after you have handed in your work, we won't see the changes unless you
+    hand them in again.  You can handin as many times as you need to.
+    (In fact, it is good practice to handin every time you logoff. This way, there is always an up-to-date copy in the graders' directory, and if anything happens to your files (as sometimes does) you won't lose all of your work.)
+</p>
+
+<pre>
+    % <span class="typed">cd</span>                # changes to your home directory
+    % <span class="typed">cd cs150</span>          # goes to your cs150 folder
+    % <span class="typed">handin</span>            # starts the handin program
+                            # class is <span class="typed">150</span>
+                            # assignment is <span class="typed">1</span>
+                            # file/directory is <span class="typed">lab01</span>
+    % <span class="typed">lshand</span>            # should show that you've handed in something
+</pre>
+
+<p>
+    You can also specify the options to handin from the command line:
+</p>
+
+<pre>
+    % <span class="typed">cd ~/cs150</span>        # goes to your cs150 folder
+    % <span class="typed">handin -c 150 -a 1 lab01</span>
+</pre>
+
+<h3> File Checklist</h3>
+<p>
+You should have submitted the following files:
+<ul>
+<li>helloworld.py</li>
+<li>greetings.py</li>
+<li>fancy.py</li>
+<li>sum.py</li>
+<li>factorial.py</li>
+<li>secondconverter.py</li>
+<li>README</li>
+<li>choose.py (bonus)</li>
+</ul>
+
+Remember that if you are working with a partner for the partner components, one partner will turn in <tt>fancy.py</tt>, <tt>factorial.py</tt>, <tt>secondconverter.py</tt> and <tt>README</tt> with both partner's names written at the top, and the other partner will turn in a <tt>README</tt> file with the name of their partner in it.  Both partners will turn in their own versions of <tt>helloworld.py</tt>, <tt>greetings.py</tt>,<tt>sum.py</tt>, and (optionally) <tt>choose.py</tt>.
+
+</p>
+<br>
+
+
+
+<h2>Part 7 - Lab Access</h2>
+<p>
+If you are already registered in the class, your ID card <em>should</em> have swipe access to King. This means that you should be able to get into King at all hours on all days. If you haven't registered yet, or registered late, you should go see Jackie Fortino in King 223, pronto, so that she can get you the right access.
+</p>
+<p>
+Also, you need a code to get into both of the CS labs (King 201 and King 135). I announce this during the first lab, so if you don't know the code yet you should probably ask me.
+</p>
+
+
+<p>
+    That's it!  You've completed your first lab.  <b>Be sure to logout when
+    you are done</b> (either the red-arrow icon at the bottom of your screen, or System-&gt;Logout).
+</p>
+<br>
+<hr>
+<small>Last Modified: June 8, 2014 - A. Sharp, T. Wexler, B. Kuperman, S. Semsioglu, C. Taylor</small>
+</div>
+</div>
+<br>
+</body>
+</html>
+

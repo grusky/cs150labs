@@ -1,0 +1,905 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>CS 150 - Lab 08</title>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<link rel="stylesheet" type="text/css" href="labs.css">
+</head>
+<body>
+<br>
+    <div id='container'>
+	<div id='top'>
+
+
+	    <h1><a href="http://www.cs.oberlin.edu/~ctaylor/150/" style="text-decoration:none; color:black">Lab 08</a></h1>
+	    <b>The Sound of Music</b><br>
+	    <em>Due by 10pm on Tuesday, November 4th</em>
+	    <br>
+	    <br>
+
+	</div>
+	<div id='top'>
+
+
+
+<p>
+The purpose of this lab is to:
+<ul>
+	<li>Practice creating and using your own classes
+	<li>Learn how digital music is created and stored
+	<li>Think about issues of efficiency
+	<li>Review reading text from files
+	<li>Create some music of your own (with a little help from Mozart)
+</ul>
+</p>
+
+
+<p>
+As requested in the prelab, please use headphones while working on this lab.
+</p>
+
+
+<h2 id="start">Getting Started</h2>
+
+<p>
+Download the file <a href="mozart.tar">mozart.tar</a> into
+    your cs150 folder and unpack it.  <em>Do NOT save it in your lab08 folder!</em>
+</p>
+<pre>
+    # save the file <a href="mozart.tar">mozart.tar</a> into ~/cs150
+
+    % <span class="typed">tar xvf mozart.tar</span>
+
+    % <span class="typed">ls</span>
+</pre>
+
+<p>
+You should now have the directories <tt>Mfiles</tt> and <tt>Tfiles</tt>, each containing a slew of .wav files.
+</p>
+
+<p>
+Now create a folder called <tt>lab08</tt> inside your <tt>cs150</tt> folder.  Switch into this directory.  This is where you'll put all the files you create for this lab.  You should also save the following files here:<br><br>
+<a href="audio.py">audio.py</a><br>
+<a href="middlec.py">middlec.py</a><br>
+<a href="furelise.py">furelise.py</a><br>
+<a href="vol.py">vol.py</a><br>
+<a href="surprise.py">surprise.py</a><br>
+<a href="fromfile.py">fromfile.py</a><br>
+<a href="mTable.txt">mTable.txt</a><br>
+<a href="tTable.txt">tTable.txt</a><br><br>
+
+<em>Do NOT move the Tfiles or Mfiles folders, or their contents.</em>  We do not want you submitting a bajillion .wav files when you run handin.  The lab machines will break.  More than usual.
+</p>
+
+
+<h3>Checking the Sound</h3>
+
+<p>
+Now let's check that you have what it takes to play sound files. Plug in your headphones, and use the file browser to navigate your way to the lab08 directory. If you've untarred the files properly, you should have some music files (with the .wav extension) in the Mfiles and Tfiles directory within your cs150 directory. Right-click on one of these files and open it with Audacity.  
+</p>
+
+<p>
+If you <i>don't</i> hear anything, then your sound may be either muted or turned down. First try increasing the volume via the keyboard volume control.  If this fails, you can adjust the sound by typing
+</p>
+
+<pre>
+    % <span class="typed">alsamixer</span>
+</pre>
+
+<p>
+This will start a program that adjusts volume. You can adjust the volume up or down with the up/down arrows; toggle mute with the <tt>M</tt> key, and go from slider to slider with the left/right arrows. Press the <tt>escape</tt> key to quit the program.
+</p>
+
+<h2>Part 1 - Sound Wave Basics</h2>
+<b><i>20 points (4 per test program), individual</b></i>
+
+    <img src="SoundWave.jpg" alt="transformers!" style="float: right; margin: 1em;" width="100pt" border=0> 
+
+
+<p>
+First, let's talk about music representation in .wav files. Each music note is just a sine wave (for us, anyway). This wave is defined by its frequency (pitch), its amplitude (volume), and its length (duration). Middle C (the centre key on a piano) has frequency around 523, and a safe volume is an amplitude under 1. We can define all notes relative to this one: to go up a semitone, you just multiply your frequency by the 12th root of two (1.05946). 
+</p>
+
+<p>
+For example, C# (C sharp) has the value 523*(2**(1/12))=554, and B has the value 523/(2**(1/12))=493. There are 12 semitones in an octave (count 'em up on a piano if you like), so to go up an octave, you double your frequency (e.g. high C has the value 1046).
+</p>
+
+<p>
+You can refer back to the <a href="prelab08.html">prelab</a> for all the details.  For now all you really need to know is that at second <tt>t</tt>, the y-value of the sound wave is <tt>amplitude*sin( 2*PI*frequency*t )</tt>.
+</p>
+
+<p>
+Here is a table listing the frequencies of the middle octave from A to A.
+</p>
+
+<center>
+    <table border=1 cellpadding=2 cellspacing=0 width="80%">
+    <tr>
+	<th>A</th>
+	<th>A#</th>
+	<th>B</th>
+	<th>C</th>
+
+	<th>C#</th>
+	<th>D</th>
+	<th>D#</th>
+	<th>E</th>
+	<th>F</th>
+	<th>F#</th>
+
+	<th>G</th>
+	<th>G#</th>
+	<th>A</th>
+    </tr>
+    <tr>
+	<td align=center width=50>440.0</td>
+	<td align=center width=50>466.2</td>
+
+	<td align=center width=50>493.9</td>
+	<td align=center width=50>523.3</td>
+	<td align=center width=50>554.4</td>
+	<td align=center width=50>587.3</td>
+	<td align=center width=50>622.3</td>
+	<td align=center width=50>659.3</td>
+
+	<td align=center width=50>698.5</td>
+	<td align=center width=50>740.0</td>
+	<td align=center width=50>784.0</td>
+	<td align=center width=50>830.6</td>
+	<td align=center width=50>880.0</td>
+    </tr>
+
+</table>
+</center>
+
+
+<p style="text-align:justify">
+Since we're going to be creating music using sound waves, it seems like a good idea to have a <tt>Soundwave</tt> class that will represent a sampled sound wave.
+You should create this class in the file <tt>soundwave.py</tt> using the following guidelines.
+</p>
+<ol>
+    <li>Include the import statement <tt>import audio</tt>.  The file <tt>audio.py</tt> contains useful functions for converting between a .wav file and a sample represented as a list of floats in Python.  It also includes a function allowing you to play a sample using an appropriate application.  You shouldn't need to change any code in this file. Note that this will not work on Windows, so you will need to work either in the lab, or on a Mac.<br><br>
+
+    <li>As usual, the constructor for your <tt>Soundwave</tt> class will be specified by a function called <tt>__init__</tt>.  While we'd like a Soundwave to potentially hold arbitrary sounds, for a number of our applications we'll want to create simple musical notes.  Therefore, we'll start by designing our constructor to take in four parameters specifying a single note: <tt>halftones</tt> (the number of halftones above or below middle C of the note), <tt>duration</tt> (the length of the note in seconds), <tt>amp</tt> (the amplitude of the note), and <tt>samplerate</tt> (the sampling rate).  <br><br>
+
+    This constructor should:<br><br>
+    <ul>
+	<li>Create an attribute called <tt>samples</tt>, and define <tt>samples</tt> to be a list of the values in the waveform.  You should fill in this list such that it has a length of <tt>duration*samplerate</tt> (rounded down to an integer), where entry <tt>t</tt> in this list is given by 
+	
+	
+    <pre>
+<span class="typed">    amp*math.sin(2*math.pi*freq*t/samplerate)</span>
+</pre>
+
+where the value of <tt>freq</tt> is
+
+    <pre>
+<span class="typed">    440*(2**((halftones+3)/12))</span>
+</pre>
+
+
+
+	<p>Observe that the note A440 is 3 semitones below C, and indeed if <tt>halftones</tt> has a value of -3, <tt>freq</tt> evaluates to 440.  Once we've computed the frequency of the note, we're just applying our earlier formula for the sound wave at time <tt>t</tt>, except that we divide <tt>t</tt> by <tt>samplerate</tt> because we're taking <tt>samplerate</tt> samples for each second.
+	</p>
+	
+	<li>Since even a single second of sound is using 44100 floats, we need to be a bit more careful than usual about efficiency here.  Say you've computed a new value <tt>v</tt> that you plan on appending to your list <tt>samples</tt>.  A natural way to do this is with the instruction
+	
+	<pre>
+<span class="typed">    samples = samples + [v]</span>
+</pre>
+	
+	Indeed, this does what we want.  Unfortunately, it's actually quite slow.  Why?  Let's think about what the plus operator is doing.  <tt>samples + [v]</tt> is building a <em>new</em> list whose first part is <tt>samples</tt> and whose last part is the singleton list <tt>[v]</tt>.  But this means the operation has to copy <em>every element of samples</em> into this new list.  This is useful if we want to maintain a copy of the original list for future use.  But we're immediately assigning that list to the variable <tt>samples</tt> again!  If we're halfway through creating a 1-second soundwave, then <tt>samples</tt> contains 22050 values, so we're doing 22050 copies just to add one more value to the list.  Our computers can do 22050 copies pretty fast, but that's just adding one value -- we still have another 22050 values to add!  Doing 22050 x 22050 copies is just too slow.<br><br>
+	
+	Fortunately there's an easy fix to this.  Instead of using list concatenation, we'll use the list function append:
+	
+	<pre>
+<span class="typed">    samples.append(v)</span>
+</pre>
+	
+	This function modifies <tt>samples</tt> by adding a new entry (<tt>v</tt>) to the end, and takes roughly a single operation to do so.  This isn't what we'd want if we needed to keep the old version of <tt>samples</tt> around for some reason, but since we don't, we'll use the much-faster append function.
+	<br><br>  
+	
+	An alternative solution to the above problem is as follows.  Since we know in advance how long our sample list should be, we can first create a list of the correct length initialized to zeroes (using <tt>[0]*n</tt> for the required value of n), and then assign the appropriate value at each index of this list.  
+	<br><br>
+	
+	<li>Notice that we aren't storing any of constructor paramaters.  That is because all of the information we need for functions we'll write is contained within the samples list, and once we've created the list, we no longer care about any of the individual parameters.<br><br>
+	
+	<li>For the purposes of this lab, we'll always be using a sample rate of 44100.  We're just adding that part for completeness.  To make our programs cleaner, we'll want our <tt>soundwave</tt> constructor to assign default values when parameters are left unspecified.  The default values for <tt>halftones</tt>, <tt>duration</tt>, <tt>amp</tt>, and <tt>samplerate</tt> should be 0, 0.0, 1.0, and 44100 respectively.  By having these default values (and the parameters in this order), we allow users of this object to invoke the constructor as 
+
+
+    <pre>
+<span class="typed">    note = soundwave.Soundwave(6,3,.5)</span>
+</pre>
+
+to get an F-sharp with length 3 seconds at volume 0.5,  
+
+    <pre>
+<span class="typed">    note = soundwave.Soundwave(2,1)</span>
+</pre>
+
+to generate a D with length 1 second at volume 1.0, or
+
+<pre>
+<span class="typed">    note = soundwave.Soundwave()</span>
+</pre>
+
+to generate an empty soundwave object.<br><br>
+
+	<li>Before moving on, you should probably write a small program that uses your Soundwave class and check that your samples are being initialized properly.  You can't play it (yet), but you could use slices to print the first 10 or so samples, and see if they seem to be changing in a sensical way as you adjust the parameters passed to the constructor.  You should also check that the number of samples you're generating is what you intended.<br><br>  
+    </ul>
+    
+    <li>
+    <p>Add a function called <tt>play</tt> to your soundwave class.  This function should take no parameters (except for <tt>self</tt>).  The function <tt>play</tt> should simply pass <tt>samples</tt> to the <tt>audio.play()</tt> function.<br><br>
+    
+    
+    
+    You should now be able to run the provided file <tt>middlec.py</tt>. When you run this program, you should hear a single note (C) for approximately 2 seconds. If it works, great, continue onward!  Otherwise you'll need to track down some bugs.</p>
+    </li>
+
+    <li>Add a function called <tt>concat</tt> to your soundwave class.  This should take a single parameter <tt>s2</tt> (in addition to <tt>self</tt>), namely a second Soundwave object that will be concatenated to the invoking Soundwave.  To do this, you'll want to append the samples of <tt>s2</tt> to the samples of the invoking Soundwave.  Since this is intended to actually change the invoking Soundwave object, we can save some time by using the <tt>extend</tt> function on it's samples.  This function is similar to <tt>append</tt>, except it takes in a list to be added rather than a single element.  <br><br>
+    
+    You should have be able to run the provided files <tt>furelise.py</tt> and <tt>vol.py</tt>.  The first of these checks that the <tt>concat</tt> function is working properly, while the second tests volume.  <br><br>
+    
+    <li>Add a function called <tt>plus</tt> to your soundwave class.  This function will allow us to create a new soundwave by superimposing existing soundwaves and thus let us play multiple notes at once.  Like <tt>concat</tt>, <tt>plus</tt> should take in another Soundwave object <tt>s2</tt>.  Unlike <tt>concat</tt>, however, this function should create and return a new soundwave object, and leave the original two soundwaves unchanged.  The samples of this new soundwave should be the sum of the samples of <tt>s2</tt> to the samples of the invoking object.  That is, the nth sample in the new soundwave should have a value equal to the sum of the nth samples of <tt>s2</tt> and <tt>self</tt>.  Make sure your program works even when the two Soundwaves have different lengths.  In creating <tt>plus</tt>, you may find it useful to create a <tt>copy</tt> function that lets you duplicate a soundwave. <br><br>
+    
+ 
+    
+    Having done this, the provided program <tt>surprise.py</tt> should now work.<br><br>
+    
+    <li>Finally, we'd like to be able to initialize a Soundwave object from a .wav file.  To do this, we're going to modify our Soundwave constructor.  We'd like to be able to call the constructor like 
+    
+<pre>
+<span class="typed">    snippet = soundwave.Soundwave("imonaboat.wav")</span>
+</pre>
+
+	and have this set the samples appropriately.  To suppose this, we'll need to do some type checking on the parameters.  In particular, if the type of the first parameter passed to the constructor is a string (str), we want to use <tt>audio.read_file</tt> function on that string to generate our samples list.  Otherwise, we want to do what we've been doing. <br><br>
+	
+	To check whether <tt>halftones</tt> is a string representing a .wav file rather than an integer representing halftones from middle C, you can use the function <tt>isinstance(halftones,str)</tt>.  As you might expect, this returns <tt>True</tt> if <tt>halftones</tt> has type <tt>str</tt> and returns <tt>False</tt> otherwise.  <br><br>
+	
+	To test whether this is working, try running the provided file <tt>fromfile.py</tt>.  You might want to also double-check that the previous programs still work now that you've monkeyed with Soundwave's constructor.  If all is good, congratulations, you're now ready to move on to the next part!
+	
+    
+</ol>
+
+
+<h3>Optional</h3><p>
+<b><i>individual, up to 5 bonus points</b></i>
+<ul>
+<li>Add support for creating sounds that aren't simply sine-waves to generate sounds that are more like real instruments (or are just more interesting).
+<li>Add additional functions for manipulating or combining Soundwaves.
+<li>Generate your own tunes and sound effects.
+<li>If you want us to see any of your masterpiece, submit it as a program called optional.py.  Make sure you document what it does and how to use it at the top of the file.
+</ul>
+
+<br>
+<h2>Part 2 - Playing Scales</h2><p>
+<b><i>10 points, partnered</b></i>
+<p style="text-align:justify">
+A <I>scale</I> is a sequence of notes, defined by the intervals between them. For example, the <i>major scale</i> is defined by the 7 intervals (and hence 8 notes) (2,2,1,2,2,2,1), that is, there are 2 semitones between the first and second notes, and 2 between the second and third notes, but a single semitone between the third and fourth notes, and so on. The <a href="major.wav">C major scale</a> is the major scale starting at C and is thus the sequence of notes starting at around frequency 523 and ending around 1046, that is, the notes (C, D, E, F, G, A, B, C). The D major scale is the major scale starting at D: the sequence of notes (D, E, F#, G, A, B, C#, D).
+The A major scale is the sequence of notes of (A, B, C#, D, E, F#, G#, A).
+</p>
+
+<p style="text-align:justify">
+There are many other interesting scales, such as the <a href="minor.wav">minor scale</a>, defined by the intervals (2,1,2,2,1,2,2), and the <a href="blues.wav">blues scale</a>, defined by the intervals (3,2,1,1,3,2) (the scale only contains 7 notes). </p>
+
+
+<p style="text-align:justify">
+For this part of the lab, you should write a program <tt>scale.py</tt> that will play a scale specified by <i>command-line arguments</i>.  In particular, we'd like to be able to type 
+
+<pre>
+<span class="typed">    python3 scale.py -3 M</span>
+</pre>
+
+to play an A major scale, 
+
+<pre>
+<span class="typed">    python3 scale.py 0 N</span>
+</pre>
+
+to play a C minor scale, or
+
+
+<pre>
+<span class="typed">    python3 scale.py 4 B</span>
+</pre>
+
+to play a blues scale in E.  
+
+In particular, you will pass as command-line arguments the tonic note (in its half-tone offset from middle C) and which scale to play (as a character: <tt>'M'</tt> for major, <tt>'N'</tt> for minor, <tt>'B'</tt> for blues).  How can your program make use of the arguments you add after the program name?  Easy -- if you add <tt>import sys</tt> at the beginning of your program, you'll get access to the variable <tt>sys.argv</tt>, which is a list of the arguments passed to Python.  The first of these is always the name of the program itself.  But if you were to run
+
+<pre>
+<span class="typed">    python3 scale.py 4 B</span>
+</pre>
+
+and that program included the statement <tt>print(sys.argv)</tt>, we'd get as output
+
+<pre>
+<span class="typed">    ['scale.py', '4', 'B']</span>
+</pre>
+
+Given this (and possibly judicious use of the <tt>eval</tt> function), you should be able to get all the input you need from command-line arguments.
+
+<p style="text-align:justify">
+Requirements for your program:
+<ol>
+    <li>To make use of your Soundwave object, include <tt>import soundwave</tt> at the top of your file.<br><br>
+    <li>Declare a list of lists
+    
+    <pre>
+<span class="typed">    
+    intervals = [[2,2,1,2,2,2,1],
+                 [2,1,2,2,1,2,2],
+                 [3,2,1,1,3,2]]</span></pre>
+    
+	These correspond to the number of halftones between successive notes in the Major, Minor, and Blues scales respecively.  This should make building scales cleaner.<br><br>
+    
+	<li>Gracefully handle invalid input from the user by catching exceptions, reporting the error, and quitting the program. <br><br>
+	<li>Do not play the notes individually, as you will hear the gap between successive notes.  Instead, create a single soundwave using your <tt>concat</tt> function.
+
+
+</ol>
+</p>
+
+
+<br>
+<h2>Part 3 - Minuet and Trio</h2><p>
+<b><i>10 points, partnered</b></i>
+
+<p style="text-align:justify">
+Now let's talk about this Minuet and Trio business. What is a Minuet and Trio?
+It is musical piece that is often the third movement of the Classical sonata cycle. Both the Minuet and Trio follow a specific rhythm and form, and they are usually combined by first playing the Minuet, then playing the Trio, then the Minuet once more. You can listen to a very nice Minuet and Trio <a href="minuet.wav">here</a>.
+</p>
+<p style="text-align:justify">
+You'll be generating a Minuet and Trio based on a random algorithm developed by Mr. Mozart himself. Your Minuet will contain 16 measures (musical snippets), as will your Trio. For each of the 16 measures in the Minuet, you will randomly generate a number between 0 and 10 (inclusive); use each such number to pick a specific music snippet from the following table (there are 176 total minuet snippets). For example, if I generate the 16 random numbers (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 1, 2, 3, 4, 5) for the Minuet, then I will select the snippets (32, 95, 113, 45, 154, 133, 169, 123, 102, 20, 26, 56, 73, 160, 1, 151). <a href="MinuetTrio.wav">Here</a> is such a randomly generated Minuet and Trio. For the Trio, you do the same thing except your random number is between 0 and 5, inclusive. 
+	</p>
+
+
+    <table border=1 cellpadding=2 cellspacing=0 width="100%">
+	<tr>
+		<th><br></th>
+		<th colspan=16>Minuet Measures</th>
+	</tr>
+	<tr>
+		<th><br></th>
+
+		<th>0</th>
+		<th>1</th>
+		<th>2</th>
+		<th>3</th>
+		<th>4</th>
+		<th>5</th>
+
+		<th>6</th>
+		<th>7</th>
+		<th>8</th>
+		<th>9</th>
+		<th>10</th>
+		<th>11</th>
+
+		<th>12</th>
+		<th>13</th>
+		<th>14</th>
+		<th>15</th>
+	</tr>
+	
+	<tr align="center">
+		<th>0</th>
+
+		<td><a href="Mfiles/M96.wav">96</a></td>
+		<td><a href="Mfiles/M22.wav">22</a></td>
+		<td><a href="Mfiles/M141.wav">141</a></td>
+		<td><a href="Mfiles/M41.wav">41</a></td>
+		<td><a href="Mfiles/M105.wav">105</a></td>
+		<td><a href="Mfiles/M122.wav">122</a></td>
+
+		<td><a href="Mfiles/M11.wav">11</a></td>
+		<td><a href="Mfiles/M30.wav">30</a></td>
+		<td><a href="Mfiles/M70.wav">70</a></td>
+		<td><a href="Mfiles/M121.wav">121</a></td>
+		<td><a href="Mfiles/M26.wav">26</a></td>
+		<td><a href="Mfiles/M9.wav">9</a></td>
+
+		<td><a href="Mfiles/M112.wav">112</a></td>
+		<td><a href="Mfiles/M49.wav">49</a></td>
+		<td><a href="Mfiles/M109.wav">109</a></td>
+		<td><a href="Mfiles/M14.wav">14</a></td>
+	</tr>
+	
+	<tr align="center">
+		<th>1</th>
+
+		<td><a href="Mfiles/M32.wav">32</a></td>
+		<td><a href="Mfiles/M6.wav">6</a></td>
+		<td><a href="Mfiles/M128.wav">128</a></td>
+		<td><a href="Mfiles/M63.wav">63</a></td>
+		<td><a href="Mfiles/M146.wav">146</a></td>
+		<td><a href="Mfiles/M46.wav">46</a></td>
+
+		<td><a href="Mfiles/M134.wav">134</a></td>
+		<td><a href="Mfiles/M81.wav">81</a></td>
+		<td><a href="Mfiles/M117.wav">117</a></td>
+		<td><a href="Mfiles/M39.wav">39</a></td>
+		<td><a href="Mfiles/M126.wav">126</a></td>
+		<td><a href="Mfiles/M56.wav">56</a></td>
+
+		<td><a href="Mfiles/M174.wav">174</a></td>
+		<td><a href="Mfiles/M18.wav">18</a></td>
+		<td><a href="Mfiles/M116.wav">116</a></td>
+		<td><a href="Mfiles/M83.wav">83</a></td>
+	</tr>
+	
+	<tr align="center">
+		<th>2</th>
+
+		<td><a href="Mfiles/M69.wav">69</a></td>
+		<td><a href="Mfiles/M95.wav">95</a></td>
+		<td><a href="Mfiles/M158.wav">158</a></td>
+		<td><a href="Mfiles/M13.wav">13</a></td>
+		<td><a href="Mfiles/M153.wav">153</a></td>
+		<td><a href="Mfiles/M55.wav">55</a></td>
+
+		<td><a href="Mfiles/M110.wav">110</a></td>
+		<td><a href="Mfiles/M24.wav">24</a></td>
+		<td><a href="Mfiles/M66.wav">66</a></td>
+		<td><a href="Mfiles/M139.wav">139</a></td>
+		<td><a href="Mfiles/M15.wav">15</a></td>
+		<td><a href="Mfiles/M132.wav">132</a></td>
+
+		<td><a href="Mfiles/M73.wav">73</a></td>
+		<td><a href="Mfiles/M58.wav">58</a></td>
+		<td><a href="Mfiles/M145.wav">145</a></td>
+		<td><a href="Mfiles/M79.wav">79</a></td>
+	</tr>
+	
+	<tr align="center">
+		<th>3</th>
+
+		<td><a href="Mfiles/M40.wav">40</a></td>
+		<td><a href="Mfiles/M17.wav">17</a></td>
+		<td><a href="Mfiles/M113.wav">113</a></td>
+		<td><a href="Mfiles/M85.wav">85</a></td>
+		<td><a href="Mfiles/M161.wav">161</a></td>
+		<td><a href="Mfiles/M2.wav">2</a></td>
+
+		<td><a href="Mfiles/M159.wav">159</a></td>
+		<td><a href="Mfiles/M100.wav">100</a></td>
+		<td><a href="Mfiles/M90.wav">90</a></td>
+		<td><a href="Mfiles/M176.wav">176</a></td>
+		<td><a href="Mfiles/M7.wav">7</a></td>
+		<td><a href="Mfiles/M34.wav">34</a></td>
+
+		<td><a href="Mfiles/M67.wav">67</a></td>
+		<td><a href="Mfiles/M160.wav">160</a></td>
+		<td><a href="Mfiles/M52.wav">52</a></td>
+		<td><a href="Mfiles/M170.wav">170</a></td>
+	</tr>
+	
+	<tr align="center">
+		<th>4</th>
+
+		<td><a href="Mfiles/M148.wav">148</a></td>
+		<td><a href="Mfiles/M74.wav">74</a></td>
+		<td><a href="Mfiles/M163.wav">163</a></td>
+		<td><a href="Mfiles/M45.wav">45</a></td>
+		<td><a href="Mfiles/M80.wav">80</a></td>
+		<td><a href="Mfiles/M97.wav">97</a></td>
+
+		<td><a href="Mfiles/M36.wav">36</a></td>
+		<td><a href="Mfiles/M107.wav">107</a></td>
+		<td><a href="Mfiles/M25.wav">25</a></td>
+		<td><a href="Mfiles/M143.wav">143</a></td>
+		<td><a href="Mfiles/M64.wav">64</a></td>
+		<td><a href="Mfiles/M125.wav">125</a></td>
+
+		<td><a href="Mfiles/M76.wav">76</a></td>
+		<td><a href="Mfiles/M136.wav">136</a></td>
+		<td><a href="Mfiles/M1.wav">1</a></td>
+		<td><a href="Mfiles/M93.wav">93</a></td>
+	</tr>
+	
+	<tr align="center">
+		<th>5</th>
+
+		<td><a href="Mfiles/M104.wav">104</a></td>
+		<td><a href="Mfiles/M157.wav">157</a></td>
+		<td><a href="Mfiles/M27.wav">27</a></td>
+		<td><a href="Mfiles/M167.wav">167</a></td>
+		<td><a href="Mfiles/M154.wav">154</a></td>
+		<td><a href="Mfiles/M68.wav">68</a></td>
+
+		<td><a href="Mfiles/M118.wav">118</a></td>
+		<td><a href="Mfiles/M91.wav">91</a></td>
+		<td><a href="Mfiles/M138.wav">138</a></td>
+		<td><a href="Mfiles/M71.wav">71</a></td>
+		<td><a href="Mfiles/M150.wav">150</a></td>
+		<td><a href="Mfiles/M29.wav">29</a></td>
+
+		<td><a href="Mfiles/M101.wav">101</a></td>
+		<td><a href="Mfiles/M162.wav">162</a></td>
+		<td><a href="Mfiles/M23.wav">23</a></td>
+		<td><a href="Mfiles/M151.wav">151</a></td>
+	</tr>
+	
+	<tr align="center">
+		<th>6</th>
+
+		<td><a href="Mfiles/M152.wav">152</a></td>
+		<td><a href="Mfiles/M60.wav">60</a></td>
+		<td><a href="Mfiles/M171.wav">171</a></td>
+		<td><a href="Mfiles/M53.wav">53</a></td>
+		<td><a href="Mfiles/M99.wav">99</a></td>
+		<td><a href="Mfiles/M133.wav">133</a></td>
+
+		<td><a href="Mfiles/M21.wav">21</a></td>
+		<td><a href="Mfiles/M127.wav">127</a></td>
+		<td><a href="Mfiles/M16.wav">16</a></td>
+		<td><a href="Mfiles/M155.wav">155</a></td>
+		<td><a href="Mfiles/M57.wav">57</a></td>
+		<td><a href="Mfiles/M175.wav">175</a></td>
+
+		<td><a href="Mfiles/M43.wav">43</a></td>
+		<td><a href="Mfiles/M168.wav">168</a></td>
+		<td><a href="Mfiles/M89.wav">89</a></td>
+		<td><a href="Mfiles/M172.wav">172</a></td>
+	</tr>
+	
+	<tr align="center">
+		<th>7</th>
+
+		<td><a href="Mfiles/M119.wav">119</a></td>
+		<td><a href="Mfiles/M84.wav">84</a></td>
+		<td><a href="Mfiles/M114.wav">114</a></td>
+		<td><a href="Mfiles/M50.wav">50</a></td>
+		<td><a href="Mfiles/M140.wav">140</a></td>
+		<td><a href="Mfiles/M86.wav">86</a></td>
+
+		<td><a href="Mfiles/M169.wav">169</a></td>
+		<td><a href="Mfiles/M94.wav">94</a></td>
+		<td><a href="Mfiles/M120.wav">120</a></td>
+		<td><a href="Mfiles/M88.wav">88</a></td>
+		<td><a href="Mfiles/M48.wav">48</a></td>
+		<td><a href="Mfiles/M166.wav">166</a></td>
+
+		<td><a href="Mfiles/M51.wav">51</a></td>
+		<td><a href="Mfiles/M115.wav">115</a></td>
+		<td><a href="Mfiles/M72.wav">72</a></td>
+		<td><a href="Mfiles/M111.wav">111</a></td>
+	</tr>
+	
+	<tr align="center">
+		<th>8</th>
+
+		<td><a href="Mfiles/M98.wav">98</a></td>
+		<td><a href="Mfiles/M142.wav">142</a></td>
+		<td><a href="Mfiles/M42.wav">42</a></td>
+		<td><a href="Mfiles/M156.wav">156</a></td>
+		<td><a href="Mfiles/M75.wav">75</a></td>
+		<td><a href="Mfiles/M129.wav">129</a></td>
+
+		<td><a href="Mfiles/M62.wav">62</a></td>
+		<td><a href="Mfiles/M123.wav">123</a></td>
+		<td><a href="Mfiles/M65.wav">65</a></td>
+		<td><a href="Mfiles/M77.wav">77</a></td>
+		<td><a href="Mfiles/M19.wav">19</a></td>
+		<td><a href="Mfiles/M82.wav">82</a></td>
+
+		<td><a href="Mfiles/M137.wav">137</a></td>
+		<td><a href="Mfiles/M38.wav">38</a></td>
+		<td><a href="Mfiles/M149.wav">149</a></td>
+		<td><a href="Mfiles/M8.wav">8</a></td>
+	</tr>
+	
+	<tr align="center">
+		<th>9</th>
+
+		<td><a href="Mfiles/M3.wav">3</a></td>
+		<td><a href="Mfiles/M87.wav">87</a></td>
+		<td><a href="Mfiles/M165.wav">165</a></td>
+		<td><a href="Mfiles/M61.wav">61</a></td>
+		<td><a href="Mfiles/M135.wav">135</a></td>
+		<td><a href="Mfiles/M47.wav">47</a></td>
+
+		<td><a href="Mfiles/M147.wav">147</a></td>
+		<td><a href="Mfiles/M33.wav">33</a></td>
+		<td><a href="Mfiles/M102.wav">102</a></td>
+		<td><a href="Mfiles/M4.wav">4</a></td>
+		<td><a href="Mfiles/M31.wav">31</a></td>
+		<td><a href="Mfiles/M164.wav">164</a></td>
+
+		<td><a href="Mfiles/M144.wav">144</a></td>
+		<td><a href="Mfiles/M59.wav">59</a></td>
+		<td><a href="Mfiles/M173.wav">173</a></td>
+		<td><a href="Mfiles/M78.wav">78</a></td>
+	</tr>
+	
+	<tr align="center">
+		<th>10</th>
+
+		<td><a href="Mfiles/M54.wav">54</a></td>
+		<td><a href="Mfiles/M130.wav">130</a></td>
+		<td><a href="Mfiles/M10.wav">10</a></td>
+		<td><a href="Mfiles/M103.wav">103</a></td>
+		<td><a href="Mfiles/M28.wav">28</a></td>
+		<td><a href="Mfiles/M37.wav">37</a></td>
+
+		<td><a href="Mfiles/M106.wav">106</a></td>
+		<td><a href="Mfiles/M5.wav">5</a></td>
+		<td><a href="Mfiles/M35.wav">35</a></td>
+		<td><a href="Mfiles/M20.wav">20</a></td>
+		<td><a href="Mfiles/M108.wav">108</a></td>
+		<td><a href="Mfiles/M92.wav">92</a></td>
+
+		<td><a href="Mfiles/M12.wav">12</a></td>
+		<td><a href="Mfiles/M124.wav">124</a></td>
+		<td><a href="Mfiles/M44.wav">44</a></td>
+		<td><a href="Mfiles/M131.wav">131</a></td>
+	</tr>
+	
+</table>
+
+<p>
+    <table border=1 cellpadding=2 cellspacing=0 width="100%">
+	<tr>
+		<th><br></th>
+		<th colspan=16>Trio Measures</th>
+	</tr>
+	<tr>
+		<th><br></th>
+		<th>16</th>
+
+		<th>17</th>
+		<th>18</th>
+		<th>19</th>
+		<th>20</th>
+		<th>21</th>
+		<th>22</th>
+
+		<th>23</th>
+		<th>24</th>
+		<th>25</th>
+		<th>26</th>
+		<th>27</th>
+		<th>28</th>
+
+		<th>29</th>
+		<th>30</th>
+		<th>31</th>
+	</tr>
+	
+	<tr align="center">
+		<th>0</th>
+		<td><a href="Tfiles/T72.wav">72</a></td>
+
+		<td><a href="Tfiles/T6.wav">6</a></td>
+		<td><a href="Tfiles/T59.wav">59</a></td>
+		<td><a href="Tfiles/T25.wav">25</a></td>
+		<td><a href="Tfiles/T81.wav">81</a></td>
+		<td><a href="Tfiles/T41.wav">41</a></td>
+		<td><a href="Tfiles/T89.wav">89</a></td>
+
+		<td><a href="Tfiles/T13.wav">13</a></td>
+		<td><a href="Tfiles/T36.wav">36</a></td>
+		<td><a href="Tfiles/T5.wav">5</a></td>
+		<td><a href="Tfiles/T46.wav">46</a></td>
+		<td><a href="Tfiles/T79.wav">79</a></td>
+		<td><a href="Tfiles/T30.wav">30</a></td>
+
+		<td><a href="Tfiles/T95.wav">95</a></td>
+		<td><a href="Tfiles/T19.wav">19</a></td>
+		<td><a href="Tfiles/T66.wav">66</a></td>
+	</tr>
+	
+	<tr align="center">
+		<th>1</th>
+		<td><a href="Tfiles/T56.wav">56</a></td>
+
+		<td><a href="Tfiles/T82.wav">82</a></td>
+		<td><a href="Tfiles/T42.wav">42</a></td>
+		<td><a href="Tfiles/T74.wav">74</a></td>
+		<td><a href="Tfiles/T14.wav">14</a></td>
+		<td><a href="Tfiles/T7.wav">7</a></td>
+		<td><a href="Tfiles/T26.wav">26</a></td>
+
+		<td><a href="Tfiles/T71.wav">71</a></td>
+		<td><a href="Tfiles/T76.wav">76</a></td>
+		<td><a href="Tfiles/T20.wav">20</a></td>
+		<td><a href="Tfiles/T64.wav">64</a></td>
+		<td><a href="Tfiles/T84.wav">84</a></td>
+		<td><a href="Tfiles/T8.wav">8</a></td>
+
+		<td><a href="Tfiles/T35.wav">35</a></td>
+		<td><a href="Tfiles/T47.wav">47</a></td>
+		<td><a href="Tfiles/T88.wav">88</a></td>
+	</tr>
+	
+	<tr align="center">
+		<th>2</th>
+		<td><a href="Tfiles/T75.wav">75</a></td>
+
+		<td><a href="Tfiles/T39.wav">39</a></td>
+		<td><a href="Tfiles/T54.wav">54</a></td>
+		<td><a href="Tfiles/T1.wav">1</a></td>
+		<td><a href="Tfiles/T65.wav">65</a></td>
+		<td><a href="Tfiles/T43.wav">43</a></td>
+		<td><a href="Tfiles/T15.wav">15</a></td>
+
+		<td><a href="Tfiles/T80.wav">80</a></td>
+		<td><a href="Tfiles/T9.wav">9</a></td>
+		<td><a href="Tfiles/T34.wav">34</a></td>
+		<td><a href="Tfiles/T93.wav">93</a></td>
+		<td><a href="Tfiles/T48.wav">48</a></td>
+		<td><a href="Tfiles/T69.wav">69</a></td>
+
+		<td><a href="Tfiles/T58.wav">58</a></td>
+		<td><a href="Tfiles/T90.wav">90</a></td>
+		<td><a href="Tfiles/T21.wav">21</a></td>
+	</tr>
+	
+	<tr align="center">
+		<th>3</th>
+		<td><a href="Tfiles/T40.wav">40</a></td>
+
+		<td><a href="Tfiles/T73.wav">73</a></td>
+		<td><a href="Tfiles/T16.wav">16</a></td>
+		<td><a href="Tfiles/T68.wav">68</a></td>
+		<td><a href="Tfiles/T29.wav">29</a></td>
+		<td><a href="Tfiles/T55.wav">55</a></td>
+		<td><a href="Tfiles/T2.wav">2</a></td>
+
+		<td><a href="Tfiles/T61.wav">61</a></td>
+		<td><a href="Tfiles/T22.wav">22</a></td>
+		<td><a href="Tfiles/T67.wav">67</a></td>
+		<td><a href="Tfiles/T49.wav">49</a></td>
+		<td><a href="Tfiles/T77.wav">77</a></td>
+		<td><a href="Tfiles/T57.wav">57</a></td>
+
+		<td><a href="Tfiles/T87.wav">87</a></td>
+		<td><a href="Tfiles/T33.wav">33</a></td>
+		<td><a href="Tfiles/T10.wav">10</a></td>
+	</tr>
+	
+	<tr align="center">
+		<th>4</th>
+		<td><a href="Tfiles/T83.wav">83</a></td>
+
+		<td><a href="Tfiles/T3.wav">3</a></td>
+		<td><a href="Tfiles/T28.wav">28</a></td>
+		<td><a href="Tfiles/T53.wav">53</a></td>
+		<td><a href="Tfiles/T37.wav">37</a></td>
+		<td><a href="Tfiles/T17.wav">17</a></td>
+		<td><a href="Tfiles/T44.wav">44</a></td>
+
+		<td><a href="Tfiles/T70.wav">70</a></td>
+		<td><a href="Tfiles/T63.wav">63</a></td>
+		<td><a href="Tfiles/T85.wav">85</a></td>
+		<td><a href="Tfiles/T32.wav">32</a></td>
+		<td><a href="Tfiles/T96.wav">96</a></td>
+		<td><a href="Tfiles/T12.wav">12</a></td>
+
+		<td><a href="Tfiles/T23.wav">23</a></td>
+		<td><a href="Tfiles/T50.wav">50</a></td>
+		<td><a href="Tfiles/T91.wav">91</a></td>
+	</tr>
+	
+	<tr align="center">
+		<th>5</th>
+		<td><a href="Tfiles/T18.wav">18</a></td>
+
+		<td><a href="Tfiles/T45.wav">45</a></td>
+		<td><a href="Tfiles/T62.wav">62</a></td>
+		<td><a href="Tfiles/T38.wav">38</a></td>
+		<td><a href="Tfiles/T4.wav">4</a></td>
+		<td><a href="Tfiles/T27.wav">27</a></td>
+		<td><a href="Tfiles/T52.wav">52</a></td>
+
+		<td><a href="Tfiles/T94.wav">94</a></td>
+		<td><a href="Tfiles/T11.wav">11</a></td>
+		<td><a href="Tfiles/T92.wav">92</a></td>
+		<td><a href="Tfiles/T24.wav">24</a></td>
+		<td><a href="Tfiles/T86.wav">86</a></td>
+		<td><a href="Tfiles/T51.wav">51</a></td>
+
+		<td><a href="Tfiles/T60.wav">60</a></td>
+		<td><a href="Tfiles/T78.wav">78</a></td>
+		<td><a href="Tfiles/T31.wav">31</a></td>
+	</tr>
+</table>
+</center>
+
+<p>
+In this part of the lab, you will write a program <tt>mozart.py</tt> that generates such a random Minuet and Trio (that is, it generates a Minuet followed by a Trio followed by your Minuet a second time). There are three main steps to this program, which will be discussed in more detail below.
+
+</p>
+<ol>
+    <li>The first step is to read in the above tables from the supplied text files so that the information is available to your program.  (Hint: You can parse a string into a list of strings as indicated by the spaces.  For example, if <tt>s = "I'm a little teapot"</tt>, the function <tt>s.split(" ")</tt> returns the list <tt>["I'm", "a", "little", "teapot"]</tt>.  You could also split on another character, although a space is probably the most common use.  But <tt>s.split("a")</tt> would return the list <tt>["I'm ", " little te", "pot"]</tt>)
+
+
+    <li>The second step is to generate the 32 random numbers and select the appropriate measures from the tables you read in in step 1. 
+
+    <li>The final step is to construct the music from the individual measures; you will concatenate the 16 minuet measures followed by the 16 trio measures followed by the original 16 minuet measures, and then play the resulting Soundwave.
+
+</ol>
+You may want to refer back to 
+<a href="../lab03/lab03.html">lab03</a> 
+if you don't remember how to generate random integers, 
+<a href="../lab05/lab05.html">lab05</a>  
+if you need a refresher on reading from a text file.
+
+<p style="text-align:justify">
+Requirements and suggestions for your program:
+<ol>
+	<li>Gracefully handle exceptions (as might arise if the requested files aren't found) by reporting the error and quitting the program. <br><br>
+	<li>Use functions to organize related instructions into logical groups. <br><br>
+	<li>Comment any non-obvious block of code.
+
+
+</ol>
+</p>
+
+
+<h2>Handin</h2>
+
+<p>
+
+<em>PLEASE READ:</em>  When you do your handin, double check that you haven't somehow moved the Mfiles or Tfiles into your lab08 directory.  
+
+<p>
+Check through your files and make sure you have your name at the top in comments. Also, if you followed the Honor Code in this assignment, insert a paragraph attesting to this fact in the top comment block of this file as well.
+</p>
+<blockquote class="honor">
+	<p class="centered">
+	<q class="honor">I affirm that I have adhered to the Honor Code in this assignment.</q>
+	</p>
+
+</blockquote>
+
+<p>
+    You now just need to electronically handin all your files.
+</p>
+
+<pre>
+    % <span class="typed">cd</span>                # changes to your home directory
+    % <span class="typed">cd cs150</span>          # goes to your cs150 folder
+    % <span class="typed">handin</span>            # starts the handin program
+                            # class is <span class="typed">150</span>
+
+			    # assignment is <span class="typed">8</span>
+			    # file/directory is <span class="typed">lab08</span>
+
+    % <span class="typed">lshand</span>            # should show that you've handed in something
+</pre>
+
+<p>
+
+    You can also specify the options to handin from the command line
+</p>
+
+<pre>
+    % <span class="typed">cd ~/cs150</span>                 # goes to your cs150 folder
+    % <span class="typed">handin -c 150 -a 8 lab08</span>
+</pre>
+
+<br>
+<h4>File Checklist</h4>
+<br>
+
+You should have submitted the following files:
+
+<pre>
+   soundwave.py
+   scale.py
+   mozart.py
+   optional.py       # optional (obviously)
+</pre>
+
+If you worked with a partner, they will turn in scale.py and mozart.py, and you will turn in a README file with their name in it.
+<br>
+
+</div>
+</div>
+<br>
+
+</body>
+</html>
+

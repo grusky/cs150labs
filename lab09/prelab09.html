@@ -1,0 +1,351 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>CS 150 - PreLab 09</title>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<link rel="stylesheet" type="text/css" href="labs.css">
+</head>
+<body>
+<br>
+    <div id='container'>
+	<div id='top'>
+
+
+	    <h1><a href="http://www.cs.oberlin.edu/~ctaylor/150/" style="text-decoration:none; color:black">
+	    PreLab 09</a></h1>
+	    <b>Critter Tournament</b><br>
+	    <em>Due by the beginning of lecture on November 5th.</em>
+	    <br>
+	    <br>
+
+	</div>
+	<div id='top'>
+
+
+
+<p>
+This week you will write a set of classes that define the behaviour of various animals in a 2-dimensional grid world. Your animals will roam the world, and, should they happen upon another animal, will fight to the death.  We will first describe some particular animals we want you to create, and then ask you to come up with an animal (or more) of your choosing. Please write or type up your solutions, and hand in a paper copy before the beginning of class on Tuesday. Remember, no late prelabs allowed!
+</p>
+
+
+<h2>Part 1 - Program Summary</h2>
+
+<p>
+Before you start, let's take a look at this screenshot of the animal world, which is shown below.
+</p>
+
+<img src="safari.jpg" width="100%"></img>
+
+<p>
+What you see here is a grid with mice (labeled 'M'), stones (labeled 'S'), hippos (labeled 'H'), lions (labeled 'L'), and chameleturtles (labeled 'T'). This is their initial placement in the grid world.  The <tt>Go</tt> button starts the simulation; 
+on each round of the simulation, each critter (stones count as critters here, albeit relatively uninteresting ones) is asked which direction it wants to move. On each round, each critter can move <b>one square</b> to the north, south, east, west, or stay at its current location. Critters move around in a world of finite size, but the world is toroidal, as it was in our game of life (going off the end to the right brings you back to the left and vice versa; going off the end to the top brings you back to the bottom and vice versa). 
+
+</p>
+
+<p>
+At the beginning of the simulation, each critter is asked to supply an attack and a defense value that it will use for the
+entire game via its <tt>getStats</tt> method; these values cannot be changed once they are set. As the simulation runs, animals may collide by moving onto
+the same location. When two animals collide, they fight using their attack and defense values. If the attacking critter is
+successful in killing its opponent, the loser is removed from the simulation and the attacker is allowed to move into their
+spot. Otherwise, both critters remain in the simulation where they were before.
+</p>
+
+<p>
+Each critter starts off with 50 health points. Their attack and defense values can be anywhere between 0 and 100, but the
+sum of both cannot be greater than 100. When two critters fight, the moving critter is registered as the attacking critter
+and the other is the defender. The defense of the defender is subtracted from the attack of the attacker, and if the result
+is positive, it is then subtracted from the health of the defending critter. If the defending critter's health reaches or
+goes below 0, they are are killed. If not, they survive the attack. A 2x bonus is awarded to the defense of a critter whose
+last move was to stay still. For the first round, every critter that has not yet moved receives this bonus.
+
+
+</p>
+
+<center>
+    <table border="1" cellpadding="2" cellspacing="0" width="80%">
+		<tbody><tr><th rowspan="2">
+			</th><td></td>
+			<th colspan="3" align="center">Attacker 
+		</th></tr>
+		<tr>
+			<td></td>
+			<th> 100 Attack
+			</th><th> 50 Attack
+			</th><th> 0 Attack
+		</th></tr>
+		<tr>
+			<th rowspan="3">
+			Defender
+			</th><th>100 Defense
+				</th><td align="center">&nbsp;0 Damage&nbsp;</td>
+			<td align="center"> 0 Damage</td>
+			<td align="center"> 0 Damage</td>
+		</tr>
+		<tr>
+			<th>50 Defense
+			</th><td align="center">50 Damage</td>
+			<td align="center">&nbsp;0 Damage&nbsp;</td>
+			<td align="center">0 Damage</td>
+		</tr>
+		<tr>
+			<th>&nbsp; 0 Defense &nbsp;
+			</th><td align="center">100 Damage</td>
+			<td align="center">50 Damage</td>
+			<td align="center">&nbsp;0 Damage&nbsp;</td>
+		</tr>
+
+</tbody></table>
+</center>
+
+
+<h2>Critter Behaviour</h2>
+
+<p>
+Each critter you implement must have some specific state and functionality defined. In particular, each critter will implement the following methods, amongst other things:  
+</p>
+<div class="boxed">
+
+	<pre><tt>
+    def getColor(self):
+    def getMove(self, info):
+    def getStats(self):
+    def getChar(self):
+</tt></pre>
+</div>
+
+<p>
+For example, a <tt>Stone</tt> may be implemented with the following functionality, where <tt>C</tt> and <tt>GRAY</tt> are defined critter constants: 
+
+</p>
+
+<div class="boxed">
+	<pre><tt>
+import critter
+import color    
+
+class Stone(critter.Critter):
+
+    def getStats(self):
+        return 0, 100
+    
+    def getColor(self):
+        return color.GRAY    # Stones are drawn GRAY
+    
+    def getMove(self, info):
+        return critter.C  # Stones never move
+
+    def getChar(self):
+        return 'S'  # Displayed with an 'S'
+</pre>
+</tt>
+</div>
+
+
+
+<h2>Critters To Implement</h2>
+
+<p>
+In your lab you will be implementing the following five critters, which must have the following behaviour:
+</p>
+
+<h3>Mouse</h3>
+<p>
+<center>
+    <table border=1 cellpadding=2 cellspacing=0 width="80%">
+		<tr>
+					<td width="20%"><b>&nbsp;stats</b></td>
+			<td>&nbsp;Attack: <tt>60</tt>, Defense: <tt>40</tt></td>
+
+		</tr>
+		<tr>
+			<td><b>&nbsp;movement behaviour</b></td>
+			<td>&nbsp;alternates between <tt>EAST</tt> and <tt>SOUTH</tt> in a zigzag pattern (first <tt>EAST</tt>, then <tt>SOUTH</tt>, then <tt>EAST</tt>, then <tt>SOUTH</tt>,...)</td>
+
+		</tr>
+		<tr>
+			<td><b>&nbsp;character</b></td>
+			<td>&nbsp;'M'</td>
+		</tr>
+	</table>
+</center>
+</p>
+ 
+
+<h3>Hippo</h3>
+<p>
+</p><center>
+    <table border="1" cellpadding="2" cellspacing="0" width="80%">
+		<tbody>
+		<tr>
+			<td><b>&nbsp;stats</b></td>
+			<td>&nbsp;attack: <tt>40</tt>, defense: <tt>60</tt></td>
+		</tr>
+		<tr>
+			<td><b>&nbsp;color</b></td>
+			<td>&nbsp;<tt>color.BLUE</tt></td>
+		</tr>
+		<tr>
+			<td><b>&nbsp;movement</b></td>
+			<td>&nbsp;first go <tt>SOUTH</tt> <tt>steps</tt> times, then go <tt>WEST</tt> <tt>steps</tt> times, then go <tt>NORTH</tt> <tt>steps</tt> times, then go <tt>EAST</tt> <tt>steps</tt> times, then stay still <tt>steps</tt> times (a clockwise square pattern), then repeats</td>
+		</tr>
+		<tr>
+			<td><b>&nbsp;character</b></td>
+			<td>&nbsp;<tt>'H'</tt></td>
+		</tr>
+	</tbody></table>
+</center>
+<p></p>
+
+
+<h3>Lion</h3>
+<p>
+</p><center>
+    <table border="1" cellpadding="2" cellspacing="0" width="80%">
+		<tbody>
+		<tr>
+			<td><b>&nbsp;stats</b></td>
+			<td>&nbsp;attack: <tt>100</tt>, defense: <tt>0</tt></td>
+		</tr>
+		<tr>
+			<td><b>&nbsp;color</b></td>
+			<td>&nbsp;alternates between <tt>color.ORANGE</tt> and <tt>color.BLACK</tt> (first <tt>color.ORANGE</tt>, then <tt>color.BLACK</tt>, then ...)</td>
+		</tr>
+		<tr>
+			<td><b>&nbsp;movement</b></td>
+			<td>&nbsp;looks <tt>NORTH</tt>, then <tt>EAST</tt>, then <tt>SOUTH</tt>, then <tt>WEST</tt>. If at any point it sees a critter that doesn't display as <tt>'S'</tt>, <tt>'T'</tt>, or a <tt>number</tt>, it attacks. Otherwise, returns a random direction.</td>
+		</tr>
+		<tr>
+			<td><b>&nbsp;character</b></td>
+			<td>&nbsp;<tt>'L'</tt></td>
+		</tr>
+	</tbody></table>
+</center>
+<p></p>
+
+<h3>The Chameleoturtle</h3>
+<p>
+</p><center>
+    <table border="1" cellpadding="2" cellspacing="0" width="80%">
+		<tbody>
+		<tr>
+			<td><b>&nbsp;stats</b></td>
+			<td>attack: <tt>50</tt>, defense: <tt>50</tt></td>
+		</tr>
+		<tr>
+			<td><b>&nbsp;color</b></td>
+			<td>the color of the last critter to attack it; if it hasn't been attacked yet, <tt>color.GREEN</tt></td>
+		</tr>
+		<tr>
+			<td><b>&nbsp;movement</b></td>
+			<td>&nbsp;if any critters it can see anywhere within its sights aren't other Chameleoturtles, Stones, or Point Caches, stays still. Otherwise, moves <tt>NORTH</tt></td>
+		</tr>
+		<tr>
+			<td><b>&nbsp;character</b></td>
+			<td>the character of the last critter to attack it; if it hasn't been attacked yet, <tt>'T'</tt></td>
+		</tr>
+	</tbody></table>
+</center>
+
+
+<h3>Your Own Critter</h3>
+<p>
+<center>
+    <table border=1 cellpadding=2 cellspacing=0 width="80%">
+		<tr>
+			<td width="30%"><b>&nbsp;stats</b></td>
+			<td>&nbsp;you decide</tt></td>
+		</tr>
+		<tr>
+
+			<td><b>&nbsp;movement behaviour</b></td>
+			<td>&nbsp;you decide</td>
+		</tr>
+		<tr>
+			<td><b>&nbsp;character</b></td>
+			<td>&nbsp;you decide</td>
+		</tr>
+
+	</table>
+</center>
+</p>
+
+<p>
+You will decide the behaviour of your own critter.  Your critter should be named after yourself.  Please use your first name followed by your last initial.  For example, my critter would be named <tt>CynthiaT</tt>.  
+</p>
+
+<h2>What Should Your Critter Do?</h2>
+
+<p>
+Part of your lab grade will be based upon writing creative and non-trivial behaviour for your own critter.  The following are  
+some guidelines and hints about how to write an interesting critter. 
+</p>
+
+<p>
+When a critter moves, it has access to some important but limited information that it may wish to use to guide its movement behaviour.
+For example, it has access to its current <tt>x</tt> and <tt>y</tt> coordinates, as well as the width and height of the grid world.
+It can also find out what kind of critters are to its east, west, north, south, north-east, north-west, south-east, or south-west if there are any critter there at all. Note that you can see diagonally, but you cannot move diagonally (in one step).
+</p>
+
+
+<div class="boxed">
+
+<b>1)</b> A non-confrontational (or introverted) critter may always want to move away from other critters.  If such a critter sees another critter to the north it shouldn't move north, but additionally, south is probably safer than either east or west.  Unless of course there is another critter to the southwest, in which case maybe east is the best bet.  <br><br>
+
+One could imagine (unpleasantly) making a couple hundred if-statements to handle every possible configuration of neighbors.  But we'd like to be a bit smarter (and more concise).  One idea is this: make a variable for each of the four cardinal directions representing the "danger score" of moving in that direction, plus a danger score for not moving at all.  For each neighbor you see, increase the danger scores in a way that represents the threat posed by that neighbor.  Then pick the direction with the lowest danger score.    <br><br>
+
+Give <b>pseudocode</b> that determines where such a critter should move based on its neighbours to the north, south, east, west, north-east, north-west, south-east, and south-west. In generating danger scores, the precise numbers you choose are up to you, but try to make sure they make lead to reasonable choices in various situations.
+
+<br><br>
+
+<b>
+2)</b> What if the critter only wants to avoid critters of a different type than itself? How would you change your pseudocode from question <b>1</b>?
+
+<p>
+
+
+<b>3)</b> If you are fighting a <tt>Mouse</tt>, what stats should you have in order to always win if the mouse is attacking?  What if you are attacking the mouse?  How about against an <tt>Hippo</tt>? 
+
+</div>
+
+<p>
+Your critter can use any character you like as its display character. In fact, critters are asked what display character to use on each round of the simulation, so you can have a critter that displays itself differently over time.  
+</p>
+
+<p>
+Although your stats cannot be changed once they are set in the beginning, not all of your critters have to be identical. Some
+clever manipulation of class variables and a decent game plan will put you far ahead of other, less-sophisticated critters.
+</p>
+
+
+<div class="boxed">
+
+<b>4)</b> Come up with 1 non-trivial way to distribute the stats for your critters, so that not every critter of your type has the same set of stats.
+
+<br><br>
+
+<b>5)</b> Describe the behavior of your own critter by filling out the "you decide" entries in the <b>Your Own Critter</b> table further up in this prelab. Try to make it interesting without getting overly ambitious (there is only so much information available to you).  Don't specify actions that go beyond the scope of what a critter is allowed to do -- long-range attacks, teleportation, and invulnerability are all no-nos.<p>
+
+<b>6)</b> Describe one way that critters of your type could coordinate - use class variables to have them work together.<p>
+
+</div>
+
+<br>
+
+ 
+
+<h2>Honor Code</h2>
+
+<p> If you followed the Honor Code in this assignment, write the following sentence attesting to the fact at the top of your homework.</p>
+
+<blockquote class="honor">
+  <p class="centered"> <q class="honor">I
+affirm that I have adhered to the Honor Code in this assignment.</q>
+  </p>
+</blockquote>
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,738 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>CS 150 - PreLab 08</title>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<link rel="stylesheet" type="text/css" href="labs.css">
+</head>
+<body>
+<br>
+    <div id='container'>
+	<div id='top'>
+
+
+	    <h1><a href="http://www.cs.oberlin.edu/~ctaylor/150/" style="text-decoration:none; color:black">
+	    PreLab 08</a></h1>
+	    <b>The Sound of Music</b><br>
+	    <em>Due by the beginning of lecture on Wednesday, October 29th</em>
+	    <br>
+	    <br>
+
+	</div>
+	<div id='top'>
+
+
+
+<p>
+This week you'll be making sounds and music with Python. In this prelab, you will think about some of the underlying details of the lab itself. Please type up your solutions and hand in a printed copy before the beginning of class on Wednesday. Remember, no late prelabs allowed! 
+</p>
+
+<h2>Part 0 - Headphones</h2>
+
+This lab is going to involve music; while some of the lab computers do have speakers, not all do, and regardless, it'll get a little crazy if everyone is trying to play sound files at the same time.  So please bring a pair of headphones to lab.  
+
+<h2>Part 1 - Music Basics</h2>
+<p style="text-align:justify">
+<img src="keyboard.GIF" alt="keyboard" width="300pt" border=2 style="float: right; margin: 1em;">
+Notes are musical sounds called "pitches", that is, how high or low the note is.
+For example, do, re, mi are all pitches (also known as C, D, and E). Notes can be defined relative to each other; you can raise or lower the pitch by whole steps by going from one note to the next, or the pitch can be raised and lowered in half steps using sharps (#) and flats (b), respectively. These half-steps are called semitones, and there are 12 semitones in an octave (for example, the half step from C to C# is a semitone; from C# to D is as well). Each note also has a duration (how long it sounds) and a volume (how loud it sounds), so technically, a "note" is defined not only by its pitch, but also by its duration and volume.
+</p>
+
+<br>
+<br>
+<h2>Part 2 - Some Physics of Music</h2>
+<p style="text-align:justify">
+A music note is just a sound wave. More specifically, any one note can be thought of as a sine wave, and is characterized by its [regular] frequency of oscillation (pitch), its amplitude (volume), and its length (duration). Each of these is explained below.
+</p>
+<center>
+    <table border=1 cellpadding=2 cellspacing=0>
+
+    <tr><td><img src="freq1amp99.png" alt="sin wave"></td>
+	<td> y(t) = 99 * sin(t) for 0<=t<=2Pi</td> 
+    </tr>
+    <tr><td><img src="freq2amp99.png" alt="sin wave"></td>
+	<td> y(t) = 99 * sin(2t) for 0<=t<=2Pi</td></tr>
+
+    <tr><td><img src="freq2amp50.png" alt="sin wave"></td>
+	<td> y(t) = 50 * sin(2t) for 0<=t<=2Pi</td></tr>
+</table>
+</center>
+
+<br>
+<h4>Frequency (Pitch)</h4>
+<ul>
+    <li style="text-align:justify">The frequency of a sine wave is the number of peaks per 2Pi radians. The first wave above has frequency 1, and the following two waves have frequency 2.</li>  
+    <li style="text-align:justify">The way that humans perceive pitch is associated with the frequency of the sound wave which impinges upon the ear. A high pitch sound corresponds to a high frequency sound wave (many peaks in a small span), and a low pitch corresponds to a low frequency sound wave (few peaks in a small span).</li>
+
+    <li style="text-align:justify">More specifically, frequency is vibrations per second. The unit used to measure frequency is the Hertz (abbreviated Hz), where 1 Hertz = 1 vibration / second. The human ear can detect sound waves with frequencies ranging from 20Hz to 20000 Hz.</li>
+    <!--<li>Period: Time between successive high pressure points. The higher the frequency, the shorter the period.</li> -->
+    <li style="text-align:justify">Doubling a pitch's frequency increases the pitch by an octave, and halving it decreases it by an octave. There are 12 semitones in an octave, therefore, the ratio between the frequency of successive semitones is the 12th root of two (1.05946) (NOTE: this is not the same as 1 + 1/12). That is, to increase a pitch by a semitone, you only need to multiply its frequency by the 12th root of 2.  
+    </li>
+</ul>
+
+<div class="boxed">
+    <b>1)</b> Use the above information to fill in the frequencies of the pitches below.
+
+
+<center>
+
+    <table border=1 cellpadding=2 cellspacing=0 width="80%">
+    <tr>
+	<th>A</th>
+	<th>A#</th>
+	<th>B</th>
+	<th>C</th>
+	<th>C#</th>
+
+	<th>D</th>
+	<th>D#</th>
+	<th>E</th>
+	<th>F</th>
+	<th>F#</th>
+	<th>G</th>
+
+	<th>G#</th>
+	<th>A</th>
+    </tr>
+    <tr>
+	<td align=center width=50>440.00</td>
+	<td align=center width=50>466.16</td>
+	<td width=50>&nbsp;</td>
+
+	<td width=50>&nbsp;</td>
+	<td width=50>&nbsp;</td>
+	<td width=50>&nbsp;</td>
+	<td width=50>&nbsp;</td>
+	<td width=50>&nbsp;</td>
+	<td width=50>&nbsp;</td>
+	<td width=50>&nbsp;</td>
+	<td width=50>&nbsp;</td>
+	<td width=50>&nbsp;</td>
+
+	<td align=center width=50>880.00</td>
+    </tr>
+</table>
+</center>
+
+</div>
+
+<br>
+<h4>Amplitude (Volume)</h4>
+<ul>
+    <li style="text-align:justify">The amplitude of a sine wave is the maximum height (above 0) of any peak. The first two waves above have amplitude 99, the last wave has amplitude 50.</li>
+    <li style="text-align:justify">The greater the amplitude, the LOUDER the sound.</li>
+
+</ul>
+
+<h4>Length (Duration)</h4>
+<ul>
+    <li style="text-align:justify">The length of a sine wave is, well, the length along the x-axis of the wave. The waves above have length 2Pi.</li>
+    <li style="text-align:justify">The longer the length, the longer the duration of the sound. One second of sound corresponds to length 2Pi.</li>
+</ul>
+
+<h4>Multiple notes</h4>
+<ul>
+    <li style="text-align:justify">Each wave corresponds to a note. To play mutliple notes, you just superimpose (that is, add) the waves of each individual note. In the example below, the blue wave represents the low note, the red wave represents the note one octave higher (its frequency is double that of the blue wave), and the green wave represents both notes playing at the same time (the sum of their waves).</li>
+
+</ul>
+<center>
+    <img src="superimposed.gif" border=2 alt="superimposed waves" width="250pt">
+</center>
+
+<br>
+<h4>Constructing Sound Waves</h4>
+<p style="text-align:justify">
+To construct a sound wave, you first need to know the frequency (H), the amplitude (A), and the length (T) of your wave. Once you have this information, you just need to calculate y(t) = A * sin( 2 Pi H t ) for all 0 <= t <= T.  Note that t is the timestep of the note you are calculating.   
+</p> 
+<p style="text-align:justify">
+Notice that y(t) is a continuous function (you can draw it without lifting your pen), and computers don't do so great with continuous stuff. Instead, the computer samples the sound wave many times per second to produce digital audio. Each sample represents the amplitude (y-value) of the sound wave at a particular instant in time (t). The sampling rate is the number of samples taken per second. Audio from CDs typically uses a sampling rate of 44100. So, instead of drawing the sound wave without lifting your pen, the computer is drawing a whole lot of dots along the same wave, with the idea that if you draw enough dots, it still <i>looks</i> (and sounds) like a continuous wave even though it isn't. The same idea is used in animation and those little flip books<!--(<a href="http://www.youtube.com/watch?v=AYeTwfyx0nw">for fun</a>)-->; a sequence of still frames when played at a high enough speed give the impression of smooth/continuous movement.  So now if you are calculating 2 seconds of audio with a sampling rate of 44100, the values for t will be 0,1,2,3,...,88198,88199,88200.
+
+</p>
+
+<div class="boxed">
+    <b>2)</b> If the sampling rate (<tt>R</tt>) is 44100 and the duration (<tt>T</tt>) of a note is 2.5 seconds, how many samples are needed for this note? Give a general expression for the number of samples in terms of <tt>T</tt> and <tt>R</tt> (note that the number of samples needs to be rounded to an integer).
+    
+    <br><br>
+    
+    <b>3)</b> Write a Python function with parameters <tt>T</tt> (length in seconds), <tt>H</tt> (frequency), <tt>A</tt> (amplitude), and  <tt>R</tt> (sampling rate) that creates a list containing <tt>N</tt> samples as given by the formula y(t)=A*sin(H*2Pi*t), where <tt>N</tt> is the number calculated in the previous question.  The parameters should have default values of 1, 440, 1, and 44100 respectively.  Note that t will indicate the sample number - t will be 1 for the first element in the list, 2 for the second, and so on.
+</div>
+
+<!--
+<p style="text-align:justify">
+At second t, the amplitude (y-value) of the sound wave is given by the formula y(t) = 8000 sin( 2 PI Hz t ). Therefore, if we want to take 44100 samples per second, we need to calculate...
+Sample i is given by 8000 sin( 2 PI 440 i / 44100). The sin function is given by y(t) = A * sin( w*t+theta), where
+</p>
+<ul>
+    <li>A is the amplitude (the highest horizontal peak)</li>
+    <li>frequency w (radians per second)</li>
+    <li>phase theta - when phase is non-zero, entire waveform appears to be shifted in time by the amount theta / w seconds. a negative value represents a delay (it shifts the whole wave to the right), a positive value represents a head-start (it shifts the whole wave to the left).</li>
+</ul>
+-->
+
+<p style="text-align:justify">
+In the lab proper, you will be writing your own Soundwave class that will represent the discretization of a snippet of sound.  Initially a particular Soundwave will hold a single digitized note, but eventually we'll want to be able to combine and overlay notes as well.
+</p>
+
+<div class="boxed">
+    <b>4)</b> Given the information above, what fields (i.e. variables or attributes) should each Soundwave contain? What are the types of these fields?
+
+	<br><br>
+
+    <b>5)</b> Other than a constructor (which will probably do something similar to what you specified in your solution to question 3), what functions would it be reasonable for a Soundwave object to have?  List at least 4.
+
+</div>
+
+<br>
+<h2>Part 3 - Making Beautiful Music</h2>
+<p style="text-align:justify">
+Once you've gotten a basic Soundwave class defined, much of the remainder of the lab revolves around producing music. In particular, we're going to use .wav files (a type of sound file type, much like an .mp3) to produce a variety of scales and generate a Minuet and Trio.  Yes, <I>you</I> will write a Minuet and Trio. Sorta. But before that...</p>
+
+<!--
+<p style="text-align:justify">
+First, let's talk about music representation in MIDI files. Each musical note / pitch is represented by an integer between 0 and 127. Middle C (the centre key on a piano) has the value 60. We can define all notes relative to this one: to go up a semitone, you just increment your current note value by 1. For example, C# (C sharp, aka my cousin Casey Sharp) has the value 61, and B has the value 59. There are 12 semitones in an octave (count 'em up on a piano if you like), so to go up an octave, you add 12 to your value (e.g. high C has the value 72).
+</p>
+
+<p style="text-align:justify">
+For your convenience, here is a table listing the notes in different octaves and their corresponding numbers.
+</p>
+
+-->
+<p style="text-align:justify">
+A <I>scale</I> is a sequence of notes, defined by the intervals between them. For example, the <i>major scale</i> is defined by the 7 intervals (and hence 8 notes) (2,2,1,2,2,2,1), that is, there are 2 semitones between the first and second notes, between the second and third notes, but a single semitone between the third and fourth notes, and so on. The <a href="major.wav">C major scale</a> is the major scale starting at C and is thus the sequence of notes of values starting at around 523 and ending around 1046, that is, the notes (C, D, E, F, G, A, B, C). The D major scale is the major scale starting at D: the sequence of notes (D, E, F#, G, A, B, C#, D).
+
+</p>
+
+<div class="boxed">
+    <b>6)</b> Give the sequence of note frequencies and notes for the A major scale, starting at the A from the table from question 1 (that is, the note of frequency 440).
+</div>
+
+<p style="text-align:justify">
+There are many other interesting scales, such as the <a href="minor.wav">minor scale</a>, defined by the intervals (2,1,2,2,1,2,2), and the <a href="blues.wav">blues scale</a>, defined by the intervals (3,2,1,1,3,2) (the scale only contains 7 notes). </p>
+
+<div class="boxed">
+    <b>7)</b> Suppose you are given a scale, defined by its tonic (starting) note frequency <tt>F</tt> and intervals <tt>(I1, I2, I3,..., In)</tt> (that is, the second note of the scale is <tt>I1</tt> semitones from the tonic note, the third note of the scale is <tt>I1+I2</tt> semitones from the tonic, etc.). What is the frequency of the second note (in terms of <tt>F</tt> and <tt>I1</tt>)? What about the frequency of the third note (in terms of <tt>F</tt>, <tt>I1</tt> and <tt>I2</tt>)?</li>
+
+<br><br>
+
+    <b>8)</b> Given a scale defined by its intervals <tt>(I1, I2, I3,..., In)</tt> and tonic note frequency <tt>F</tt>, give an algorithm (in pseudocode!) that produces the sequence of <i>(n+1)</i> note frequencies in the actual scale. That is, you have two input parameters: the start note and the sequence of intervals (in a list, say). You want to output the sequence of note frequencies in the appropriate scale.
+</div>
+
+<!--
+<p style="text-align:justify">
+So this is how different notes work. Unfortunately, MIDI files themselves do not transmit the sound you hear, rather, they transmit digital data 'events', such as which note to play at what volume using what instrument. Each event has a time stamp saying when the event actually occurs in the file. This means that you cannot just tell a MIDI file to play certain notes; you also have to tell it <i>when</i> to play each note. </p>
+<p style="text-align:justify">
+The MIDI file specifies time using <tt>ticks</tt>, which you can think of as the second hand ticking of a clock. The clock starts at 0; when you want to play a note, you must specify at which time (which tick) you'd like it to be played. For example, playing the notes of a scale one tick apart would be an evenly-paced scale. Similarly, playing each note 8 ticks apart or 24 ticks apart would also be evenly-paced.
+</p>
+
+<p style="text-align:justify">
+<b>5.</b> Suppose you want to play an evenly-paced A major scale starting at tick 10. At which ticks will the 8 notes occur? There are multiple correct answers, depending on how you space your notes. Just one answer will suffice.
+</p>
+
+<p style="text-align:justify">
+In music notation, the duration (time length, number of ticks) of a particular note is defined by how long it lasts compared to a whole note. For example, if a whole note lasts for 16 ticks, then a half note lasts for 8 ticks, a quarter note for 4 ticks, an eighth note for 2, and a sixteenth note for 1.
+</p>
+
+<p style="text-align:justify">
+<b>6.</b> If a 64th note lasts for 3 ticks, how many ticks are there to a whole note? 
+</p>
+
+<p style="text-align:justify">
+<b>7.</b> If a whole note lasts for 48 ticks, how many ticks are there to a 16th note?
+</p>
+-->
+
+<p>
+Finally, let's talk about this Minuet and Trio business. What is a Minuet and Trio?
+It is musical piece that is often the third movement of the Classical sonata cycle. Both the Minuet and Trio follow a specific rhythm and form, and they are usually combined by first playing the Minuet, then playing the Trio, then the Minuet once more. You can listen to a very nice Minuet and Trio <a href="minuet.wav">here</a>. 
+
+</p>
+<p>
+You'll be generating a Minuet and Trio based on a random algorithm developed by Mr. Mozart himself. Your Minuet will contain 16 measures (musical snippets), as will your Trio. For each of the 16 measures in the Minuet, you will randomly generate a number between 0 and 10 (inclusive); you will use this number to pick a specific music snippet from the following table (there are 176 total snippets). That is, for each column in the table below, you will randomly pick a row, and use whichever measure is that (column, row) entry. For example, if I generate the 16 random numbers (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 1, 2, 3, 4, 5) for the Minuet, then I will select the snippets (32, 95, 113, 45, 154, 133, 169, 123, 102, 20, 26, 56, 73, 160, 1, 151) from the Minuet table. <a href="MinuetTrio.wav">Here</a> is such a randomly generated Minuet and Trio. For the Trio, you do the same thing except your random number is between 0 and 5, inclusive. 
+	</p>
+
+
+    <table border=1 cellpadding=2 cellspacing=0 width="100%">
+	<tr>
+		<th><br></th>
+		<th colspan=16>Minuet Measures</th>
+
+	</tr>
+	<tr>
+		<th><br></th>
+		<th>0</th>
+		<th>1</th>
+		<th>2</th>
+		<th>3</th>
+
+		<th>4</th>
+		<th>5</th>
+		<th>6</th>
+		<th>7</th>
+		<th>8</th>
+		<th>9</th>
+
+		<th>10</th>
+		<th>11</th>
+		<th>12</th>
+		<th>13</th>
+		<th>14</th>
+		<th>15</th>
+
+	</tr>
+	
+	<tr align="center">
+		<th>0</th>
+		<td><a href="Mfiles/M96.wav">96</a></td>
+		<td><a href="Mfiles/M22.wav">22</a></td>
+		<td><a href="Mfiles/M141.wav">141</a></td>
+		<td><a href="Mfiles/M41.wav">41</a></td>
+
+		<td><a href="Mfiles/M105.wav">105</a></td>
+		<td><a href="Mfiles/M122.wav">122</a></td>
+		<td><a href="Mfiles/M11.wav">11</a></td>
+		<td><a href="Mfiles/M30.wav">30</a></td>
+		<td><a href="Mfiles/M70.wav">70</a></td>
+		<td><a href="Mfiles/M121.wav">121</a></td>
+
+		<td><a href="Mfiles/M26.wav">26</a></td>
+		<td><a href="Mfiles/M9.wav">9</a></td>
+		<td><a href="Mfiles/M112.wav">112</a></td>
+		<td><a href="Mfiles/M49.wav">49</a></td>
+		<td><a href="Mfiles/M109.wav">109</a></td>
+		<td><a href="Mfiles/M14.wav">14</a></td>
+
+	</tr>
+	
+	<tr align="center">
+		<th>1</th>
+		<td><a href="Mfiles/M32.wav">32</a></td>
+		<td><a href="Mfiles/M6.wav">6</a></td>
+		<td><a href="Mfiles/M128.wav">128</a></td>
+		<td><a href="Mfiles/M63.wav">63</a></td>
+
+		<td><a href="Mfiles/M146.wav">146</a></td>
+		<td><a href="Mfiles/M46.wav">46</a></td>
+		<td><a href="Mfiles/M134.wav">134</a></td>
+		<td><a href="Mfiles/M81.wav">81</a></td>
+		<td><a href="Mfiles/M117.wav">117</a></td>
+		<td><a href="Mfiles/M39.wav">39</a></td>
+
+		<td><a href="Mfiles/M126.wav">126</a></td>
+		<td><a href="Mfiles/M56.wav">56</a></td>
+		<td><a href="Mfiles/M174.wav">174</a></td>
+		<td><a href="Mfiles/M18.wav">18</a></td>
+		<td><a href="Mfiles/M116.wav">116</a></td>
+		<td><a href="Mfiles/M83.wav">83</a></td>
+
+	</tr>
+	
+	<tr align="center">
+		<th>2</th>
+		<td><a href="Mfiles/M69.wav">69</a></td>
+		<td><a href="Mfiles/M95.wav">95</a></td>
+		<td><a href="Mfiles/M158.wav">158</a></td>
+		<td><a href="Mfiles/M13.wav">13</a></td>
+
+		<td><a href="Mfiles/M153.wav">153</a></td>
+		<td><a href="Mfiles/M55.wav">55</a></td>
+		<td><a href="Mfiles/M110.wav">110</a></td>
+		<td><a href="Mfiles/M24.wav">24</a></td>
+		<td><a href="Mfiles/M66.wav">66</a></td>
+		<td><a href="Mfiles/M139.wav">139</a></td>
+
+		<td><a href="Mfiles/M15.wav">15</a></td>
+		<td><a href="Mfiles/M132.wav">132</a></td>
+		<td><a href="Mfiles/M73.wav">73</a></td>
+		<td><a href="Mfiles/M58.wav">58</a></td>
+		<td><a href="Mfiles/M145.wav">145</a></td>
+		<td><a href="Mfiles/M79.wav">79</a></td>
+
+	</tr>
+	
+	<tr align="center">
+		<th>3</th>
+		<td><a href="Mfiles/M40.wav">40</a></td>
+		<td><a href="Mfiles/M17.wav">17</a></td>
+		<td><a href="Mfiles/M113.wav">113</a></td>
+		<td><a href="Mfiles/M85.wav">85</a></td>
+
+		<td><a href="Mfiles/M161.wav">161</a></td>
+		<td><a href="Mfiles/M2.wav">2</a></td>
+		<td><a href="Mfiles/M159.wav">159</a></td>
+		<td><a href="Mfiles/M100.wav">100</a></td>
+		<td><a href="Mfiles/M90.wav">90</a></td>
+		<td><a href="Mfiles/M176.wav">176</a></td>
+
+		<td><a href="Mfiles/M7.wav">7</a></td>
+		<td><a href="Mfiles/M34.wav">34</a></td>
+		<td><a href="Mfiles/M67.wav">67</a></td>
+		<td><a href="Mfiles/M160.wav">160</a></td>
+		<td><a href="Mfiles/M52.wav">52</a></td>
+		<td><a href="Mfiles/M170.wav">170</a></td>
+
+	</tr>
+	
+	<tr align="center">
+		<th>4</th>
+		<td><a href="Mfiles/M148.wav">148</a></td>
+		<td><a href="Mfiles/M74.wav">74</a></td>
+		<td><a href="Mfiles/M163.wav">163</a></td>
+		<td><a href="Mfiles/M45.wav">45</a></td>
+
+		<td><a href="Mfiles/M80.wav">80</a></td>
+		<td><a href="Mfiles/M97.wav">97</a></td>
+		<td><a href="Mfiles/M36.wav">36</a></td>
+		<td><a href="Mfiles/M107.wav">107</a></td>
+		<td><a href="Mfiles/M25.wav">25</a></td>
+		<td><a href="Mfiles/M143.wav">143</a></td>
+
+		<td><a href="Mfiles/M64.wav">64</a></td>
+		<td><a href="Mfiles/M125.wav">125</a></td>
+		<td><a href="Mfiles/M76.wav">76</a></td>
+		<td><a href="Mfiles/M136.wav">136</a></td>
+		<td><a href="Mfiles/M1.wav">1</a></td>
+		<td><a href="Mfiles/M93.wav">93</a></td>
+
+	</tr>
+	
+	<tr align="center">
+		<th>5</th>
+		<td><a href="Mfiles/M104.wav">104</a></td>
+		<td><a href="Mfiles/M157.wav">157</a></td>
+		<td><a href="Mfiles/M27.wav">27</a></td>
+		<td><a href="Mfiles/M167.wav">167</a></td>
+
+		<td><a href="Mfiles/M154.wav">154</a></td>
+		<td><a href="Mfiles/M68.wav">68</a></td>
+		<td><a href="Mfiles/M118.wav">118</a></td>
+		<td><a href="Mfiles/M91.wav">91</a></td>
+		<td><a href="Mfiles/M138.wav">138</a></td>
+		<td><a href="Mfiles/M71.wav">71</a></td>
+
+		<td><a href="Mfiles/M150.wav">150</a></td>
+		<td><a href="Mfiles/M29.wav">29</a></td>
+		<td><a href="Mfiles/M101.wav">101</a></td>
+		<td><a href="Mfiles/M162.wav">162</a></td>
+		<td><a href="Mfiles/M23.wav">23</a></td>
+		<td><a href="Mfiles/M151.wav">151</a></td>
+
+	</tr>
+	
+	<tr align="center">
+		<th>6</th>
+		<td><a href="Mfiles/M152.wav">152</a></td>
+		<td><a href="Mfiles/M60.wav">60</a></td>
+		<td><a href="Mfiles/M171.wav">171</a></td>
+		<td><a href="Mfiles/M53.wav">53</a></td>
+
+		<td><a href="Mfiles/M99.wav">99</a></td>
+		<td><a href="Mfiles/M133.wav">133</a></td>
+		<td><a href="Mfiles/M21.wav">21</a></td>
+		<td><a href="Mfiles/M127.wav">127</a></td>
+		<td><a href="Mfiles/M16.wav">16</a></td>
+		<td><a href="Mfiles/M155.wav">155</a></td>
+
+		<td><a href="Mfiles/M57.wav">57</a></td>
+		<td><a href="Mfiles/M175.wav">175</a></td>
+		<td><a href="Mfiles/M43.wav">43</a></td>
+		<td><a href="Mfiles/M168.wav">168</a></td>
+		<td><a href="Mfiles/M89.wav">89</a></td>
+		<td><a href="Mfiles/M172.wav">172</a></td>
+
+	</tr>
+	
+	<tr align="center">
+		<th>7</th>
+		<td><a href="Mfiles/M119.wav">119</a></td>
+		<td><a href="Mfiles/M84.wav">84</a></td>
+		<td><a href="Mfiles/M114.wav">114</a></td>
+		<td><a href="Mfiles/M50.wav">50</a></td>
+
+		<td><a href="Mfiles/M140.wav">140</a></td>
+		<td><a href="Mfiles/M86.wav">86</a></td>
+		<td><a href="Mfiles/M169.wav">169</a></td>
+		<td><a href="Mfiles/M94.wav">94</a></td>
+		<td><a href="Mfiles/M120.wav">120</a></td>
+		<td><a href="Mfiles/M88.wav">88</a></td>
+
+		<td><a href="Mfiles/M48.wav">48</a></td>
+		<td><a href="Mfiles/M166.wav">166</a></td>
+		<td><a href="Mfiles/M51.wav">51</a></td>
+		<td><a href="Mfiles/M115.wav">115</a></td>
+		<td><a href="Mfiles/M72.wav">72</a></td>
+		<td><a href="Mfiles/M111.wav">111</a></td>
+
+	</tr>
+	
+	<tr align="center">
+		<th>8</th>
+		<td><a href="Mfiles/M98.wav">98</a></td>
+		<td><a href="Mfiles/M142.wav">142</a></td>
+		<td><a href="Mfiles/M42.wav">42</a></td>
+		<td><a href="Mfiles/M156.wav">156</a></td>
+
+		<td><a href="Mfiles/M75.wav">75</a></td>
+		<td><a href="Mfiles/M129.wav">129</a></td>
+		<td><a href="Mfiles/M62.wav">62</a></td>
+		<td><a href="Mfiles/M123.wav">123</a></td>
+		<td><a href="Mfiles/M65.wav">65</a></td>
+		<td><a href="Mfiles/M77.wav">77</a></td>
+
+		<td><a href="Mfiles/M19.wav">19</a></td>
+		<td><a href="Mfiles/M82.wav">82</a></td>
+		<td><a href="Mfiles/M137.wav">137</a></td>
+		<td><a href="Mfiles/M38.wav">38</a></td>
+		<td><a href="Mfiles/M149.wav">149</a></td>
+		<td><a href="Mfiles/M8.wav">8</a></td>
+
+	</tr>
+	
+	<tr align="center">
+		<th>9</th>
+		<td><a href="Mfiles/M3.wav">3</a></td>
+		<td><a href="Mfiles/M87.wav">87</a></td>
+		<td><a href="Mfiles/M165.wav">165</a></td>
+		<td><a href="Mfiles/M61.wav">61</a></td>
+
+		<td><a href="Mfiles/M135.wav">135</a></td>
+		<td><a href="Mfiles/M47.wav">47</a></td>
+		<td><a href="Mfiles/M147.wav">147</a></td>
+		<td><a href="Mfiles/M33.wav">33</a></td>
+		<td><a href="Mfiles/M102.wav">102</a></td>
+		<td><a href="Mfiles/M4.wav">4</a></td>
+
+		<td><a href="Mfiles/M31.wav">31</a></td>
+		<td><a href="Mfiles/M164.wav">164</a></td>
+		<td><a href="Mfiles/M144.wav">144</a></td>
+		<td><a href="Mfiles/M59.wav">59</a></td>
+		<td><a href="Mfiles/M173.wav">173</a></td>
+		<td><a href="Mfiles/M78.wav">78</a></td>
+
+	</tr>
+	
+	<tr align="center">
+		<th>10</th>
+		<td><a href="Mfiles/M54.wav">54</a></td>
+		<td><a href="Mfiles/M130.wav">130</a></td>
+		<td><a href="Mfiles/M10.wav">10</a></td>
+		<td><a href="Mfiles/M103.wav">103</a></td>
+
+		<td><a href="Mfiles/M28.wav">28</a></td>
+		<td><a href="Mfiles/M37.wav">37</a></td>
+		<td><a href="Mfiles/M106.wav">106</a></td>
+		<td><a href="Mfiles/M5.wav">5</a></td>
+		<td><a href="Mfiles/M35.wav">35</a></td>
+		<td><a href="Mfiles/M20.wav">20</a></td>
+
+		<td><a href="Mfiles/M108.wav">108</a></td>
+		<td><a href="Mfiles/M92.wav">92</a></td>
+		<td><a href="Mfiles/M12.wav">12</a></td>
+		<td><a href="Mfiles/M124.wav">124</a></td>
+		<td><a href="Mfiles/M44.wav">44</a></td>
+		<td><a href="Mfiles/M131.wav">131</a></td>
+
+	</tr>
+	
+</table>
+
+<p>
+    <table border=1 cellpadding=2 cellspacing=0 width="100%">
+	<tr>
+		<th><br></th>
+		<th colspan=16>Trio Measures</th>
+	</tr>
+
+	<tr>
+		<th><br></th>
+		<th>16</th>
+		<th>17</th>
+		<th>18</th>
+		<th>19</th>
+		<th>20</th>
+
+		<th>21</th>
+		<th>22</th>
+		<th>23</th>
+		<th>24</th>
+		<th>25</th>
+		<th>26</th>
+
+		<th>27</th>
+		<th>28</th>
+		<th>29</th>
+		<th>30</th>
+		<th>31</th>
+	</tr>
+
+	
+	<tr align="center">
+		<th>0</th>
+		<td><a href="Tfiles/T72.wav">72</a></td>
+		<td><a href="Tfiles/T6.wav">6</a></td>
+		<td><a href="Tfiles/T59.wav">59</a></td>
+		<td><a href="Tfiles/T25.wav">25</a></td>
+
+		<td><a href="Tfiles/T81.wav">81</a></td>
+		<td><a href="Tfiles/T41.wav">41</a></td>
+		<td><a href="Tfiles/T89.wav">89</a></td>
+		<td><a href="Tfiles/T13.wav">13</a></td>
+		<td><a href="Tfiles/T36.wav">36</a></td>
+		<td><a href="Tfiles/T5.wav">5</a></td>
+
+		<td><a href="Tfiles/T46.wav">46</a></td>
+		<td><a href="Tfiles/T79.wav">79</a></td>
+		<td><a href="Tfiles/T30.wav">30</a></td>
+		<td><a href="Tfiles/T95.wav">95</a></td>
+		<td><a href="Tfiles/T19.wav">19</a></td>
+		<td><a href="Tfiles/T66.wav">66</a></td>
+
+	</tr>
+	
+	<tr align="center">
+		<th>1</th>
+		<td><a href="Tfiles/T56.wav">56</a></td>
+		<td><a href="Tfiles/T82.wav">82</a></td>
+		<td><a href="Tfiles/T42.wav">42</a></td>
+		<td><a href="Tfiles/T74.wav">74</a></td>
+
+		<td><a href="Tfiles/T14.wav">14</a></td>
+		<td><a href="Tfiles/T7.wav">7</a></td>
+		<td><a href="Tfiles/T26.wav">26</a></td>
+		<td><a href="Tfiles/T71.wav">71</a></td>
+		<td><a href="Tfiles/T76.wav">76</a></td>
+		<td><a href="Tfiles/T20.wav">20</a></td>
+
+		<td><a href="Tfiles/T64.wav">64</a></td>
+		<td><a href="Tfiles/T84.wav">84</a></td>
+		<td><a href="Tfiles/T8.wav">8</a></td>
+		<td><a href="Tfiles/T35.wav">35</a></td>
+		<td><a href="Tfiles/T47.wav">47</a></td>
+		<td><a href="Tfiles/T88.wav">88</a></td>
+
+	</tr>
+	
+	<tr align="center">
+		<th>2</th>
+		<td><a href="Tfiles/T75.wav">75</a></td>
+		<td><a href="Tfiles/T39.wav">39</a></td>
+		<td><a href="Tfiles/T54.wav">54</a></td>
+		<td><a href="Tfiles/T1.wav">1</a></td>
+
+		<td><a href="Tfiles/T65.wav">65</a></td>
+		<td><a href="Tfiles/T43.wav">43</a></td>
+		<td><a href="Tfiles/T15.wav">15</a></td>
+		<td><a href="Tfiles/T80.wav">80</a></td>
+		<td><a href="Tfiles/T9.wav">9</a></td>
+		<td><a href="Tfiles/T34.wav">34</a></td>
+
+		<td><a href="Tfiles/T93.wav">93</a></td>
+		<td><a href="Tfiles/T48.wav">48</a></td>
+		<td><a href="Tfiles/T69.wav">69</a></td>
+		<td><a href="Tfiles/T58.wav">58</a></td>
+		<td><a href="Tfiles/T90.wav">90</a></td>
+		<td><a href="Tfiles/T21.wav">21</a></td>
+
+	</tr>
+	
+	<tr align="center">
+		<th>3</th>
+		<td><a href="Tfiles/T40.wav">40</a></td>
+		<td><a href="Tfiles/T73.wav">73</a></td>
+		<td><a href="Tfiles/T16.wav">16</a></td>
+		<td><a href="Tfiles/T68.wav">68</a></td>
+
+		<td><a href="Tfiles/T29.wav">29</a></td>
+		<td><a href="Tfiles/T55.wav">55</a></td>
+		<td><a href="Tfiles/T2.wav">2</a></td>
+		<td><a href="Tfiles/T61.wav">61</a></td>
+		<td><a href="Tfiles/T22.wav">22</a></td>
+		<td><a href="Tfiles/T67.wav">67</a></td>
+
+		<td><a href="Tfiles/T49.wav">49</a></td>
+		<td><a href="Tfiles/T77.wav">77</a></td>
+		<td><a href="Tfiles/T57.wav">57</a></td>
+		<td><a href="Tfiles/T87.wav">87</a></td>
+		<td><a href="Tfiles/T33.wav">33</a></td>
+		<td><a href="Tfiles/T10.wav">10</a></td>
+
+	</tr>
+	
+	<tr align="center">
+		<th>4</th>
+		<td><a href="Tfiles/T83.wav">83</a></td>
+		<td><a href="Tfiles/T3.wav">3</a></td>
+		<td><a href="Tfiles/T28.wav">28</a></td>
+		<td><a href="Tfiles/T53.wav">53</a></td>
+
+		<td><a href="Tfiles/T37.wav">37</a></td>
+		<td><a href="Tfiles/T17.wav">17</a></td>
+		<td><a href="Tfiles/T44.wav">44</a></td>
+		<td><a href="Tfiles/T70.wav">70</a></td>
+		<td><a href="Tfiles/T63.wav">63</a></td>
+		<td><a href="Tfiles/T85.wav">85</a></td>
+
+		<td><a href="Tfiles/T32.wav">32</a></td>
+		<td><a href="Tfiles/T96.wav">96</a></td>
+		<td><a href="Tfiles/T12.wav">12</a></td>
+		<td><a href="Tfiles/T23.wav">23</a></td>
+		<td><a href="Tfiles/T50.wav">50</a></td>
+		<td><a href="Tfiles/T91.wav">91</a></td>
+
+	</tr>
+	
+	<tr align="center">
+		<th>5</th>
+		<td><a href="Tfiles/T18.wav">18</a></td>
+		<td><a href="Tfiles/T45.wav">45</a></td>
+		<td><a href="Tfiles/T62.wav">62</a></td>
+		<td><a href="Tfiles/T38.wav">38</a></td>
+
+		<td><a href="Tfiles/T4.wav">4</a></td>
+		<td><a href="Tfiles/T27.wav">27</a></td>
+		<td><a href="Tfiles/T52.wav">52</a></td>
+		<td><a href="Tfiles/T94.wav">94</a></td>
+		<td><a href="Tfiles/T11.wav">11</a></td>
+		<td><a href="Tfiles/T92.wav">92</a></td>
+
+		<td><a href="Tfiles/T24.wav">24</a></td>
+		<td><a href="Tfiles/T86.wav">86</a></td>
+		<td><a href="Tfiles/T51.wav">51</a></td>
+		<td><a href="Tfiles/T60.wav">60</a></td>
+		<td><a href="Tfiles/T78.wav">78</a></td>
+		<td><a href="Tfiles/T31.wav">31</a></td>
+
+	</tr>
+</table>
+</center>
+
+<br>
+
+<div class="boxed">
+    <b>9)</b> Write Python code that generates a Minuet and Trio by implementing the algorithm above. You may assume that the Minuet and Trio tables are stored in two-dimensional lists <tt>mTable</tt> and <tt>tTable</tt> of sizes 11x16 and 6x16, respectively. You may assume for now that there is a method <tt>concatenate</tt> that takes in a music snippet and adds it to the end of the current piece of music.
+</div>
+
+<br>
+
+
+ 
+
+<h2>Honor Code</h2>
+
+<p> If you followed the Honor Code in this assignment, write the following sentence attesting to the fact at the top of your homework.</p>
+
+<blockquote class="honor">
+  <p class="centered"> <q class="honor">I
+affirm that I have adhered to the Honor Code in this assignment.</q>
+  </p>
+</blockquote>
+
+
+
+</div>
+</div>
+<br>
+
+</body>
+</html>
+

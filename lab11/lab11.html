@@ -1,0 +1,306 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>CS 150 - Lab 11</title>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<link rel="stylesheet" type="text/css" href="labs.css">
+</head>
+<body>
+<br>
+    <div id='container'>
+	<div id='top'>
+
+
+	    <h1><a href="http://www.cs.oberlin.edu/~ctaylor/150/" style="text-decoration:none; color:black">Lab 11</a></h1>
+	    <b>Multiple Processes</b><br>
+	    <em>Due by 10pm on Tuesday, November 24th</em>
+	    <br>
+	    <br>
+
+	</div>
+	<div id='top'>
+
+
+
+<p>
+The purpose of this lab is to:
+<ul>
+	<li>Write programs that use multiple processes.
+	<li>Use process pools in python to divide up parallel computation.
+	<li>Safetly share information between processes using locks.
+</ul>
+</p>
+
+<h2>Getting Started</h2>
+
+<p>
+Create a folder called <tt>lab11</tt> inside your <tt>cs150</tt> folder.
+</p>
+
+<h2>Hello, World</h2>
+<p><b><i>10 points, individual</b></i><p>
+Once more, we will write the classic Hello, World program, but this time we will say hello from multiple processes.  In this program, you will ask the user for a number of processes to create (n), and a name.  Then you will create n processes, each of which will print <tt>"Hello, &lt;name&gt;, from Process &lt;pid&gt;"</tt>.  (A pid is a process id number.)  Save this program in a file called <tt>hello.py</tt><p>
+
+<div class="boxed">
+<h4>Creating a new process</h4><p>
+
+First, you will need to import the multiprocessing module, like so:
+<pre>
+from multiprocessing import *
+</pre>
+
+You will need to define a function that does whatever you would like your process to do.  For you, this will look something like:
+<pre>
+def HelloWorld(name):
+     #print Hello to Name from process id
+</pre>
+
+To create a new process, p, that runs the function:
+<pre>
+p = Process(target=HelloWorld, args=(name,))
+</pre>
+There are a couple of new things that we use when calling a process.  First, it uses what are called "named arguments".  We specify that the first parameter is the target, or function we'd like to use, and the second parameter is the paramters, or args, that we are passing that function.  Secondly, to pass in the arguments to the target function, we use what is called a "tuple".  This is basically a list, but with parenthesis instead of brackets.  To specify a tuple of 1, we just add a comma after the first argument.<p>
+
+Next, to start process p, write:
+<pre>
+p.start()
+</pre>
+
+To get the process id number, use
+<pre>
+current_process().pid
+</pre>
+</div>
+
+<h2>Parallel Monte Carlo</h2><p>
+<b><i>15 points, individual</b></i><p>
+
+Recall that in <a href="../lab03/lab03.html">Lab 3</a>, we generated the value of pi by simulating dart throws.  In this lab, you will create a program to do this in parallel, using Python's process pools. You will also look at how long it takes different numbers of processes to complete the task. Your final product, <tt>monte.py</tt>, will be a python program that takes the number of darts to throw from the user, and prints out what the approximate value of pi based on that number of throws is, as quickly as possible, as well as how long it took the program to generate that result.  You will also turn in a file named <tt>monte_readme.txt</tt> in which will you write how long it took your program to approximate pi for 10,000,000 throws, using 1, 2, 4, 8, 20, 40, 100 and 200 processes.<p>
+
+<div class ="boxed">
+<h4>Process Pools</h4><p>
+A process pool is a way to create a number of threads, and have them all do the same task.  To create a pool of processes, where n is the number of processes you wish to create:
+<pre>
+pool = Pool(processes=n)
+</pre>
+To run the processes, you will use the <tt>Pool.map</tt> function.  The map function takes in a function, f, and a list of arguments, with the length of the list equal to the number of processes.  (Essentially, you are handing in separate arguments for each process, in the form of a list.  Note that this means your function must take a single argument, although that argument may itself be a tuple or a list.)  It returns a list of the return values from the processes.  This will look like:
+<pre>
+results = pool.map(f, args_list)
+</pre>
+
+<h4>Time</h4><p>
+To measure how long it takes to approximate pi, you will use the time module.  First:
+<pre>
+import time
+</pre>
+Before you begin your calculations, get the start time:
+<pre>
+start = time.time()
+</pre>
+
+After you are done, get the end time:
+<pre>
+end = time.time()
+</pre>
+Subtract <tt>start</tt> from <tt>end</tt> to get the number of seconds that have elapsed.
+<pre>
+elapsed = end - start
+</pre>
+</div>
+
+<h3>Program Outline</h3>
+
+<p>
+The details of implementing a solution are up to you, but here is a suggested outline of how to approach the problem.  As usual, think about the 6 steps of program devepopment, and test each piece as you go.
+</p>
+
+<ol>
+<li>Write a function that takes in a number of trials, runs a simulation of throwing that number of darts, and returns the number of darts that landed in the circle.  If you did this correctly in <a href="../lab03/lab03.html">Lab 3</a>, you can just modify your code from that lab.
+<li>Create a process pool.  Figure out how many trials each process will run. (Note: Your number of darts may not evenly divide into your number of processes, which case some processes may have one more dart throw than others.  Make sure you are throwing the correct number of darts.  You should be able to figure this out using integer division and the remainder operator.)  Use map to run the processes, and combine the results to get a total number of darts that hit the target.  Dividing this by your original number of darts thrown should get you an approximation of pi.
+<li>Time how long it takes to approximate pi at with various numbers of processes.  Write up your results in your readme.  Pick the number of processes that worked best for you, and use that value in your final program.  
+</ol>
+
+
+<h2>Account</h2>
+<b>25 points, partner</b><p>
+It frequently makes sense for processes to be able to access the same variables, so they can work together.  However, this can be very dangerous, as we will get incorrect results if two or more processes modify the same variable at the same time.  To avoid this, we will use something called a Lock, which will only allow one process at a time to access a variable.<p>
+
+
+In this program, you will create an Account class, which simulates a bank account.  You will create methods to add and withdraw money from the account.  You will then create multiple processes which will act as users of the (same) account.  Each process will withdraw a random amount of money from the account, wait a random amount of time, and then add a random amount of money to the account.  It will do this 3 times.  They will each use their pid for the customer number.  The output of this program should look something like: <p>
+<div class="boxed">
+<pre>
+Customer 25928 withdrew 94 balance 6
+Customer 25929 withdrew 6 balance 0
+Customer 25929 added 68 balance 68
+Customer 25929 withdrew 15 balance 53
+Customer 25929 added 51 balance 104
+Customer 25929 withdrew 85 balance 19
+Customer 25930 withdrew 19 balance 0
+Customer 25931 withdrew 0 balance 0
+Customer 25932 withdrew 0 balance 0
+Customer 25928 added 100 balance 100
+Customer 25928 withdrew 83 balance 17
+Customer 25929 added 79 balance 96
+Customer 25931 added 31 balance 127
+Customer 25931 withdrew 36 balance 91
+Customer 25931 added 88 balance 179
+Customer 25931 withdrew 76 balance 103
+Customer 25931 added 2 balance 105
+Customer 25930 added 41 balance 146
+Customer 25930 withdrew 47 balance 99
+Customer 25932 added 90 balance 189
+Customer 25932 withdrew 12 balance 177
+Customer 25928 added 17 balance 194
+Customer 25928 withdrew 63 balance 131
+Customer 25930 added 29 balance 160
+Customer 25930 withdrew 17 balance 143
+Customer 25930 added 0 balance 143
+Customer 25932 added 8 balance 151
+Customer 25932 withdrew 5 balance 146
+Customer 25932 added 56 balance 202
+Customer 25928 added 59 balance 261
+</pre>
+</div>
+
+<p>
+In order to have this work, we need two things: shared memory, and synchronization.  Shared memory will allow our processes to all change the balance of the account.  Synchronization will prevent them from coming up with the wrong result.  For example, when I run my program without synchronization, I get the following output:<p>
+<div class="boxed">
+<pre>
+Customer 25857 removed 71 balance 29
+Customer 25858 removed 29 balance 0
+Customer 25859 removed 0 balance 0
+Customer 25860 removed 0 balance 0
+Customer 25861 removed 0 balance 0
+Customer 25858 added 71 balance 71
+Customer 25858 removed 38 balance 33
+Customer 25857 added 57 balance 90
+Customer 25857 removed 54 balance 36
+Customer 25858 added 58 balance 94
+Customer 25858 removed 8 balance 86
+Customer 25859 added 90 balance 176
+Customer 25859 removed 77 balance 99
+Customer 25859 added 30 balance 129
+Customer 25859 removed 7 balance 122
+Customer 25861 added 29 balance 151
+Customer 25861 removed 24 balance 127
+Customer 25860 added 57 balance 184
+Customer 25860 removed 98 balance 86
+Customer 25861 added 23 balance 109
+Customer 25861 removed 17 balance 92
+Customer 25861 added 29 balance 121
+Customer 25859 added 12 balance 133
+Customer 25860 added 69 balance 133
+Customer 25860 removed 59 balance 74
+Customer 25857 added 72 balance 146
+Customer 25857 removed 0 balance 146
+Customer 25860 added 24 balance 170
+Customer 25858 added 52 balance 222
+Customer 25857 added 4 balance 226
+</pre>
+</div><p>
+Note there are multiple instances of the wrong balance being calculated, for instance:
+<pre>
+Customer 25859 added 12 balance 133
+Customer 25860 added 69 balance 133
+</pre>
+This happens when we switch processes before the first process is done with its calculation, resulting in both processes using the orignal starting balance - essentially the first transaction is over written by the second.  In order to fix this, we must use a lock when we are altering the balance, to ensure only once process at a time can change the balance. Note: We will need to use processes directly for this part of the lab, rather than using a process pool. <p>
+
+<div class="boxed">
+<h4>Shared Memory</h4><p>
+For shared memory, we will use the RawValue type available in python's multiprocessing module.  It takes a code that indicates the type of the variable we want to share, and a value.  To create a shared integer of value 0:
+<pre>
+v = RawValue("i",0)
+</pre><p>
+To access the value of that integer:
+<pre>
+v.value
+</pre>
+
+<h4>Locks</h4><p>
+A lock is an object that only one process can "hold" at a time.  To create a lock:
+<pre>
+l = Lock()
+</pre>
+Now, if we want to use that lock so that only a single process can change the value of v, we have a process acquire the lock before it alters the value, and release it afterwards, like so:
+<pre>
+l.acquire()
+v.value = v.value - 10
+l.release()
+</pre>
+Note that it is VERY important you always release the lock after you acquire it - otherwise, no other processes will be able to acquire the lock, and your program will hang forever.<p>
+
+<h4>Sleeping</h4><p>
+Recall that we want our customers to wait a random amount between withdrawing and adding money.  To do this, we will use the <tt>time.sleep</tt> method, which causes a process to "sleep" (i.e. do nothing) for a specified amount of time. You will need to make sure to import the time class. To sleep for n seconds:
+<pre>
+time.sleep(n)
+</pre> 
+</div>
+
+<h3>Program Outline</h3>
+
+<ol>
+<li>Start by creating an Account class, with an init method that takes in a RawValue (used as the account balance), and a Lock, and saves them.
+<li>Create a method <tt>add(customer_number, amount)</tt> that adds the amount to the balance, and prints out the customer number, amount and balance.  Make sure you use the RawValue for the balance, and that you use locks correctly to make your code safe for multiple processes.
+<li>Create a method <tt>withdraw(customer_number, amount)</tt> that checks if amount is greater than balance, and then either withdraws all of the available funds (if the balance is smaller than amount), or the amount specified (if the balance is greater than amount).  You should update the balance (using locking), print out the customer number, amount withdrawn, and new balance, and return the amount sucessfully withdraw.  The balance should never be able to go below 0.
+<li>Outside of the Account class, create a method <tt>Customer(account)</tt>.  In this method, withdraw a random amount between 0 and 100 from account, then sleep for a random amount between 0 and 5, then add a random amount between 0 and 100 to the account.  (You will probably want to use the <tt>random.randint</tt>method.)  Do these things (withdraw, sleep, add) 3 times.  Use the pid of the current process as the customer number.
+<li>Create a new RawValue of type "i", and set it to 100.  Create a new Lock.  Create a new account with this RawValue and Lock.
+<li>Create 5 Processes with target Customer and argument of your new account.  You should NOT use a process pool - instead create the processes yourself.  Start the processes.
+<li>Look over your output to ensure that they are outputting the correct values.
+</ol>
+
+  
+
+
+
+<h2>Handin</h2>
+
+<p> If you followed the Honor Code in this assignment, insert a
+paragraph attesting to the fact within one of your <tt>.py</tt> files.</p>
+
+<blockquote class="honor">
+  <p class="centered"> <q class="honor">I
+affirm that I have adhered to the Honor Code in this assignment.</q>
+  </p>
+</blockquote>
+
+<p> You now just need to electronically handin all your files. As
+a reminder
+</p>
+
+<pre> 
+     % <span class="typed">cd</span>             # changes to your home directory
+     % <span class="typed">cd cs150</span>       # goes to your cs150 folder
+     % <span class="typed">handin</span>         # starts the handin program
+                      # class is 150
+                      # assignment is 11
+                      # file/directory is lab11
+     % <span class="typed">lshand</span>         # should show that you've handed in something
+</pre>
+
+<p> You can also specify the options to handin from the command
+line
+</p>
+
+<pre> 
+     % <span class="typed">cd ~/cs150</span>     # goes to your cs150 folder
+     % <span class="typed">handin -c 150 -a 11 lab11</span>
+</pre>
+<br>
+<h4>File Checklist</h4>
+<br>
+
+You should have submitted the following files:
+
+<pre>
+   hello.py
+   monte.py
+   monte_readme.txt
+   account.py
+</pre>
+<br>
+
+
+</body>
+</html>
+

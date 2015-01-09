@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>CS 150 - Lab 07</title>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<link rel="stylesheet" type="text/css" href="labs.css">
+</head>
+<body>
+<br>
+    <div id='container'>
+	<div id='top'>
+
+
+	    <h1><a href="http://www.cs.oberlin.edu/~ctaylor/150/" style="text-decoration:none; color:black">Lab 07</a></h1>
+	    <b>Scavenger Hunt</b><br>
+	    <em>Due by 10pm on Tuesday, October 28th</em>
+	    <br>
+	    <br>
+
+	</div>
+	<div id='top'>
+
+
+<p>
+Congratulations!  You've unlocked part 2!
+</p>
+
+<h2>Part 2 - Decryption</h2>
+<b><i>10 points, individual</b></i>
+
+
+<p>
+If you haven't already, save the file <a href="code.txt">code.txt</a> to your working folder.  This file contains the instructions for the next part.  Unfortunately, some bozo has encrypted it.  Fortunately, the encryption used by said bozo wasn't too complex, so decryption should be pretty straight forward.  In particular, what we have here is what is known as a cipher shift encoding.  Each letter has been "shifted" forward some number of letters.  For example, if the shift was by 3, then 'a' would become 'd', 'b' would become 'e', etc.  Things that are in this way pushed off the end of the alphabet wrap around, so 'z' would become 'c'.  
+</p>
+
+<p>
+You're going to write a program called <tt>decrypt.py</tt> to undo the shift.  You could simply try all 26 possible shift values and see if any of them make sense.  One nifty fact: in a typical chunk of English text, the letter 'e' appears more often than any other letter.  So the first thing you'll need to do is run through the file and count how many occurrences there are of letter from a to z.  This requires you to first read in a file (look back at <a href="../lab05/lab05.html">lab05</a> if you need to remind yourself how to do that), and then count characters.  You'll want to create a list of 26 integers, all initially set to 0, to store your letter counts.
+</p>
+
+<p>
+But how do you tell if a particular character is a letter, rather than a space, a number or some other symbol?  Or tell what letter it is without resorting to 26 tedious if-statements?  Fortunately, every character is associated with an integer.  The two most common encodings are ASCII and Unicode.   In both of these, the letter 'a' corresponds to 97, 'b' to 98, and so on, up until 'z' which maps to 122.  You can get the associated number for a character <tt>c</tt> using the <tt>ord(c)</tt> function.  For example, <tt>ord('b')</tt> will return <tt>98</tt>.  To go in the reverse direction, <tt>chr(x)</tt> generates a string containing the character whose number is <tt>x</tt>.  So <tt>chr(121)</tt> will return <tt>'y'</tt>.  Try printing out the characters for all numbers up to 1000 to see some of the symbols your computer knows about. 
+</p>
+
+<p>
+Now you've got the pieces needed to count the number of occurences of each character in the encrypted text.  As you read symbols from the file, you'll know you found a letter if the corresponding number lies between 97 and 122 (inclusive).  Count the number of 'a's in slot 0 of your list, 'b's in slot 1, etc.  To simply matters, this test file doesn't include any capital letters (those have their own range of numerical values).  Running through the characters in the file is most easily done using a for loop on the string returned by a file's <tt>read()</tt> function, which returns the string of all characters in the file.  
+</p>
+
+<p>
+Once you've counted the letter frequencies, your program should find the letter that occurs the most often.  That should be the one that was an 'e' in the original message.  Finally, compute the appropriate shift value and shift the characters by that amount so as to decrypt and print the message.<p>
+
+You should NOT hardcode your shift value, but instead should calculate it in your program.  We will test your program on a different encoded file, with a different shift value, and will expect it to work. Note that to shift your characters, you'll need to scan through the file a second time.  If <tt>f</tt> is your file variable, then using <tt>f.seek(0)</tt> will reset the virtual cursor to the beginning of the file so you can do a second pass.
+</p>
+
+<p>
+A few things to keep in mind: when you're shifting, be careful about which direction you want to shift.  If 'g' was the most common letter, how do you need to shift the characters?  To actually do the shift, you'll want to convert to an integer, shift by the right amount, and then convert back to a character.  But if the shift moves the integer outside of the [97, 122] range, you'll need to add (or subtract) 26 to wrap back into the range.  If you're careful, mod can make this very clean and concise.  Finally, remember that you only want to apply the shift to letters; the spaces, numbers and other symbols should not be changed.
+</p>
+
+<p>
+Your final program should print the decoded message to the screen.  You don't need to write a new file with the decoded message.  Remember, there are no capital letters to worry about, and all characters that aren't letters should be left unchanged.  
+</p>
+
+<p>
+Once you've decrypted the code, you'll have part 3.  (Worth 10 points, and can be done with a partner.)
+</p>
+
+
+</div>
+</div>
+<br>
+
+</body>
+</html>
+

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>CS 150 - Lab 07</title>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<link rel="stylesheet" type="text/css" href="labs.css">
+</head>
+<body>
+<br>
+    <div id='container'>
+	<div id='top'>
+
+
+	    <h1><a href="http://www.cs.oberlin.edu/~ctaylor/150/" style="text-decoration:none; color:black">Lab 07</a></h1>
+	    <b>Scavenger Hunt</b><br>
+	    <em>Due by 10pm on Tuesday, October 28th</em>
+	    <br>
+	    <br>
+
+	</div>
+	<div id='top'>
+
+
+<p>
+Sweet!  The last step!
+</p>
+
+<h2>Part 4 - Steganography</h2>
+<b><i>10 points, partnered</b></i>
+
+
+<p>
+Steganography is the process of hiding information in an image.  If you haven't already, click here and save the file <a href="fruit.bmp">fruit.bmp</a> to your working folder.  Check it out.  Neat, huh?  A picture of fruit.  Just a regular old harmless bowl of fruit.  Or is there more here than meets the eye?    
+</p>
+
+<p>
+Actually, there is.  Embedded in this image is data.  Recall that every pixel in an image has a red, a green and a blue channel, and each channel can have one of 256 values (0 through 255).  If we were to write these numbers in binary, we'd need 8 bits: 00000000 in binary is 0, 00000101 in binary is 5, and the biggest binary number we can write, 11111111, is 255.    
+</p>
+
+<p>
+Suppose we changed the two low order bits (the right-most bits).  How much might this change the value of an 8 bit number?  Worst case, we switch those last two bits from 00 to 11 or vice-versa.  This is a change of 3.  Out of 256 possible values, this is a change of just over 1%, and again, that's in the worst case.  So this change is pretty insignificant.  You typically would have to look very closely to notice it, if you could see it at all.    
+</p>
+
+<p>
+What I've done is alter the two least bits of each channel to encode data.  I could have encoded text, but here I've simply encoded another image.  If I wanted one pixel to have a lot of red, I set the two low bits to 11.  If I wanted a fair bit of red, just a touch or red, or no red at all, I'd use 10, 01, or 00 respectively.   
+</p>
+
+<p>
+For example, if a pixel in the fruit image has a red value of 10110101, then all you really care about is that the value ends in 01, and thus indicates that the corresponding pixel in my secret image uses the second lowest possible red value.  To convert this to the appropriate value, the first thing you should do is zero out the 6 high order bits.  So 10110101 should become 00000001.  Of course, you don't have direct access to the bits here.  <em>Don't explicitly convert to binary at any point in your program!</em>  Instead, figure out what standard arithmetic and modular operations are needed to implement the conversion.  In the example above, the original binary number represents 181, and you'd like it changed to a 1.  The numbers 182 and 186 should both be changed to 2's.  
+</p>
+
+<p>
+Write a program called <tt>steganography.py</tt> that reads in the image of the fruit and effectively zeroes out the 6 high order bits for every color channel of every pixel.
+</p>
+
+<p>
+Once you've thrown out the high order bits, you could display the image, but it would look pretty dark.  Your brightest pixels would have RGB values of at most 3, so you probably wouldn't see much.  Therefore, we'll amplify the color by shifting the bits we have 6 bits to the left.  So 00000001 should become 01000000.  How do you do this bit shift?  If you pick the right number, multiplication should do the trick.  Then display the image you've uncovered.
+You'll know if it worked.
+</p>
+
+</div>
+</div>
+<br>
+
+</body>
+</html>
+

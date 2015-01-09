@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>CS 150 - PreLab 06</title>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<link rel="stylesheet" type="text/css" href="labs.css">
+</head>
+<body>
+<br>
+    <div id='container'>
+	<div id='top'>
+
+
+	    <h1><a href="http://www.cs.oberlin.edu/~ctaylor/150/" style="text-decoration:none; color:black">
+	    PreLab 06</a></h1>
+	    <b>Recursive Madeness!</b><br>
+	    <em>Due by the beginning of lecture on Wednesday, October 8th</em>
+	    <br>
+	    <br>
+
+	</div>
+	<div id='top'>
+
+
+
+<p>
+In this prelab you will formulate some of the ideas necessary to complete Lab 06. Please <b>type</b> your solutions, and hand in a paper copy before the beginning of class on Wednesday. Remember, no late prelabs allowed!
+</p>
+
+<!--
+<h2>Part 0 - Boolean Logic</h2>
+
+<div class="boxed">
+<b>1)</b> First, try to convince yourself intuitively that !(p AND q) should be equivalent to !p OR !q. (don't write anything for that part).  Then formally prove that they are equivalent by writing the complete truth table for both.  If all corresponding entries are equal, you've proved it!
+
+<br><br>
+
+<b>2)</b> Draw a digital circuit for the boolean expression !(p AND q) AND (!s OR q).  Your circuit should have three inputs and one output.
+</div>
+-->
+
+<h2>Part 0 - Recursive Output</h2>
+
+<p>
+For the following two problems, you'll work out by hand the result of method invocations of the following two recursive methods.  
+</p>
+
+<h3>Function strange</h3>
+
+<pre>
+   def strange(x) :
+      if x <= 0 :
+         return 1
+      else :
+         return 5 * strange(x-1) - 2
+</pre>
+
+<h3>Function weird</h3>
+
+<pre>
+   def weird(x) :
+      if x > 0 :
+         print(x,"",end='')
+         if x%2 == 0 :
+            weird(x-3)
+            weird(x-2)
+         else :
+            weird(x-1)
+</pre>
+
+<div class="boxed">
+<b>1)</b> What is the output of <tt>print(strange(3))</tt>
+
+<br><br>
+
+<b>2)</b> What is the output of <tt>weird(8)</tt>
+</div>
+
+<h2>Part 1 - Recursion with Numbers</h2>
+
+<p>As we have seen (or will have seen, depending on when you're looking at this), the factorial function can be computed not only using a loop, but via recursion as well.  Recall the the typical definition of factorial looks something like this:  0! = 1, 1! = 1,  2! = 2*1 = 2 and 3! = 3*2*1 = 6, and in general, n! = n*(n-1)*...*3*2*1.
+</p>
+
+<p>But we could also define the factorial function recursively as follows.  We'll use fact(n) to denote our recursive representation of n!.  We'll define fact(n) = 1 when n is 0 and fact(n) = n*fact(n-1) otherwise.  If you think about it, fact(n) gives the exact same values as n!.  
+</p>
+
+<div class="boxed">
+<b>3)</b> Give an recursive definition for n^k (n raised to the power of k).  That is, you'll probably want to define power(n,k) = ??? when k = 1 and power(n,k) = ??? otherwise.  The last component you need to fill in should involve a recursive call to power.
+
+<br><br>
+
+<b>4)</b> Give an recursive definition for the sum of the first n perfect squares.  For example, your definition should satisfy sps(1) = 1, sps(2) = 1 + 4 = 5, and sps(3) = 1 + 4 + 9 = 14.
+</div>
+
+<h2>Part 2 - Recursion with Strings</h2>
+
+<p>Here is pseudocode for recursively printing a string s in reverse</p>
+
+<pre>
+   If the length of s is 0, do nothing
+   Otherwise, print the last letter of s and reverse s with the last letter removed.
+</pre>
+
+<div class="boxed">
+<b>5)</b> Give pseudocode for a single function that recursively determines whether a string s is a palindrome (the same forwards as backwards, like "racecar").  You can find the length of s, look up characters in s, and get slices of s, but you should not use any loops.
+</div>
+
+<h2>Part 3 - Fractal Images</h2>
+
+Consider the following sequence of fractal patterns.
+</p>
+
+<p>
+<center>
+<img src="Bubbles1.bmp" border=2> <img src="Bubbles2.bmp" border=2> <img src="Bubbles3.bmp" border=2>
+<img src="Bubbles4.bmp" border=2> <img src="Bubbles5.bmp" border=2>
+<img src="Bubbles6.bmp" border=2>
+</center>    
+</p>
+
+<p>
+<center>
+Bubbles with recursive depths 1 through 6 respectively.
+</center>    
+</p>
+
+<p>
+Each pattern is built entirely out of filled in circles.  The pattern can be described recursively as a single filled circle, with four patterns of one lesser depth and half the size, offset to the northwest, northeast, southwest and southeast.
+<p>
+More precisely, at each step in the recursion, you should draw one circle in some quadrant of the canvas, and then divide that quadrant into quarters, each of which will soon contain a new circle, a quarter of the size of the old one.
+</p>
+
+<div class="boxed">
+<b>6)</b>  Assume you just drew a circle centered at coordinates x,y, and now you want to draw the four smaller circles surrounding it.  What will the x and y coordinates of the center of each small circle be?<p>
+
+<b>7)</b> Write pseudo code to recursively draw this fractal pattern.  Your function should take a recursive depth, <tt>d</tt>, representing how deep in the recursion you are, a center <tt>x,y</tt>, representing the center of the circle, and a size, <tt>r</tt>, representing the radius of the circle.  You should stop drawing when the recursive depth equals 0, and you should subtract one from the depth each time you draw recurse.  Your code should have a base case at recursive depth 0, and a recursive case.
+</div>
+
+
+
+<p>Consider the following figure.</p>
+
+<p>
+<center>
+<img src="gasketlabel.bmp" border=2> 
+</center>    
+</p>
+
+<p>
+Let A<sub>x</sub> and A<sub>y</sub> denote the x and y coordinates of the corner labelled A in the large triangle above.  Let B<sub>x</sub>, B<sub>y</sub>, C<sub>x</sub> and C<sub>y</sub> be definied similarly.  Assume P, Q and R each  lie at the midpoint of their corresponding edge in the triangle ABC.
+</p>
+
+<div class="boxed">
+<b>8)</b> Specify the x and y coordinates of P, Q and R <em> in terms of A, B and C's x and y coordinates</em>.  Don't assume that any coordinates are 0 or that there is any relationship between the points (the triangle ABC pictured happens to be fairly symmetric, but you shouldn't assume this will necessarily be the case).<p>
+
+<b>9)</b> There are two distinct recurrences we could use to create this pattern, depending on how we think about the forms.  Option 1: draw the carpet (the blue parts).  In this case, notice that for a given pattern, all the triangles are of the same size.  Thus the creation of triangles only happens as a base case in our recurrence.  Option 2: draw the holes (the yellow parts) on top of a single blue triangle.  In this case, a recursive call at any depth involves the creation of a triangle (in addition to additional recursive calls, so long as the depth is positive).  Pick one of these options, and write pseudocode to implement it.<p> 
+</div>
+<p>
+Consider the fractal patterns below.
+</p>
+
+<p>
+<center>
+<img src="Snow1.bmp" border=2> <img src="Snow2.bmp" border=2> <img src="Snow3.bmp" border=2>
+<img src="Snow4.bmp" border=2> <img src="Snow5.bmp" border=2> <img src="Snow6.bmp" border=2>
+</center>    
+</p>
+
+<p>
+<center>
+Snowflake with recursive depths 1 through 6 respectively.
+</center>    
+</p>
+
+<div class="boxed">
+<b>10) </b>Write code to draw a single side of the snowflake at recursive depth 2.  (The first depth more complicated than a triangle.) Use the following drawing methods:
+<pre>
+<tt>
+   rotate(theta)          # rotate pen theta degrees clockwise 
+   drawForward(d)         # draw a length-d line from the current position in the current direction.
+</tt>
+</pre>
+
+
+</div>
+
+ 
+
+
+<h2>Honor Code</h2>
+
+<p> If you followed the Honor Code in this assignment, write the following sentence attesting to the fact at the top of your homework.</p>
+<blockquote class="honor">
+  <p class="centered"> <q class="honor">I
+affirm that I have adhered to the Honor Code in this assignment.</q>
+  </p>
+</blockquote>
+
+
+
+</div>
+</div>
+<br>
+
+</body>
+</html>
+

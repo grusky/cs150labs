@@ -1,0 +1,44 @@
+phase two complete, well played!
+
+save the image called starter in your working directory. you 
+will now create a cellular automaton that is similar to the 
+game of life automaton, albeit a bit simpler.  the state of 
+this automaton is depicted as a row of pixels.  each pixel 
+represents a cell in the automaton.  the initial 
+configuration of this particular image consists of just one 
+live pixel (colored red) in row 0 of the image.  the next 
+generation will be drawn on the line below, and so on, 
+filling the image.  you will be drawing each subsequent 
+iteration on the start image, beginning on line 1 (not line
+0).
+
+to decide whether a particular pixel should be live, we look
+only at the pixel above and left, directly above, and above 
+and right.  if we think of live as corresponding to 1 and 
+dead as corresponding to 0, then we can describe the state 
+of these three cells, from left to right, with three bits.  
+based on what these three bits are, we will decided whether 
+or not the current cell should become alive or not.
+
+in particular, we want to create a live cell if and only if 
+the three cells above have one of the following patterns:
+100, 010, 101, 011.  for example, if the pixel to the upper
+left is red, and the pixels above and above right are black 
+then we have the pattern 100 and thus the current pixel 
+should be set red.  on the other hand, if all three above 
+pixels were red, then we have 111, and should thus leave the 
+current pixel black. all pixels on the left and right border 
+(those missing either a northwest or a northeast neighbor) 
+should be left black.
+
+first write a program called cellular.java to fill out each 
+row of the image, one row at a time.  note that since you 
+only ever need to look at pixels above those that you are 
+currently setting, there is no need to backup the current 
+state as was the case with the game of life.  once you have 
+filled in the whole image, display it.  the resulting 
+picture should look somewhat familiar.  your program should
+also count the number of red pixels in the whole image.
+
+go to z.html where z is the number of red pixels in this
+image.

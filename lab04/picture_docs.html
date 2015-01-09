@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>CS 150 - Picture Class</title>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<link rel="stylesheet" type="text/css" href="labs.css">
+</head>
+<body>
+<br>
+    <div id='container'>
+	<div id='top'>
+
+
+	    <h1><a href="http://www.cs.oberlin.edu/~ctaylor/classes/150SP14/" style="text-decoration:none; color:black">Picture Class</a></h1>
+	    <b>The various functions of the picture class</b>
+	    <br>
+	    <br>
+
+	</div>
+	<div id='top'>
+
+
+
+<h2>Drawing Shapes</h2>
+
+<tt>drawOval(x,y,hrad,vrad), drawOvalFill(x,y,hrad,vrad)</tt>: Draws an empty or filled oval centered at <tt>x,y</tt> with a horizontal radius of <tt>hrad</tt> and a vertical radius of <tt>vrad</tt>.<p>
+
+<tt>drawCircle(x,y,r), drawCircleFill(x,y,r)</tt>: Draws a circle centered at <tt>x,y</tt>, with radius <tt>r</tt>.<p>
+
+<tt>drawRect(x,y,w,h), drawRectFill(x,y,w,h)</tt>: Draws a rectangle with its upper lefthand corner at <tt>x,y</tt>, with width <tt>w</tt> and height <tt>h</tt>.<p>
+
+<tt>drawSquare(x,y,side), drawSquareFill(x,y,side)</tt>: Draws a square with its upper lefthand corner at <tt>x,y</tt>, with side length <tt>side</tt>.<p>
+
+<tt>drawPolygon(vertices), drawPolygonFill(vertices)</tt>: Vertices is a list of x,y coordinates, so using this method will look something like <tt>pic.drawPolygon([(1,20),(20,20),(1,30),(20,30)])</tt>.  This will draw a shape that connects all of the vertices in order, connecting the last vertex to the first vertex.<p>
+
+<tt>drawLine(x1,y1,x2,y2)</tt>: Draws a line from point <tt>(x1,y1)</tt> to point <tt>(x2, y2)</tt>.<p>
+
+<tt>drawText(x, y, TEXT, font_name, font_size)</tt>: Writes string <tt>TEXT</tt> in font <tt>font_name</tt>, size <tt>font_size</tt>, centered at point <tt>x,y</tt>.  <tt>font_name</tt> and <tt>font_size</tt> are both strings.  Fonts available include "Arial", "Times", and "Helvetica".<p>
+
+<tt>pixel(x,y,color)</tt>:  Sets the pixel at position <tt>x,y</tt> to color <tt>color</tt>.  <tt>color</tt> is a r,g,b value, so setting the pixel at (5,5) to red would look like <tt>pic.pixel(5,5, (255,0,0))</tt>.
+
+<h2>Using the Pen</h2>
+
+<tt>setPosition(x,y), getPostion(), setPenX(x), setPenY(y)</tt>:  Move the pen to <tt>x,y</tt>.  <tt>getPosition</tt> will return the current pen position.<p>
+
+<tt>rotate(theta), setDirection(theta), getDirection()</tt>:  Changes the direction the pen will move.  <tt>rotate</tt> adds <tt>theta</tt> degrees to the angle of the pen, <tt>setDirection</tt> sets the angle to <tt>theta</tt> degrees, and <tt>getDirection()</tt> returns the current angle.<p>
+
+<tt>drawForward(distance)</tt>:  Draws a line of length <tt>distance</tt> from the current pen position, at the current pen angle.<p>
+
+<tt>setPenWidth(width), getPenWidth()</tt>:  Sets the width of the line drawn by the pen.  <tt>getPenWidth</tt> returns the current width.<p>
+
+<h2>Settings</h2>
+
+<tt>setFillColor(r,g,b)</tt>: Sets the fill color (the inside of the shape) to the color represented by the r,g,b value <tt>(r,g,b)</tt>.<p>
+
+<tt>setOutlineColor(r,g,b)</tt>: Sets the outline color to the r,g,b value <tt>(r,g,b)</tt>.<p>
+
+<tt>display()</tt>: This will update the canvas with whatever you have drawn.<p>
+
+<tt>delay(millisecond)</tt>:  This will wait <tt>millisecond</tt> milliseconds before it does anything.  This may be useful for animations.<p>
+
+<hr>
+<small>C. Taylor</small>
+</div>
+</div>
+<br>
+
+</body>
+</html>
+

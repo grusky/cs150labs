@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>CS 150 - PreLab 11</title>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<link rel="stylesheet" type="text/css" href="labs.css">
+</head>
+<body>
+<br>
+    <div id='container'>
+	<div id='top'>
+
+
+	    <h1><a href="http://www.cs.oberlin.edu/~ctaylor/150/" style="text-decoration:none; color:black">
+	    PreLab 11</a></h1>
+	    <b>Multiple Processes</b><br>
+	    <em>Due by the beginning of lecture on Wednesday, November 19th</em>
+	    <br>
+	    <br>
+
+	</div>
+	<div id='top'>
+
+
+
+<p>
+This week you will experiment with running multiple processes at the same time.
+</p>
+
+
+<h2>Part 1 - Creating a Process</h2>
+
+This week, we will be working with the python multiprocessing module, which allows us to run multiple processes at the same time.  To create a new process, you will first create a function that does whatever you want your process to do, and then call
+<pre>
+p = Process(target=function_name, args=(yourargs,))
+</pre>
+to create the process, and <tt>p.start()</tt> to run the process.  Note that process uses named arguments: you will always need to put "target=" before the function name, and "args=" before the arguments.  Also note that the arguments are passed in as a tuple.<p>
+
+<div class="boxed">
+1. Write code that creates a process that takes in an argument "name", and prints "Hi name".<p>
+2. How many times will the code below print "Hello"?
+
+<pre>
+def printAndSpawn(n):
+
+    print("Hello")
+    for i in range(n):
+        p = Process(target=printAndSpawn, args=(n-1,))
+        p.start()
+
+p = Process(target=printAndSpawn, args=(3,))
+p.start()
+</pre>
+</div>
+
+<h2>Process Pools</h2><p>
+A process pool is a way to create a number of threads, and have them all do the same task.  To create a pool of processes, where n is the number of processes you wish to create:
+<pre>
+pool = Pool(processes=n)
+</pre>
+To run the processes, you will use the <tt>Pool.map</tt> function.  The map function takes in a function, f, and a list of arguments, with the length of the list equal to the number of processes.  (Essentially, you are handing in separate arguments for each process, in the form of a list. Note that this means your function will need to take a single argument, although that argument can be a list or a tuple.)  It returns a list of the return values from the processes.  This will look like:
+<pre>
+results = pool.map(f, args_array)
+</pre>
+
+<div class="boxed">
+3.  Write code that takes in a list of numbers, creates a process pool of 4 processes, and has each process mergesort one fourth of the list.  You should merge the 4 sorted lists together after they are returned by the processes.  Assume you have access to a working merge function, but not a mergesort function.
+</div>
+
+<h2>Synchronization and Locks</h2>
+It frequently makes sense for processes to be able to access the same variables, so they can work together.  However, this can be very dangerous, as we will get incorrect results if two or more processes modify the same variable at the same time.  To avoid this, we will use something called a Lock, which will only allow one process at a time to access a variable.<p>
+
+<div class="boxed">
+4. Write psuedo code for an Account class that simulates a bank account, with methods to add and withdraw money from the account.<p>
+5. Assume you have multiple processes using the same account to add and withdraw money.  Which sections of code will you need to protect in order to not allow multiple processes to modify the same variable at once?
+</div> 
+
+
+
+
+</body>
+</html>
+

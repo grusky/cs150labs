@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<title>CS150 | Installing Python 3 & Komodo Edit</title>
+<link rel="stylesheet" type="text/css" href="labs.css">
+<style type="text/css">
+	img {
+		border: 5px solid #333333;
+		margin: 20px;
+		text-align: center;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		position: relative;
+	}
+	h1 {
+		font-weight: bold;
+	}
+<!--	.container {
+		margin-left: 100px;
+		margin-right: 100px;
+		position: relative;
+	}
+	-->
+		
+</style>
+</head>
+<body>
+<br>
+<div id="container">
+	<div id='top'>
+	<h1>Installing Komodo Edit and Python 3</h1>
+	</div>
+
+	<div id='top'>
+
+	<h2>Installing Python 3</h2>
+	<ul>
+		<li><b>For mac:</b> Go <a href="http://www.python.org/getit/">here</a> to get Python 3.</li>
+		<li>Download Python 3.3.0.</li>
+		<li>Double click on the Python.mpkg file (inside of the .dmg file you just downloaded); you'll be greeted with a screen that looks something like this:
+			<img src="img1.png"/>
+		</li>
+		<li>Follow the installation instructions.</li>
+		<li>You now have python on your computer! Yay! </li>
+	</ul>
+	
+	<h2>Installing Komodo Edit</h2>
+	<ul>
+		<li>Click <a href="http://www.activestate.com/komodo-edit">here</a> to download Komodo Edit.</li>
+		<li>Make sure that you are downloading the <i>free</i> version, and not the IDE.</li>
+		<li>Follow the installer's instructions!</li>
+		<li>To run Komodo, you can just find it in your applications, by searching on spotlight, etc! </li>
+		<li><b>NOTE:</b> It can take a while for Komodo to start up for the first time.</li>
+	</ul>
+		
+		
+	<h2>Using Terminal (on a mac)</h2>
+	<p>Type Terminal into spotlight, like this:
+	<img src="terminal.png"/>
+	Alternatively, you can go to Appliations>Terminal. To run python programs, type "python3 progName.py", or whatever the name
+	of your program is. It'll run as such.
+	<img src="ex.png"/>
+	</p>
+	
+	<h2>Submitting labs remotely (on a mac)</h2>
+	<ul>
+		<li>Open terminal.</li>
+		<li>To copy files onto the CS server: if your files are in the directory "lab1", you can type: "scp -r lab1 your_username@cs.oberlin.edu:~/cs150" to 
+		copy all of the files into your CS150 folder. You can replace lab1 with whatever the name of your path is.</li>
+		<li>Type "ssh your_username@cs.oberlin.edu". Replace your_username with the username you use to log into CS machines.</li>
+		<li>Type "cd cs150", or whatever the name of your 150 directory is.</li>
+		<li>Assuming lab1 is already in there, type "handin".</li>
+		<li>You should be prompted for a class number, assignment number, and the directory of your submission. Your class number is <b>150</b>, your
+		assignment number is <b>1</b> (<u>not</u> 01, lab01, or lab1), and the directory of your submission is whatever you named it! So, 
+		usually just "lab1".</li>
+		<li>You should get confirmation that the lab was successfully handed in. You can also type "lshand" into the terminal to see your
+		submitted assignment.</li>
+		<img src="term2.png"/>
+		<li>To exit OCCS, type "exit".</li>
+	</ul>
+		
+</div>
+</body>
+</html>

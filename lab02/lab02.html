@@ -1,0 +1,660 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+<title>CS 150 - Lab 02</title>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<link rel="stylesheet" type="text/css" href="labs.css">
+</head>
+<body>
+<br>
+    <div id='container'>
+	<div id='top'>
+
+
+	    <h1><a href="http://www.cs.oberlin.edu/~ctaylor/150/" style="text-decoration:none; color:black">Lab 02</a></h1>
+	    <b>The Basics</b><br>
+	    <em>Due by 10pm on Tuesday, September 16th </em>
+	    <br>
+	    <br>
+
+	</div>
+	<div id='top'>
+
+
+
+<p style="text-align:justify">
+In this lab you will create programs which put to use some of the week's topics.  You'll aso be introduced to some useful new constructs.  By the end of the lab, you will have:
+</p>
+<ul>
+    <li>Become comfortable using variables and mathematical expressions</li>
+    <li>Used for-loops to solve a variety of programming problems</li>
+    <li>Generated simple ASCII graphics with nested loops.</li>
+</ul>
+
+Just as in last week, each part of the lab is marked either "partner" or "individual."  For sections marked "partner", you may optionally work with one other person.  If you do this, you must work together on all of the components - you cannot split up the parts and each do half.  You must work with the same partner on all partner sections of the lab.  If you opt to work with a partner, one partner should submit the files with both of your names on top, and the other partner should submit a README file with the name of the partner who submitted the files.<p>
+
+
+As with <a href="../lab01/lab01.html">last week's lab</a> you should create a <tt>lab02</tt> directory in which to store all your work for this assignment:
+
+<pre>
+    % <span class="typed">cd</span>                 # takes you to your home directory 
+    % <span class="typed">cd cs150</span>           # enters your 'cs150' folder
+    % <span class="typed">mkdir lab02</span>        # creates lab02 folder cwd
+    % <span class="typed">cd lab02</span>           # goes into that folder     
+    % <span class="typed">pwd</span>                # confirms you are in the appropriate directory
+</pre>
+
+<p style="text-align:justify">
+For future labs, the above steps won't be stated explicitly, but in general you should create the appropriate folder at the start of each new lab.
+</p>
+
+<p style="text-align:justify">
+Also, don't forget that you've already done a lot of non-programming work on your <a href="prelab02.html">prelab</a>.  You should always look over your corrected prelab and the solutions to the prelab (available on Blackboard) before you start the lab.
+</p>
+
+
+<br>
+<h2>Part 1 - Loopin'</h2>
+
+<p style="text-align: justify;">
+In this portion of the lab you'll be building a bunch of short programs that utilize for-loops.
+</p>
+
+
+<h3>Beer!</h3><p>
+<b><i>beer.py: 4 points, individual</i></b>
+
+<p style="text-align: justify;">
+We imagine you are all familiar with the song 'Ninety-Nine Bottles of
+Beer on the Wall', but just in case, the first verse is
+</p>
+
+<blockquote><i>
+99 bottles of beer on the wall<br>
+99 bottles of beer!<br>
+Take one down, pass it around<br>
+98 bottles of beer on the wall!<br>
+</i></blockquote>
+
+<p style="text-align: justify;">
+<b>Define the Problem:</b><br>
+Write a program called <tt>beer.py</tt> that prints out all 99 verses of the song.<br>
+<b>input:</b> none.<br>
+<b>goal:</b> prints all verses of the beer song to the console.<br>
+</p>
+
+
+<br>
+<p style="text-align: justify;">
+<b>Understand the Problem:</b><br>
+You should thinkg about the first few verses of the song. The first verse is given above; what changes between the first and the second verse? Between the second and the third? What does the last verse look like?
+</p>
+
+
+<br>
+<p style="text-align: justify;">
+<b>Design the Algorithm:</b><br>
+Now it is time to think precisely about how you will solve this problem.
+Your solution should
+<em>not</em> copy and paste hundreds of lines of print statements.  Instead, create a much shorter program by taking advantage of the power of the for-loop.  
+<p style="text-align: justify;">
+Again, don't worry about grammar - it's fine if you have "1 bottles of beer on the wall".
+</p>
+
+<br>
+<p style="text-align: justify;">
+<b>Implement a Design:</b><br>
+Once you think you have an algorithm written down in pseudocode, start writing your actual program in Python.
+</p>
+<p style="text-align: justify;">
+Use a constant 
+<tt>NUM_BOTTLES</tt> to represent the number of bottles and use this in your for-loop.
+A constant is just a variable whose value never changes throughout the course of the program. Although this is not enforced in Python (there is nothing stopping you from changing its value), in other languages it may be, so it is a good concept to learn. By convention, we use ALL CAPS for the names of constants, so that you can recognize them easliy. By using a constant, you can now easily change the number of verses without looking through your program for all instances of "99" (i.e. your program is more easily <em>maintained</em>). As an added benefit, it also makes your code more readable.
+
+</p>
+
+
+<br>
+<p style="text-align: justify;">
+<b>Test the Program:</b><br>
+Once your program works with 99 bottles, try changing your constant to other values (for example: 10 bottles, 0 bottles, 1 bottle, etc.) and make sure that it works.
+</p>
+<br>
+<p style="text-align: justify;">
+<b>Handin:</b><br>
+It is a good habit to handin your files every time you finish a program, to make sure that we have up-to-date copies (in case something happens to your files, or you forget to handin at the end). So take a minute now to run the handin command (instructions are at the bottom of every lab), then continue with the next portion of the lab. You can hand in as many times as you want; each submission is distinct and time-stamped, and the graders will grade the latest one available.
+</p>
+<br>
+
+
+
+<br>
+<h3>Sequence</h3><p>
+<b><i>sequence.py: 5 points, individual</b></i>
+
+<br>
+<p style="text-align: justify;">
+<b>Define the Problem:</b><br>
+Write a program called <tt>sequence.py</tt> that lists the squares of all integers from some starting number down to one.<br>
+<b>input:</b> get a number <tt>start</tt> from the user.<br>
+<b>goal:</b> compute and print the list of squares starting from <tt>start</tt><sup>2</sup> down to 1<sup>2</sup>.
+</p>
+
+<br>
+<p style="text-align: justify;">
+<b>Understand the Problem:</b><br>
+For example, if <tt>start</tt> is 6 then the output of the program would be
+
+<pre>
+   <span class="typed">Squares from 36 down to 1:
+   36, 25, 16, 9, 4, 1</span>
+</pre>
+</p>
+
+<p style="text-align: justify;">
+Be sure to use the formatting given above, with a comma and a space after each number except for the final 1.  (Hint: You might need to print the 1 out separately from the other numbers.) (If you need a refresher in how to format your print statements nicely, go back to <a href="../lab01/lab01.html#PrintFormat">lab 01</a>.)
+</p>
+
+<br>
+<p style="text-align: justify;">
+<b>Design an Algorithm:</b><br>
+Think about the main steps of the program. Presumably step 1 is to get the input from the user. Then you have to figure out how to print the squares in the right order to the console, with the correct formatting. Write out the pseudocode before you touch the keyboard!
+</p>
+
+<br>
+<p style="text-align: justify;">
+<b>Implement a Design:</b><br>
+Now that you have a promising algorithm, it is time to put it into Python code. Go ahead and write up that program.
+</p>
+
+<br>
+<p style="text-align: justify;">
+<b>Test the Program:</b><br>
+If your syntax is correct, it is time to run your program with a variety of inputs. Try n=6 (because you know what the answer should look like), but also try other values of n, such as n=0, 1, 10, etc.
+</p>
+<br>
+<p style="text-align: justify;">
+<b>Handin:</b><br>
+It is a good habit to handin your files every time you finish a program, to make sure that we have up-to-date copies (in case something happens to your files, or you forget to handin at the end). So take a minute now to run the handin command (instructions are at the bottom of every lab), then continue with the next portion of the lab. You can hand in as many times as you want; each submission is distinct and time-stamped, and the graders will grade the latest one available.
+</p>
+<br>
+
+
+<br>
+<br>
+<h3>Fibonacci</h3><p>
+<b><i>fibonacci.py: 5 points, individual</i></b>
+
+
+<p style="text-align: justify;">The Fibonacci numbers are a sequence of integers defined by the following recurrence relation
+</p>
+
+<p style="text-align: center;"><img src="fibdefn.png" alt=""></p>
+
+<br>
+<p style="text-align:justify">
+<b>Describe the Problem:</b><br>
+Write a program called <tt>fibonacci.py</tt> that computes the <tt>n</tt>th Fibonacci number<br>
+<b>input:</b> get a positive integer <tt>n</tt> &gt; 2 from the user.<br>
+<b>goal:</b> compute and output the <tt>n</tt>th Fibonacci number.<br>
+</p>
+
+<br>
+<p style="text-align:justify">
+<b>Understand the Problem:</b><br>
+For example, the first six Fibonacci numbers are 1, 1, 2, 3, 5, 8.
+A run of the program might appear as follows
+</p>
+
+<pre>
+   <span class="typed">My incredible Fibonacci number generator!
+   
+   Please enter an integer: 8
+   The 8th number in the Fibonacci sequence is 21.</span>
+</pre>
+
+<br>
+<p style="text-align:justify">
+<b>Design an Algorithm:</b><br>
+Write down pseudocode describing how you would solve this problem. Try to use enough detail so that it ressembles code, but not so much jargon that it is Python-specific and unintelligible to non-coders.<br>
+
+<br>
+A few suggestions:
+
+<ul>
+    <li>Remember that you calculated the Fibonacci numbers by hand on your <a href="prelab02.html">prelab</a>; if you're stuck on your algorithm, try to "explain" to the computer what you were doing yourself, by hand.
+    <li>Use two variables, say <tt>current</tt> and <tt>previous</tt>. Initialize <tt>current=1</tt> and <tt>previous=1</tt>. </li>
+
+    <li>Now run a for-loop; in each iteration you should simultaneously update <tt>current</tt> and <tt>previous</tt>.  Update <tt>current</tt> to be <tt>current+previous</tt>.  What should we update <tt>previous</tt> to?  And why is it important that we do these updates at the same time?</li>
+    </ul>
+    </p>
+    
+
+<br>
+<p style="text-align:justify">
+<b>Implement a Design:</b><br>
+Translate your pseudocode into a Python program named <tt>fibonacci.py</tt>.
+Although your final program should only print the requested Fibonacci number, you may want to temporarily include print statements within your loop so you can make sure the program is doing what you intended.
+</p>
+
+<br>
+<p style="text-align:justify">
+<b>Test the Program:</b><br>
+Try running your program with a variety of inputs. Try n=8 (because you know the answer) and n=14 (you did this on your <a href="prelab02.html">prelab</a>). Also try n=0,1,2, etc. and check that what it returns makes sense.
+</p>
+<br>
+<p style="text-align: justify;">
+<b>Handin:</b><br>
+Just another reminder to run the handin command to hand in your files.
+</p>
+<br>
+
+
+<br>
+<br>
+<h3>Interesting</h3><p>
+<b><i>interest.py: 5 points, partner</i></b>
+<p style="text-align:justify">
+In light of the recent economic meltdown, you've decided to take a more conservative approach with your financial portolio; as of today, you're getting rid of all your sub-prime morgage securities, all your toxic assets (what were you thinking?), and your considerable stockpile of pork bellies.  
+</p>
+
+<p style="text-align:justify">
+To play it safe, you're going to put your money into a savings account.  This account earns a fixed percentage of interest every month.  Assuming you make reguar, monthly deposits as well, you'd like to know how much you'll have after a given number of month, assuming your monthly contribution occurs <em>after</em> interest is accrued. 
+</p>
+
+<br>
+<p style="text-align:justify">
+<b>Describe the Problem:</b><br>
+Write a program called <tt>interest.py</tt> with the following functionality.
+<br>
+<b>input:</b> get an initial deposit, a monthly interest rate, a monthly deposit, and a number of months <tt>n</tt> from the user.<br>
+<b>goal:</b> compute and output the total money in your possession at the end of <tt>n</tt> months.<br>
+</p>
+
+<br>
+<p style="text-align:justify">
+<b>Understand the Problem:</b><br>
+For example, suppose your initial savings is $100, the monthly interest rate is 1%, and you plan on contributing $20 a month.  Then during the first month, you'd get $1 of interest (100 * 0.01) followed by another $20 from your regular contribution.  So you'd end the first month with $121.  On the second month, your interest would be $1.21 (i.e., 121 * 0.01), which, together with you fixed $20, leaves you with $142.21. 
+</p>
+
+<p style="text-align:justify">
+After the third month, you'd have $163.63.  Technically, the amount you'd have on month 3 would be $163.6321, but most accounts don't keep track of fractions of pennies (as fans of the movie Office Space may know), so you'll want to cut off anything below 2 decimal places.  
+</p>
+
+<p>A run of the program might appear as follows.
+<div class="boxed">
+<h4>Sample Output</h4>
+<br>
+
+<pre>
+   Welcome to the Interest Calculator!
+   
+   Enter your initial savings: 100
+   Enter the monthly interest rate: 0.01
+   Enter your monthly contribution: 20
+   How many months would you like computed: 3
+   
+   Initially you put in $100
+   After month 1 you would have $121
+   After month 2 you would have $142.21
+   After month 3 you would have $163.63
+</pre>
+</div>
+<br>
+
+<br>
+<b>Design an Algorithm:</b>
+<p style="text-align: justify;">
+Write pseudocode that solves this problem. As with the previous problem, give enough detail to be using loops and variables, use Python-like indentation, but try to avoid Python-specific syntax.
+</p>
+
+<br>
+<b>Implement a Design:</b>
+<p style="text-align: justify;">
+Translate your pseudocode into a Python program named <tt>interest.py</tt>.
+</p>
+<p style="text-align: justify;">
+As pointed out above, you'll need to truncate your output to 2 decimal places.
+One clever way to do this: first multiply your value by 100 (now your number represents cents).  Next, "cast" that number as an int (this means converting the number to an integer, which effectively tosses out any fraction of a cent that might have been there).  You use <em>int(x)</em> to produce the value of <em>x</em> cast as an integer.  You could accomplish the same thing by doing integer division by 1.  Either way, you now have a whole number of cents.  Real division by 100 should get you what you're looking for.  Note that trailing zeros after the decimal place will not print out when you print the number (so 123.10 will print as "123.1" and 123.00 will print as "123".)  This is fine.
+</p>
+
+<br>
+<b>Test the Program:</b>
+<p style="text-align: justify;">
+Run your program on a variety of inputs. You should certainly try the example given above, up to 5 months (you calculated this on your <a href="prelab02.html">prelab</a>).
+<br>
+<p><em>Note:</em> If your answers are off by a cent here or there, don't worry, it is most likely just a rounding error.<p>
+
+<br>
+<p style="text-align: justify;">
+<b>Handin:</b><br>
+Just another reminder to run the handin command to hand in your files.
+</p>
+<br>
+<br>
+<h2>Part 2 - Patterns, Patterns Everywhere</h2>
+
+<p style="text-align:justify">
+In the next batch of problems, we're going to be looking for patterns in sequences of figures.  For each problem, a few figures are given, each of which made out of ASCII characters and is associated with an index (a number). Your task is to first determine the pattern that dictates how a particular figure in the sequence relates to the corresponding number. Then you'll write a program that generates an arbitrary figure from the given sequence.
+</p>
+
+<p style="text-align:justify">
+<b>Describe the Problem:</b><br>
+For each pattern X, write a program called <tt>patternX.py</tt> that generates the appropriate pattern.<br>
+<b>input:</b> get a positive integer <tt>n</tt> that represents the index of your pattern.<br>
+<b>output:</b> print the appropriate pattern to the console.<br>
+</p>
+
+
+<p style="text-align:justify">
+<b>Understand the Problem:</b><br>
+For example, below are some indices (the numbers on the left) and their associated figures for Pattern A.
+</p>
+
+<h3>Pattern A</h3><p>
+<b><i>patternA.py: 2 points, individual</b></i>
+
+<p style="text-align: justify;">
+For your first program (<tt>patternA.py</tt>), consider the pattern shown below
+</p>
+<br>
+
+<ol start="3">
+    <li>
+    <pre>
+    1 2 3
+    1 2 3
+    1 2 3
+    </pre>
+    </li>
+
+    <li>
+    <pre>
+    1 2 3 4
+    1 2 3 4
+    1 2 3 4
+    1 2 3 4
+    </pre>
+    </li>
+    
+     <li>
+    <pre>
+    1 2 3 4 5
+    1 2 3 4 5
+    1 2 3 4 5
+    1 2 3 4 5
+    1 2 3 4 5
+    </pre>
+    </li>
+</ol>
+
+<p style="text-align:justify">
+<b>Design an Algorithm:</b><br>
+<p style="text-align: justify;">
+You can probably see what's happening; figure n consists of n rows, each of which includes all numbers from 1 to n.  Therefore your algorithm will need to first get an integer n from the user.  Then you'll loop over rows from 1 to n.  And for each row, you'll use a nested loop to print the digits from 1 to n, separated by spaces. In particular, the psuedocode may be:
+<ul>
+<li>Get the index <tt>n</tt> from the user.
+<li>For each i from 1 to n<br>
+<ul>
+<li>print out line i of figure n, which consists of all numbers from 1 to n separated by spaces
+</ul>
+</ul>
+Similarly, your algorithm for patterns B, C, D, E and N should 
+generate arbitrary figures from the patterns below.
+</p>
+
+<br>
+<p style="text-align:justify">
+<b>Implement a Design:</b><br>
+Translate your pseudocode into Python programs named <tt>patternX.py</tt> (where X ranges over A, B, C, D, E, and N.)
+</p>
+
+
+<h3>Pattern B</h3><p>
+<b><i>patternB.py: 2 points, individual</b></i>
+<br>
+<ol start="3">
+    <li>
+    <pre>
+    1 1 1
+    2 2 2
+    3 3 3
+    </pre>
+    </li>
+
+    <li>
+    <pre>
+    1 1 1 1
+    2 2 2 2
+    3 3 3 3
+    4 4 4 4
+    </pre>
+    </li>
+    
+     <li>
+    <pre>
+    1 1 1 1 1
+    2 2 2 2 2
+    3 3 3 3 3
+    4 4 4 4 4
+    5 5 5 5 5
+    </pre>
+    </li>
+</ol>
+
+<h3>Pattern C</h3><p>
+<b><i>patternC.py: 2 points, partner</b></i>
+<br>
+<ol start="3">
+    <li>
+    <pre>
+    1 2 3
+    2 3
+    3 
+    </pre>
+    </li>
+
+    <li>
+    <pre>
+    1 2 3 4
+    2 3 4
+    3 4
+    4
+    </pre>
+    </li>
+    
+     <li>
+    <pre>
+    1 2 3 4 5
+    2 3 4 5
+    3 4 5 
+    4 5
+    5
+    </pre>
+    </li>
+</ol>
+
+<h3>Pattern D</h3><p>
+<b><i>patternD.py: 5 points, partner</b></i>
+
+<ol start="3">
+    <li>
+    <pre>
+    1 
+    1 2 2 
+    1 2 2 3 3 3
+    </pre>
+    </li>
+
+    <li>
+    <pre>
+    1 
+    1 2 2 
+    1 2 2 3 3 3
+    1 2 2 3 3 3 4 4 4 4
+    </pre>
+    </li>
+    
+     <li>
+    <pre>
+    1 
+    1 2 2 
+    1 2 2 3 3 3
+    1 2 2 3 3 3 4 4 4 4
+    1 2 2 3 3 3 4 4 4 4 5 5 5 5 5
+    </pre>
+    </li>
+</ol>
+
+<h3>Pattern E</h3><p>
+<b><i>patternE.py: 5 points, partner</b></i>
+
+<ol start="1">
+    <li>
+    <pre>
+    ***
+    *
+    **
+    *
+    ***
+    </pre>
+    </li>
+ 
+    <li>
+    <pre>
+    ****
+    *
+    *
+    ***
+    *
+    *
+    ****
+    </pre>
+    </li>
+
+    <li>
+    <pre>
+    *****
+    *
+    *
+    *
+    ****
+    *
+    *
+    *
+    *****
+    </pre>
+    </li>
+    
+</ol>
+
+<h3>Pattern N</h3><p>
+<b><i>patternN.py: 5 points, individual</b></i>
+
+<ol start="2">
+    <li>
+    <pre>
+    *  *
+    ** *
+    * **
+    *  *
+    </pre>
+    </li>
+ 
+    <li>
+    <pre>
+    *   *
+    **  *
+    * * *
+    *  **
+    *   *
+    </pre>
+    </li>
+
+    <li>
+    <pre>
+    *    *
+    **   *
+    * *  *
+    *  * *
+    *   **
+    *    *
+    </pre>
+    </li>
+    
+</ol>
+
+<br>
+<p style="text-align:justify">
+<b>Test the Programs:</b><br>
+Don't forget to run your input on a variety of inputs!
+</p>
+
+
+<h2>Handin</h2>
+
+<p style="text-align:justify"> If you followed the Honor Code in this assignment, insert a
+paragraph attesting to the fact within one of your <tt>.py</tt> files.</p>
+
+<blockquote class="honor">
+  <p class="centered"> <q class="honor">I
+affirm that I have adhered to the Honor Code in this assignment.</q>
+
+  </p>
+
+</blockquote>
+
+<p> You now just need to electronically handin all your files. As
+a reminder
+</p>
+
+<pre> 
+     % <span class="typed">cd</span>             # changes to your home directory
+     % <span class="typed">cd cs150</span>       # goes to your cs150 folder
+     % <span class="typed">handin</span>         # starts the handin program
+                      # class is 150
+                      # assignment is 2
+                      # file/directory is lab02
+     % <span class="typed">lshand</span>         # should show that you've handed in something
+</pre>
+
+<p> You can also specify the options to handin from the command
+line
+</p>
+
+<pre> 
+     % <span class="typed">cd ~/cs150</span>     # goes to your cs150 folder
+     % <span class="typed">handin -c 150 -a 2 lab02</span>
+</pre>
+<br>
+<h4>File Checklist</h4>
+<br>
+
+You should have submitted the following files:
+
+<pre>
+   beer.py
+   sequence.py
+   fibonacci.py
+   interest.py
+   patternA.py
+   patternB.py
+   patternC.py
+   patternD.py
+   patternE.py
+   patternN.py
+</pre>
+<br>
+
+Remember that if you worked with a partner, one partner should turn in the files interest.py, patternC.py, patternD.py, and patternE.py, and the other partner should turn in a README file with their partner's name in it.<p>
+
+<hr>
+<small>Last Modified: June 12th, 2014 - T. Wexler, A. Sharp, S. Semsioglu, C. Taylor</small>
+</div>
+</div>
+<br>
+
+</body>
+</html>
+

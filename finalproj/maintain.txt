@@ -1,0 +1,22 @@
+Maintance Documentation for MyDiceGame, a game that lets you play dice against the computer.
+
+Program organization:
+main.py - this file contains the main loop that executes and asks players what game they would like to play, and then starts that game. 
+dice.py - this contains a class that represents die.  It takes in a constructor argument for how many sides the die has.  It has a "roll" method that will return a random number representing which side of the die landed up.
+game.py - a class that contains unimplemented game methods, such as "roll_dice" and "pass".  All individual game classes inherit from this class, and implement these methods, which are called by the loop in main.
+twentyone.py - a class that implements game methods for playing the dice game "twenty-one"
+pig.py - implements game methods for game "pig"
+yahtzee.py - implements game methods for yahtzee
+
+Techniques:
+Loops - We use loops to implement the main interaction with the player, and in the "roll_dice" method to iterate over all of the dice.  We also use them to play each game, where we have a while loop that runs until the "has_won" method of the game returns true.
+Functions - We use functions throughout the program.  All classes have a number of functions which are called in main.
+Lists - We use lists of dice for games where multiple dice are rolled.
+Exception Handling - We use this to check the user's input, and print out error messages when necessary
+
+Classes and Inheritance - We use classes for all of the games and the dice, and the individual games all inherit from one main "game" class.
+Sorting - 
+
+Lessons Learned:
+Originally we had each game have a "main" method that ran the whole game, instead of individual game methods being called from main.py.  Then we realized the games were similar enough that we could give them all the same methods, and have those called directly, and that made the program a lot simpler.
+

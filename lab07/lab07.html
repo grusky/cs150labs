@@ -1,0 +1,200 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>CS 150 - Lab 07</title>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<link rel="stylesheet" type="text/css" href="labs.css">
+</head>
+<body>
+<br>
+    <div id='container'>
+	<div id='top'>
+
+
+	    <h1><a href="http://www.cs.oberlin.edu/~ctaylor/150/" style="text-decoration:none; color:black">Lab 07</a></h1>
+	    <b>Scavenger Hunt</b><br>
+	    <em>Due by 10pm on Tuesday, October 28th</em>
+	    <br>
+	    <br>
+
+	</div>
+	<div id='top'>
+
+
+
+
+<p>
+The purpose of this lab is to:
+<ul>
+	<li>Review recursion and other past topics
+	<li>Have fun!
+</ul>
+</p>
+
+<h2>Getting Started</h2>
+
+<p>
+Before you begin, please create a folder called <tt>lab07</tt> inside your <tt>cs150</tt> folder. This is where you should put all files made for this lab.
+</p>
+
+<p>
+This lab has 4 parts.  The first two parts are individual, and the second two parts are partnered. Completing one part successfully leads you the next, so only part 1 is available to you initially.  If you don't make it through all the parts, do a handin with the programs you did complete.
+</p>
+
+<p>
+There are a few files you'll want for the various parts of this lab.  Save these four files <a href="code.txt">[1]</a>, <a href="starter.bmp">[2]</a>, <a href="fruit.bmp">[3]</a> and <a href="../code/picture2.py">[4]</a> to your working directory before you begin. 
+</p>
+
+<p>
+As a reminder, our six-step process for creating programs is as follows: <br><br>
+
+<b>Describe:</b> Specify the problem you're trying to solve, as precisely as possible. <br><br>
+
+<b>Understand:</b> Work through some examples.  This should help build intuition about the problem and hopefully suggest approaches to solving it.  You may discover your description of the problem from the previous step wasn't sufficiently precise. <br><br>
+
+<b>Design:</b> Try to formalize the process you used to solve the examples above by writing it in pseudocode.  Think about whether this matches up with what you were actually doing.  Does it generate the same answers?  Can you think of cases in which your solution might not work? Spend some time thinking about how to break the code into logical functions (and later object) to make your code more readable and managable. <br><br>
+
+<b>Implement:</b> Translate your pseudocode into real code.  Note that this is the first step that actually has you programming.  Don't try to implement everything at once.  Find the core function and get that working.  Then add additional features and functionality.<br><br>
+
+<b>Test:</b>  Check your program on the cases you worked by hand.  Check it on larger cases.  And test the components of your program as well -- as you program, test that the functions you've created behave as you expect.  Debugging and testing in a piecewise fashion is far easier than chasing down errors in a large program where all your code is suspect. <br><br>
+
+<b>Maintain:</b>  Clean up your code and comment appropriately.  Typically in the course of writing a program, you'll add sloppy code just for the sake of testing other components.  That's fine, just get in the habit of fixing these pieces before you forget what they were doing.  And look for places you can tidy things up by making a more general function, removing unneccessary variables, making your variable names correspond to their meaning, removing debugging code, and adding comments.   
+</p>
+
+<p>
+As this course moves forward, the labs will become progressively less and less explicit about these steps.  That doesn't mean you're now free to forget about them!  Your job is to figure out what makes sense for each of these steps yourself.    
+</p>
+
+<h2>Part 1 - Syracuse</h2>
+<b><i>10 points, individual</b></i>
+
+
+<p>
+The Syracuse problem (also known variously as the 3x+1 problem, the <a href="http://www.xkcd.com/710/">Collatz Conjecture</a>, or Kakutani's problem) concerns a strange collection of sequences.  For every positive integer, there is a Syracuse sequence.  For example, Syracuse sequence 17 is
+</p>
+
+<p>
+<center>
+17 52 26 13 40 20 10 5 16 8 4 2 1
+</center>
+</p>
+
+<p>
+Can you see the pattern?  
+</p>
+
+<p>
+The Syracuse sequence for the number x is created by recursively applying a certain function f to x which depends on the parity of x.  In particular, f(x) = 3x+1 if x is odd, and f(x) = x/2 if x is even.  Once you get to 1, you stop (you could keep going, but at this point we'd just cycle between 4, 2 and 1, so generally we stop the sequence at 1).  As another example, Syracuse sequence 14 looks like
+</p>
+
+<p>
+<center>
+14 7 22 11 34 17 52 26 13 40 20 10 5 16 8 4 2 1
+</center>
+</p>
+
+<p>
+Note that once we reach 17, the pattern is the same as the previous one.  No one knows whether all Syracuse sequences eventually reach 1.  In other words, it is possible that for some starting numbers, the corresponding Syracuse sequences never get to 1.  However, mathematicians have checked a few numbers, and at least the first quintillion (a billion billion) of them do make it to 1 eventually.   
+</p>
+
+<p>
+Write a program called <tt>syracuse.py</tt>.  Create a recursive function <tt>rec(x)</tt> that takes in an integer <tt>x</tt> and returns an integer indicating the number of elements in the Syracuse sequence that begins with x (counting the starting number <tt>x</tt> and the final number 1).  So <tt>rec(4)</tt> should return 3, <tt>rec(17)</tt> should return 13, and <tt>rec(28)</tt> should return 19.  You may find it helpful to temporarily use print statements within your recursive function so you can see whether it is behaving as intended, but be sure to remove these once you get it working.
+</p>
+
+<p>
+<em>Important:</em> The function <tt>rec</tt> may only take in a single integer and may only return a single integer.  Do NOT use global variables (variables accessible in any function body).  Do NOT use loops within <tt>rec</tt>.  Hint:  You will want to count the number of times you generate a number in the sequence - this will probably be the same as the number of recursive calls your program makes, plus 1 for the base case.  Or, you could count the number of times you print out a number.
+</p>
+
+<p>
+Your program should begin by prompting the user for a sequence <em>length</em> (a positive integer).  Using a while loop and your <tt>rec</tt> function, find  the smallest starting integer x such that Syracuse sequence x has at least the requested length.  For example, the first 10 Syracuse sequences have lengths
+</p>
+
+<table border=1 cellpadding=2 cellspacing=0 width="400">
+        <tr><th align="center">Starting Value</th>
+            <td align="center" width="20">1</td>
+            <td align="center" width="20">2</td>
+            <td align="center" width="20">3</td>
+            <td align="center" width="20">4</td>
+            <td align="center" width="20">5</td>
+            <td align="center" width="20">6</td>
+            <td align="center" width="20">7</td>
+            <td align="center" width="20">8</td>
+            <td align="center" width="20">9</td>
+            <td align="center" width="20">10</td>
+        </tr>
+        <tr><th align="center">Sequence Length</td>
+            <td align="center">1</td>
+            <td align="center">2</td>
+            <td align="center">8</td>
+            <td align="center">3</td>
+            <td align="center">6</td>
+            <td align="center">9</td>
+            <td align="center">17</td>
+            <td align="center">4</td>
+            <td align="center">20</td>
+            <td align="center">7</td>
+        </tr>
+    </table>
+
+<p>
+So if the user entered 6, your program should print 3: the third Syracuse sequence is the first to have length at least 6.  Were the user to enter 15, your program should print 7, since all Syracuse sequences from one to six have lengths less than 15, while Syracuse sequence 7 has a length at least 15.     
+</p>
+
+<p>
+Find the smallest integer x whose Syracuse sequence contains at least 150 numbers.  In the lab url, replace the second occurence of "lab07" in the above url with the value of x to get to the next stage.  For example, if the correct answer was 12345 (it isn't), you'd go to <tt>http://www.cs.oberlin.edu/~ctaylor/150/lab07/12345.html</tt>
+</p>
+
+
+
+
+<h2>Handin</h2>
+
+<p>
+As usual, you'll want to do a handin after each part of this lab, so refer back here as you finish subsequent parts.    
+</p>
+
+<p> If you followed the Honor Code in this assignment, insert a
+paragraph attesting to the fact within one of your <tt>.py</tt> files.</p>
+
+<blockquote class="honor">
+  <p class="centered"> <q class="honor">I
+affirm that I have adhered to the Honor Code in this assignment.</q>
+  </p>
+</blockquote>
+
+<p> You now just need to electronically handin all your files. As
+a reminder
+</p>
+
+<pre> 
+     % <span class="typed">cd</span>             # changes to your home directory
+     % <span class="typed">cd cs150</span>       # goes to your cs150 folder
+     % <span class="typed">handin</span>         # starts the handin program
+                      # class is 150
+                      # assignment is 7
+                      # file/directory is lab07
+     % <span class="typed">lshand</span>         # should show that you've handed in something
+</pre>
+
+<p> You can also specify the options to handin from the command
+line
+</p>
+
+<pre> 
+     % <span class="typed">cd ~/cs150</span>     # goes to your cs150 folder
+     % <span class="typed">handin -c 150 -a 7 lab07</span>
+</pre>
+
+
+<br><br>
+
+
+</div>
+</div>
+<br>
+
+
+</body>
+</html>
+

@@ -1,0 +1,485 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>CS 150 - Lab 06</title>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<link rel="stylesheet" type="text/css" href="labs.css">
+</head>
+<body>
+<br>
+    <div id='container'>
+	<div id='top'>
+
+
+	    <h1><a href="http://www.cs.oberlin.edu/~ctaylor/150/" style="text-decoration:none; color:black">Lab 06</a></h1>
+	    <b>Recursive Madness!</b><br>
+	    <em>Due by 10pm on Tuesday, October 14th</em>
+	    <br>
+	    <br>
+
+	</div>
+	<div id='top'>
+
+
+
+<p>
+The purpose of this lab is to:
+<ul>
+	<li>Create numerical recursive functions
+	<li>Create string-based recursive functions
+	<li>Use recursion to generate fractal images
+</ul>
+</p>
+
+<p>
+Before you begin, please create a folder called <tt>lab06</tt> inside your <tt>cs150</tt> folder. This is where you should put all files made for this lab.
+</p>
+
+
+<h2>Part 1 - Recursion with Numbers</h2>
+<b><i>10 points, individual</b></i>
+<p>
+Your first task is to create a program that computes a variety of numerical functions.  We've already seen how to solve some of these problems using loops, but here we'll be using recursion instead.  
+</p>
+
+<p>
+<b>
+Describe the Problem:
+</b>
+Create a single program called <tt>recnum.py</tt>.  This program will read in two non-negative numbers from the user and perform some computations with them.  <em>All computation must be done recursively: you may NOT use any loops or Math functions.</em>  In particular, your program should do the following (details on  the functions are given further below):
+</p>
+
+<ol>
+	<li>Prompt the user for an integer n.<br><br>
+	<li>Prompt the user for an integer k.<br><br>
+	<li>Compute n raised to the power of k.<br><br>
+	<li>Compute the sum of the first n perfect squares.<br><br>
+	<li>Compute the value of n choose k.
+</ol>
+
+<p>
+As we've seen, increasingly complex problems require that we apply our Understand - Design - Implement - Test process iteratively.  Trying to solve a large problem all at once is inefficient and often leads to more errors which are harder to find.  Instead, we'll be breaking large problems into smaller, more managable chunks, and applying our process on each piece.  Finding good ways to break a problem down is an important and often challenging task, but in this particular case, a natural division is pretty straight-forward - we simply address each of the three required computations individually.  
+</p>
+
+<div class="boxed">
+
+<h3>Powers</h3>
+<br>
+<p>
+<b>Understand:</b> n raised to the k is the product of k n's.  2 raised to the 3 is 8.  3 raised to the 2 is 9.  What is -5 raised to the 4?  Which is larger, 2 raised to the 100 or 100 raised to the 2?
+</p>
+<p>
+<b>Design:</b> Since we're trying to solve this recursively, we need to think about how exponentiation (raising one number to the power of another) can be described recursively.  That is, we want to try to describe n raised to the k in terms of a smaller version of that same problem.  The key insight is that <em>[n raised to the k]</em> can be described  as simply <em>n</em> times <em>[n raised to the (k-1)]</em>.  Note that we've now defined exponentiation in terms of a simple operation (a single multiplication).  That's our recurrence.  All that remains is to specify a base case so that our recursion know to stop at some point.  We could define n raised to the 1 as n, but a better solution (in that it'll work for 0 as well) is to define n raised to the 0 as 1.  Question: would it have made sense to define n raised to the k in terms of (n-1) raised to the k?  
+</p>
+<p>
+<b>Implement, Test, and Maintain:</b> You now have the necessary pieces to write a recursive function <em>pow(n,k)</em>.  Test that it works on a range of cases.  Be sure to add comments to your code once you're done if you haven't been doing so along the way.
+</p>
+
+</div>
+<br>
+
+<div class="boxed">
+
+<h3>Sum of Squares</h3>
+<br>
+<p>
+<b>Understand:</b> The first few squares are 1, 4, 9, 16, 25, 36, etc.  So the sum of the first one of these is 1, the first two is 5, and the first three is 14.  What are the next two sums of squares?
+</p>
+<p>
+<b>Design:</b> As with the previous problem, the key is to figure out how to describe the sum of the first x squares in terms of a few simpler operations and the answer to a smaller instance of the sum-of-squares problem.  If you knew the value of sum of the first n-1 squares, what would you need to do to compute the sum of the first n squares?  Write that down as a recurrence.  Now what makes sense as a base case?
+</p>
+<p>
+<b>Implement, Test, and Maintain:</b> Write a recursive function <em>sps(n)</em>.  Test that it works on a range of cases.  When should exceptions be thrown?  Be sure to comment your code once you're done if you haven't been doing so along the way.
+</p>
+</div>
+<br>
+
+<div class="boxed">
+
+<h3>Choose</h3>
+<br>
+<p>
+<b>Understand:</b> The value <em>[n choose k]</em> represents the number of ways of picking k distinct objects out of a set of n distinct objects.  For example, suppose we have four people; Alice (A), Balthazar (B), Charlize (C) and Douglass (D).  How many ways could you pick a pair of them? Six: AB, AC, AD, BC, BD and CD.  We've just argued that 4 choose 2 is 6.  Just so you have some more test data, 5 choose 2 and 5 choose 3 are both 10 (coincidence?), and 6 choose 3 is 20.  Compute 6 choose 2 on your own.  
+</p>
+
+<p>
+<b>Design:</b> The standard definition of n choose k involves a few factorials.  However, there is also a recursive definition that can be very handy. This recursive definition isn't as straight-forward as the previous two, so we'll state it here and then walk through the reasoning behind it:
+</p>
+
+<ul>
+
+<li> If k &gt; n then <em>[n choose k]</em> is 0; you can't pick k different things if you only have fewer than k choices available.<br><br>
+
+<li>
+If k = n then <em>[n choose k]</em> is 1; your only option is to take everything.
+<br><br>
+
+<li>
+If k = 0 then <em>[n choose k]</em> is also 1; your only option is to take nothing.
+<br><br>
+
+<li>
+In all other cases, <em>[n choose k]</em> is <em>[(n-1) choose k]</em> plus <em>[(n-1) choose (k-1)]</em>.  
+</ul>
+
+<p>
+This last case is the heart of the recursion -- the rest are just base cases.  You don't really need to understand why this works to write a recursive function for this operation; you can just use this definition and magically you'll be computing the correct values.  However, the explanation is actually pretty cool (and you'll be seeing more of these types of arguments if you take Discrete Math).  
+</p>
+
+<p>
+Suppose we trying to think of how many sets of k objects can be selected from n objects.  We can break these sets down in two groups: the the sets that don't include object 1, and the sets that do.  How many sets of size k are there that don't include object 1?  Well, we'd need to pick k objects out of the remaining n-1.  Given our definition of choose, the number of those is just (n-1) choose k.  And how many sets of size k are there that do include object 1?  Such sets would have to use (k-1) out of the remaining (n-1) objects, so there are (n-1) choose (k-1) of these.  If we sum these two terms together, we've counted all the sets we were considering.  
+</p>
+
+<p>
+<b>Implement, Test, and Maintain:</b> Write a recursive function <em>choose(n,k)</em>.  Test that it works on a range of cases.  When should exceptions be thrown?  Be sure to comment your code once you're done if you haven't been doing so along the way.
+</p>
+</div>
+<br>
+<div class="boxed">
+<h3>Example Output</h3>
+<pre>
+
+   %<span class="typed"> python3 recnum.py</span>
+
+   Welcome to my Amazing Recursive Calculator!
+   
+   Please enter a non-negative integer x: <span class="typed">6</span>
+   Please enter a non-negative integer k: <span class="typed">3</span>
+   
+   6 raised to the power of 3 is 216.
+   The sum of the first 6 squares is 91.
+   6 choose 3 is 20.
+</pre>
+</div>
+
+<h2>Part 2 - Recursion with Strings</h2>
+<b><i>10 points, individual</b></i>
+<p>
+<b>
+Describe the Problem:
+</b>
+Create a program called <tt>recstr.py</tt>.  This program will read in two strings from the user and perform some recursive computations with them.  <em>Again, you may not use loops.</em> Your program should do the following (details on the functions are given further below):
+</p>
+
+<ol>
+	<li>Prompt the user for a string s.<br><br>
+	<li>Prompt the user for a string t.<br><br>
+	<li>Print s backwards.<br><br>
+	<li>Print whether or not s is a palindrome.<br><br>
+	<li>Print whether t appears as a (possibly non-consecutive) subsequence of s.
+</ol>
+
+<div class="boxed">
+<h3>Backwards</h3>
+<br>
+<p><b>Understand:</b> 
+alligator backwards is rotagilla.  I'm not sure how else to help you here.    
+</p>
+
+<p><b>Design:</b> 
+Generating s backwards recursively can be done as follows:  if the length of s is 0, you're done.  Easy peasy.  Otherwise, take the last letter of s, and then append to that the result of recursively reversing the remainder of s (all but the last character).
+</p>
+
+<b>Implement, Test, and Maintain:</b> Write a recursive function <em>rev(s)</em>.  You'll probably want to use the method len(s) to find the length of s string, and slicing operations to get at substrings.  Comment your code once you're done if you haven't been doing so along the way.
+</p>
+
+</div>
+<br>
+<div class="boxed">
+<h3>Palindrome</h3>
+<br>
+<p>
+<b>Understand:</b> As you probably know, a palindrome is any string that reads the same forward as backwards.  "UFO tofu" is one such example.  "No, sir, away! A papaya war is on!" is not only a palindrome but also an unexpectedly ominous declaration.    
+</p>
+
+<p>
+<b>Design:</b> We can recursively check whether s is a palindrome as follows; if s has length 0 or 1, then it is a palindrome.  Otherwise, it is only a palindrome if the first character is the same as the last character <em>and</em> the substring with those two characters removed is also a palindrome.
+</p>
+
+<b>Implement, Test, and Maintain:</b> Write a recursive function <em>pal(s)</em> that returns true if s is a palindrome.  You may assume your input is "clean," i.e. you can assume that all spaces and other non-letters have been removed, and all characters are lowercase.  So the second example given above would actually have been input as "nosirawayapapayawarison". Make sure your code is commented.
+</p>
+</div>
+<br>
+<div class="boxed">
+<h3>Subsequence</h3>
+<br>
+<p>
+<b>Understand:</b> "toga" is a subsequence of "strongbad" since the characters 't', 'o', 'g' and 'a' all appear in the latter in that order.  Note that these letters don't need to appear contiguously.  "goat" is not a subsequence of "strongbad" -- all requisite letters are there, but they don't appear in a consistent order.  Which of "songa" and "ratdog" are subsequences of "strongbad"?  
+</p>
+
+<p>
+<b>Design:</b> A recursive definition of whether t is a subsequence of s would be as follows:
+</p>
+
+<ul>
+
+<li> If t has length 0, it is.<br><br>
+
+<li> If t is longer than s, it isn't.<br><br>
+
+<li>
+If the first character of both strings match, then t is a subsequence of s if and only if t with the first letter removed is a subsequence of s with the first letter removed.
+<br><br>
+
+<li>
+If the first character of both strings don't match, then t is a subsequence of s if and only if t is a subsequence of s with the first letter removed.  
+</ul>
+<p>
+Convince yourself that this definition makes sense.   
+</p>
+
+<b>Implement, Test, and Maintain:</b> Write a recursive function <em>subseq(s,t)</em> that returns true if t is a subsequence of s.  Check it on the above exmaples, and make sure your code is commented.
+</p>
+
+</div>
+<br>
+<div class="boxed">
+<h3>Example Output</h3>
+<pre>
+
+   %<span class="typed"> python3 recstr.py</span>
+
+   Welcome to my Incredible Recursive string Thing!
+   
+   Please enter a string s: <span class="typed">racecar</span>
+   Please enter a string t: <span class="typed">rare</span>
+   
+   The string "racecar" backwards is "racecar".
+   The string "racecar" is a palindrome.
+   The string "rare" is not a subsequence of "racecar".
+   
+   %<span class="typed"> python3 recstr.py</span>
+
+   Welcome to my Incredible Recursive string Thing!
+   
+   Please enter a string s: <span class="typed">parahsalin</span>
+   Please enter a string t: <span class="typed">pain</span>
+   
+   The string "parahsalin" backwards is "nilasharap".
+   The string "parahsalin" is not is a palindrome.
+   The string "pain" is a subsequence of "parahsalin".
+</pre>
+</div>
+
+<h2>Part 3 - Fractal Images</h2>
+<b><i>20 points, group</b></i>
+<p>
+<b>Describe the Problem:</b> Create a program called <tt>recpic.py</tt>.  This program should prompt the user to pick a pattern, pick a size, and pick a depth of recursion.   The patterns available to the user should be Bubbles, Carpet, Gasket and Snowflake (details below).  Loops may not be used.  More concretely, your program should do the following:
+</p>
+
+<ol>
+	<li>Print a numbered list of available patterns, and ask the user to select one.<br><br>
+	<li>Get a size and depth from the user.<br><br>
+	<li>Draw the selected pattern on a size-by-size canvas.<br>
+</ol>
+
+
+<div class="boxed">
+<h3>Bubbles</h3>
+<br>
+<p>
+<b>Understanding:</b> Consider the following sequence of fractal patterns.
+</p>
+
+<p>
+<center>
+<img src="Bubbles1.bmp" border=2> <img src="Bubbles2.bmp" border=2> <img src="Bubbles3.bmp" border=2>
+<img src="Bubbles4.bmp" border=2> <img src="Bubbles5.bmp" border=2>
+<img src="Bubbles6.bmp" border=2>
+</center>    
+</p>
+
+<p>
+<center>
+Bubbles with recursive depths 1 through 6 respectively.
+</center>    
+</p>
+
+<p>
+Each pattern is built entirely out of filled in circles.  The pattern can be described recursively as a single filled circle, with four patterns of one lesser depth and half the size, offset to the northwest, northeast, southwest and southeast.
+</p>
+
+<p>
+<b>Design:</b>  At this point we're ready to define our recurrence more precisely.  When designing recursive algorithms, it's critical that you think about how your recurrence works not just at the top level, but also at subsequent levels.  It's easy to define a recurrence that does what you intend on the first step, or even the first few steps, but then breaks down on deeper interations.   
+</p>
+
+<p>
+In this case, it's tempting to simply say that the largest circle is drawn centered halfway from top to bottom and side to side, and the next recursive calls are made centered at a quarter width by a quarter height, a quarter width by three quarters height, etc.  Unfortunately, that description doesn't lend itself to a useful recurrence.  What happens now when the lower-right subproblem is solved recursively?
+</p>
+
+<p>
+To deal with this, we need a more general description.  In particular, try to figure out what it would mean to draw this pattern with depth d, centered at position (x,y), with a size of r.  Note that you shouldn't assume x and y correspond to the middle of the canvas, because in many recursive calls they won't.  Similarly, don't assume that r is at all related to x or y.  Figure out the details of the recurrence on your own, and <em>write it down on paper</em>.  Be sure to define a base case(s).  
+</p>
+
+<p>
+<b>Implement, Test, and Maintain:</b> Now create a function called bubbles that generates this pattern.  You'll need to decide upon a few things.  In particular, what parameters will this function take in?  And what will the initial call to this function look like?  If something goes wrong, find the smallest depth at which things break down and trace through what your program is doing.  You may find you've implemented your design incorrectly, or you may need to revisit the algorithm itself.  Once it's working, make sure your function  throw exceptions when appropriate, and comment your code.
+</b>
+</p>
+</div>
+<br>
+<div class="boxed">
+
+<h3>Carpet</h3>
+<br>
+<p>
+<b>Understanding:</b>
+The carpet pattern, also known as Sierpinski's carpet, is pretty similar to the bubbles pattern.  The key differences are that the core geometric element of the image is a square (rather than a circle), there are 8 recursive calls (as opposed to 4), and each square has one third the height and width of its region (as opposed to one half).  See the examples below.   
+</p>
+
+<p>
+<center>
+<img src="Carpet1.bmp" border=2> <img src="Carpet2.bmp" border=2> <img src="Carpet3.bmp" border=2>
+<img src="Carpet4.bmp" border=2> <img src="Carpet5.bmp" border=2> 
+<img src="Carpet6.bmp" border=2>
+</center>    
+</p>
+
+<p>
+<center>
+Carpet with recursive depths 1 through 6 respectively.
+</center>    
+</p>
+
+<p>
+<b>Design:</b>  Try to replicate the process we used for bubbles.  In particular, figure out what it would mean to draw this pattern with depth d, centered at position (x,y), with a size of r.  Again, don't assume that x and y correspond to the middle of the canvas or that r is related to x or y.  And most importantly, <em>write your solution down on paper</em>.  
+</p>
+
+<p>
+<b>Implement, Test, and Maintain:</b> Now create a function called carpet that generates this pattern.  Test and comment as usual.
+</b>
+</p>
+</div>
+<br>
+<div class="boxed">
+<h3>Gasket</h3>
+<br>
+<p>
+<b>Understanding:</b> The gasket pattern, also known as Sierpinski's triangle or Sierpinski's gasket, is built out of trianges.  The depth 1 figure includes a single triangle, with lower corners at the lower corners of the pane, and the upper corner centered at the top middle.  Each subsequent depth replaces the existing triangle with 3 triangles, each of half the width and half the height as shown below.  
+</p>
+
+<p>
+<center>
+<img src="gasket1.bmp" border=2> <img src="gasket2.bmp" border=2> <img src="gasket3.bmp" border=2>
+<img src="gasket4.bmp" border=2> <img src="gasket5.bmp" border=2> <img src="gasket6.bmp" border=2>
+</center>    
+</p>
+
+<p>
+<center>
+Gasket with recursive depths 1 through 6 respectively.
+</center>    
+</p>
+
+<p>
+<b>Design:</b>
+There are two distinct recurrences we could use to create this pattern, depending on how we think about the forms.  Option 1: draw the carpet (the blue parts).  In this case, notice that for a given pattern, all the triangles are of the same size.  Thus the creation of triangles only happens as a base case in our recurrence.  Option 2: draw the holes (the yellow parts) on top of a single blue triangle.  In this case, a recursive call at any depth involves the creation of a triangle (in addition to additional recursive calls, so long as the depth is positive).  
+</p>
+
+<p>
+Which approach you take is up to you.  Either way, you'll need to write out a recursive description of the pattern before you begin coding.  The key thing to think about is how a given recursive call in turns makes its own recursive calls.  Think about how you'd describe making a the gasket pattern if the outer triangle has corners at positions A, B and C.  
+</p>
+
+<b>Implement, Test, and Maintain:</b> Now create a function called gasket that generates this pattern.  What parameters does it require?  
+You'll want to make use of the <em>drawPolygonFill()</em> function, which takes in a single parameter which is a tuple (indicated by paretheses), containing any number of points, represented as pairs of integers (themselves in parentheses).  So <em>drawPolygonFill(((a, b), (c, d), (e, f)))</em> would draw a filled in polygon whose first vertex was (a,b), etc.   
+Test and comment as usual.
+</b>
+
+</div>
+<br>
+<div class="boxed">
+<h3>Snowflake</h3>
+<br>
+<p>
+<b>Understanding:</b> 
+Consider the fractal patterns below.
+</p>
+
+<p>
+<center>
+<img src="Snow1.bmp" border=2> <img src="Snow2.bmp" border=2> <img src="Snow3.bmp" border=2>
+<img src="Snow4.bmp" border=2> <img src="Snow5.bmp" border=2> <img src="Snow6.bmp" border=2>
+</center>    
+</p>
+
+<p>
+<center>
+Snowflake with recursive depths 1 through 6 respectively.
+</center>    
+</p>
+
+<p>
+The snowflake is best understood by thinking about one of the three major sides of the snowflake (for example, focus on the bottome side of the snowflake below).  At it's lowest level, the pattern is just a line.  At an arbitrary depth, four recurisve calls are made at a depth that is one lesser, with a length that is one third of the current length.  Between each of the four calls is a rotation (which will be some multiple of 60 degrees (and may be negative)).  To get the whole snowflake, you simply need to make 3 snowflake sides.
+</p>
+
+<b>Implement, Test, and Maintain:</b> Create a function called snowflake that generates this pattern.  What parameters does it require?  Test and comment as usual.  Below are some picture functions you may find useful.
+
+<pre>
+<tt>
+   rotate(theta)          # rotate pen theta degrees clockwise 
+   drawForward(d)         # draw a length-d line from the current position in the current direction.
+   setPosition(x,y)       # move the pen to position (x,y)   
+</tt>
+</pre>
+
+</b>
+
+</div>
+
+<h2>Handin</h2>
+
+<p> If you followed the Honor Code in this assignment, insert a
+paragraph attesting to the fact within one of your <tt>.py</tt> files.</p>
+
+<blockquote class="honor">
+  <p class="centered"> <q class="honor">I
+affirm that I have adhered to the Honor Code in this assignment.</q>
+  </p>
+</blockquote>
+
+<p> You now just need to electronically handin all your files. As
+a reminder
+</p>
+
+<pre> 
+     % <span class="typed">cd</span>             # changes to your home directory
+     % <span class="typed">cd cs150</span>       # goes to your cs150 folder
+     % <span class="typed">handin</span>         # starts the handin program
+                      # class is 150
+                      # assignment is 6
+                      # file/directory is lab06
+     % <span class="typed">lshand</span>         # should show that you've handed in something
+</pre>
+
+<p> You can also specify the options to handin from the command
+line
+</p>
+
+<pre> 
+     % <span class="typed">cd ~/cs150</span>     # goes to your cs150 folder
+     % <span class="typed">handin -c 150 -a 6 lab06</span>
+</pre>
+<br>
+<h4>File Checklist</h4>
+<br>
+
+You should have submitted the following files:
+
+<pre>
+   recnum.py
+   recstr.py
+   recpic.py
+   picture.py
+</pre>
+
+If you're working with a partner, they will submit recpic.py (with both of your names) and picture.py, and you will submit a README with their name.
+<br>
+
+
+</div>
+</div>
+<br>
+
+</body>
+</html>
+

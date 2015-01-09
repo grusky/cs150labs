@@ -1,0 +1,608 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>CS 150 - Lab 04</title>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<link rel="stylesheet" type="text/css" href="labs.css">
+</head>
+<body>
+<br>
+    <div id='container'>
+	<div id='top'>
+
+
+	    <h1><a href="http://www.cs.oberlin.edu/~ctaylor/150/" style="text-decoration:none; color:black">Lab 04</a></h1>
+	    <b>Exceptional Pictures and Images</b><br>
+	    <em>Due by 10pm on Tuesday, September 30th</em>
+	    <br>
+	    <br>
+
+	</div>
+	<div id='top'>
+
+
+
+<p>
+The purpose of this lab is to:
+<ul>
+	<li>Explore exceptions</li>
+	<li>Get a lot more practice using and creating functions</li>
+	<li>Express your creativity</li>
+	<li>Get (much more) practice with nested loops</li>
+	<li>Get you started using objects (in this case, the Picture object)</li>
+	<li>Learn how photo editing is done.</li>
+</ul>
+</p>
+
+
+<h2>Part 1 - Using Exceptions</h2>
+<b><i>monte.py: 2 points, individual</b></i><br>
+<b><i>pyramid.py: 1 point, individual</b></i>
+<p style="text-align:justify;">
+Copy your <tt>monte.py</tt> program from <a href="../lab03/lab03.html#Monte">lab 03</a> to your lab04 directory and modify it to handle the exception that is thrown when the user inputs <tt>n=0</tt>. 
+<p style="text-align:justify;">
+Copy your <tt>pyramid.py</tt> program from <a href="../lab03/lab03.html#Pyramid">lab 03</a> to your lab04 directory and modify it to handle the exception that is thrown when the user inputs <tt>n=0</tt>.  If your pyramid just doesn't draw any bricks instead of throwing an error, check if you're calculating the size of the bricks inside your for loop - if so, move that calculation before the for loop, and you shoud throw an error if n=0.
+
+<br>
+<br>
+<p style="text-align:justify;">
+<b>Handin:</b><br>
+Handin what you have of your lab so far.
+
+
+<br>
+<br>
+<h2>Part 2 - Mind Mastery</h2><p>
+<b><i>master.py: 10 points, partner</b></i>
+
+<p style="text-align:justify;">
+Mastermind is a neat (although oftentimes frustrating) puzzle game.  It works a something like this: There are two players. One player is the codemaker (your program), the other is the codebreaker (the user). The codemaker chooses a sequence of four colored pegs, out of a possible six colors (red, blue, green, yellow, orange, and purple). He may repeat colors and place them in any order he wishes. This sequence is hidden from the codebreaker.  The codebreaker has 10 chances to guess the sequence.  The codebreaker places colored pegs down to indicate each of her guesses.  After each guess, the codemaker is required to reveal certain information about how close the guess was to the actual hidden sequence.</p>
+<p style="text-align:justify;">
+<b>Describe the Problem:</b><br>
+Write a program called <tt>master.py</tt> that allows the user to play a text-based version of the fantastic game Mastermind.<br>
+<b>input:</b> repeatedly get guesses from the user, until they either guess the code, or run out of guesses.<br>
+<b>goal:</b> generate a random code, and correctly provide the user with feedback on their guesses.<br>
+
+
+<br>
+<br>
+<p style="text-align:justify;">
+<b>Understand the Problem:</b><br>
+The trickiest part of this game is determining how to provide feedback on the codebreaker's guesses.
+In particular, next to each guess that the codebreaker makes, the codemaker places up to four clue pegs.  Each clue peg is either black or white.  Each black peg indicates a correct color in a correct spot.  Each white peg indicates a correct color in an incorrect spot.  No indication is given as to which clue  corresponds to which guess.</p>
+
+<p style="text-align:justify;">
+For example, suppose that the code is RYGY (red yellow green yellow).  Then the guess GRGY (green red green yellow) would cause the codemaker to put down 2 black pegs (since guesses 3 and 4 were correct) and 1 white peg (since the red guess was correct, but out of place).  Note that no peg was given for guess 1 even though there was a green in the code; this is because that green had already been "counted" (a black peg had been given for that one).</p>
+
+<p style="text-align:justify;">
+As another example, again using RYGY as our code, the guess YBBB would generate 1 white peg and 0 black; yellow appears twice in the code, but the guess only contains one yellow peg.  Likewise, for the guess BRRR, only 1 white peg is given; there is an R in the code, but only one.  Below is a table with guesses and the correponding number of black and white pegs given for that guess (still assuming the code is RYGY).
+</p>
+
+<center>
+    <table border=1 cellpadding=2 cellspacing=0 width="60%">
+        <tr>
+	    <th align="center">guess</th>
+	    <th align="center">black pegs</th>
+
+	    <th align="center">white pegs</th>
+        </tr>
+	<tr>
+	    <td align="center">YYYY</td>
+	    <td align="center">2</td>
+	    <td align="center">0</td>
+	</tr>
+
+        <tr>
+	    <td align="center">YRYR</td>
+	    <td align="center">0</td>
+	    <td align="center">3</td>
+	</tr>
+	<tr>
+	    <td align="center">BBPO</td>
+
+	    <td align="center">0</td>
+	    <td align="center">0</td>
+	</tr>
+	<tr>
+	    <td align="center">PGYR</td>
+	    <td align="center">0</td>
+	    <td align="center">3</td>
+
+	</tr>
+	<tr>
+	    <td align="center">YYYG</td>
+	    <td align="center">1</td>
+	    <td align="center">2</td>
+	</tr>
+	<tr>
+
+	    <td align="center">RYGY</td>
+	    <td align="center">4</td>
+	    <td align="center">0</td>
+	</tr>
+    </table>
+</center>
+
+<p style="text-align:justify;">
+Check 
+<a href="http://www.web-games-online.com/mastermind/">here</a>
+for an online graphical version of the game (where their red pegs are our black pegs).
+</p>
+
+<p style="text-align:justify;">
+A sample run of our text-based program may look like this:
+<div class="boxed">
+<h3>Sample output</h3>
+<pre>
+    %python3 master.py
+    
+    I have a 4 letter code, made from 6 colours.
+    The colours are R, G, B, Y, P, or O.
+
+	Your guess: GGGG
+    Not quite. You get 0 black pegs, 0 white pegs.
+
+        Your guess: YYYY
+    Not quite. You get 1 black pegs, 0 white pegs.
+
+        Your guess: YOYO
+    Not quite. You get 0 black pegs, 2 white pegs.
+
+        Your guess: PPYO
+    Not quite. You get 1 black pegs, 2 white pegs.
+
+        Your guess: POYB
+    Not quite. You get 1 black pegs, 3 white pegs.
+
+        Your guess: PBOY
+    You win! Aren't you smart.
+</pre>
+</div>
+
+
+
+
+<br>
+<br>
+<p style="text-align:justify;">
+<b>Design an Algorithm:</b><br>
+Once you understand how the game works, you should design a pseudocode plan of attack. The general steps are:
+<ul>
+<li>Randomly choose the codemaker's code.
+<li>Repeatedly prompt the user for their guess
+<ul>
+<li>If their guess is correct, end the game with a congratulatory message.
+<li>Otherwise, give clues (pegs) that correspond to their guess.
+</ul>
+</ul>
+Some of these steps are straight-forward, but certainly it would be worth your while to write down an approach to randomly generating the code, and giving the clue. You did some of this on your <a href="prelab03.html">prelab</a>; our recommendation for the later algorithm is as follows:
+
+<ul>
+    <li style="text-align:justify;">
+    First assign the black pegs. Do this by iterating through both strings one character at a time, assigning a black peg if the characters in the same position match. If they <i>do</i> match, change that character/peg in your guess to an 'x' and in the code strings to a 'z', say, so that you know you have used both of these pegs for a clue (and you won't use them again when assigning white pegs and accidentaly double-count). (You can find some useful <tt>string</tt> methods on pg 125 of the text, or <a href="http://docs.python.org/2/library/string.html">here</a> in order to do this.)</li>
+    
+    <li style="text-align:justify;">
+    Next assign the white pegs. Do this by considering the first peg in the guess string and trying to find the matching character in the code string (note that if the first character is an 'x' then there definitely won't be a match in the code string). If you find a match, again change the guess character to 'x', the matching code character to 'y' and continue with the second peg in the guess string, then the third, and so on. Because of your changes to 'x' and 'y', you won't assign both a black and white peg for one guess or clue peg.</li>
+    
+</ul>
+
+<br>
+<br>
+<p style="text-align:justify;">
+<b>Implement a Design:</b><br>
+Now that you have some of the kinks worked out in theory, it is time to write your program <tt>master.py</tt>.
+
+<p style="text-align:justify;">
+You may assume the user always provides a guess with the available colors, and always in uppercase.</p>
+
+<p style="text-align:justify;">
+Make and use an integer constant <tt>NUM_TURNS</tt> that represents the number of allowable turns (say, 10).</p>
+
+<p style="text-align:justify;">
+To generate the code, write a function </p>
+
+<pre>    <tt>generateCode()</tt> </pre>
+
+<p style="text-align:justify;">
+that generates the codemaker's code (and returns it as a <tt>String</tt> to the caller). That is, this function should randomly generate 4 colored pegs, selected from R, B, G, Y, O, and P, and return it as a 4-letter string. You'll want to use the <tt>random</tt> methods as discussed in <a href="../lab03/lab03.html#Random">lab03</a> in order to randomly generate a color for each peg. In particular, you'll generate an integer between 0 and 5 inclusive, and use if-statements to map each result to one of the 6 colours. 
+<!--(Or, if you're feeling up for it, read up on "switch statements", which can be used to combine a large if-statements of a specific type. This is a perfect place for a switch statement. Feel free to ask one of us about them!)</p> -->
+
+<p style="text-align:justify;">
+Test your <tt>generateCode</tt> function thoroughly before continuing. No, seriously, test it before continuing. Once it's working, write a second function</p> 
+
+<pre>    <tt>clue( code, guess )</tt></pre>
+
+<p style="text-align:justify;">
+that prints out the white and black clue pegs according to the given <tt>guess</tt> and <tt>code</tt>, and returns <tt>true</tt> if <tt>code</tt> equals <tt>guess</tt>, and <tt>false</tt> otherwise. Translate the pseudocode above to help you out.
+    <p style="text-align:justify">
+    You can "change" the <tt>i</tt>th character in a string <tt>s</tt> to an 'x' as follows: 
+    <pre>
+    <tt>s = s[0:i] + "x" + s[i+1:len(s)]</tt></pre>   
+    </li>  
+    Also note you can omit the <tt>len(s)</tt> from the above expression.  That is, if you write <tt>s[i:]</tt>, Python interprets that as the substring of s from position i to the end.  Similarly, <tt>s[:i]</tt> denotes the substring of s from the beginning up to (but not including) i.  
+</p>
+
+
+
+<br>
+<br>
+<b>Test the Program:</b><br>
+It is hard to test your program when you are given a random code that you don't know. Therefore, you should either hard-code in a code for testing purposes (for example, the code that you checked by hand on the <a href="prelab03.html">prelab</a>), or you should allow the user of the program the option to input a code (this would make our graders very happy, so I like this option.)
+
+
+
+<br>
+
+
+<br>
+<br>
+<h2>Part 3 - Picture this</h2>
+<b><i>sketchy.py: 6 points, potential fame, individual</b></i>
+<p style="text-align:justify;">
+    Create a program called <tt>sketchy.py</tt> that draws the picture you designed on your prelab using the <a href="../code/picture.py">picture</a> module.  A few of the things you can do:
+</p>
+
+<p>
+To adjust the pen width, use the <tt>setPenWidth</tt> function.  To position and draw with the pen, use the <tt>setPosition</tt>, <tt>setDirection</tt>, <tt>rotate</tt> and <tt>drawForward</tt> functions.  To draw simple shapes, you can use functions like <tt>drawCircle</tt>, <tt>drawCircleFill</tt>, <tt>drawRect</tt>, <tt>drawRectFill</tt>, etc.  
+Use <tt>setFillColor</tt> to change the fill color used when creating shapes.  Use <tt>setOutlineColor</tt> to change the color of shape edges and pen lines.  
+Don't forget to use the <tt>display</tt> function followed by an <tt>input</tt> function call so your image gets displayed, and gives you time to savor your creation before closing the window.<p> 
+You can read more about different picture functions <a href="../code/picture_docs.html">here</a><p>
+
+The best sketches will be shown off in class to general acclaim.  
+<!--
+You should also include a line of code to generate an image file of your picture (or of some nice frame of your animation if that's what you decided to do).  To do that, use the <tt>writeFile</tt> function.  Name your image your username followed by <tt>.bmp</tt>.  For example, I'd save my picture using the function call
+
+<pre>
+   pic.writeFile("wexler.bmp")
+</pre>
+</p>
+-->
+
+<br>
+<br>
+<p style="text-align:justify;">
+<b>Handin:</b><br>
+Please handin what you have of your lab so far.
+
+
+
+<h2>Part 3 - Image Manipulation</h2>
+<b><i>imageEdit.py: 21 points (3 points per effect), partner</b></i>
+<p>
+In this (major) portion of the lab you'll create a nifty program that reads in an image and does a sequence of modifications to that image, as specified by the user.  Things like inverting the image, mirroring it, increasing or decreasing the contrast, etc.  In doing so, you'll get more practice with nested for loops, while loops, creating methods and using objects.
+</p>
+
+<p>
+It turns out that Python 3 doesn't support sufficiently fast image manipulation for our purposes, so for this portion of the lab we're going to be stepping down to Python 2 temporarily.  The impact of this should be pretty minimal for you.  The changes you'll see should be limited to the following:
+</p>
+
+<p>
+(1) To run your program, you'll use the command 
+<pre>
+   <tt>python myProgram.py</tt>
+</pre>
+rather than 
+<pre>
+   <tt>python3 myProgram.py</tt>
+</pre>
+</p>
+
+<p>
+(2) Print statements don't have parentheses.  So you'd write 
+<pre>
+   <tt>print "The value of x is",x</tt>
+</pre>
+rather than
+<pre>
+   <tt>print("The value of x is",x)</tt>
+</pre>
+</p>
+
+<p>
+(3) The input function works a little differently, so to get a string form the user use raw_input.  That is, use  
+<pre>
+   <tt>fileName = raw_input("Please enter the image file you'd like loaded: ")</tt>
+</pre>
+rather than
+<pre>
+   <tt>fileName = input("Please enter the image file you'd like loaded: ")</tt>
+</pre>
+</p>
+
+<p>
+(4) We'll be using a different (though very similar) image module called <a href="../code/picture2.py">picture2</a>.
+</p>
+
+<br>
+<br>
+<p style="text-align:justify;">
+<b>Describe the Problem:</b><br>
+Write a program called <tt>imageEdit.py</tt> that provides the user with image editing functionality.<br>
+<b>input:</b> Get a string filename from the user that represents the image they would like to edit.<br>
+<b>output:</b> Allow the user to edit the image given the provided editing options. Display their results to the screen and enjoy!
+
+<br>
+<br>
+<p style="text-align:justify;">
+<b>Understand the Problem:</b><br>
+Your program should be capable of the following operations:
+
+<ol>
+ <li>Flip Horizontally
+ <li>Scroll Horizontally
+ <li>Make Negative
+ <li>Zoom
+ <li>Posterize
+ <li>Rotate 180 Degrees
+ <li>Your Own Effect
+</ol>
+
+<p>
+Examples of these operations are given below.
+</p>
+
+<table id="exampleTable">
+<tr>
+    <td>Original Image:</td>
+    <td></td>
+
+</tr>
+<tr>
+    <td><img src="crayons.bmp" alt="original" border=4></td>
+    <td></td>
+</tr>
+
+<tr>
+    <td>Flip:</td>
+    <td>Scroll:</td>
+</tr>
+<tr>
+
+    <td><img src="mirror.bmp" alt="flip" border=4></td>
+    <td><img src="scroll.bmp" alt="scroll" border=4></td>
+</tr>
+
+<tr>
+    <td>Negative:</td>
+    <td>Zoom:</td>
+</tr>
+<tr>
+
+    <td><img src="invert.bmp" alt="negative" border=4></td>
+    <td><img src="zoom.bmp" alt="zoom" border=4></td>
+</tr>
+
+<tr>
+    <td>Posterize:</td>
+    <td>Rotate 180:</td>
+</tr>
+<tr>
+
+    <td><img src="poster.bmp" alt="poster" border=4></td>
+    <td><img src="rot.bmp" alt="rotate 180" border=4></td>    
+</tr>
+
+<tr>
+    <th colspan="2"><b>Other Ideas</b></th>
+</tr>
+
+<tr>
+    <td>Find Edges:</td>
+    <td>Tiled:</td>
+</tr>
+<tr>
+
+    <td><img src="edges.bmp" alt="find edges" border=4></td>
+    <td><img src="tiled.bmp" alt="tiling" border=4></td>
+</tr>
+
+<tr>
+    <td>Shear:</td>
+    <td>Bizarre:</td>
+</tr>
+<tr>
+
+    <td><img src="shear.bmp" alt="shear" border=4></td>
+    <td><img src="psych.bmp" alt="bizarre" border=4></td>
+</tr>
+
+</table>
+
+<br>
+<br>
+<p>
+<b>Design an Algorithm:</b><br>
+Your program should begin by printing a welcome to the user, informing them just how fortunate they are to have stumbled upon your very own image editor.  You should then prompt the user in the console to pick a file to load in.  As will be standard from here on out, you'll want to be robust against bad user input, so if the user enters something that isn't a valid file and an exception is thrown, you can catch it and prompt them again for a file.  
+</p>
+
+<p>
+Once you have an image loaded, display it.  Then use a while loop to repeatedly print a table of possible operations, prompt the user to select one of these operations to apply to their image, apply the selected operation (create a distinct function for each operation), and display the resulting image.  Thus, the user might choose to reflect the image, then increase the contrast (of the now reflected image), and then blur (the now reflected and contrasty image).  At each step, the user should be able to see the resulting image.  Again, be sure to handle bad input from the user.  
+</p>
+<p>
+Of course, this still leaves out the details of each operation, for which you will want to write pseudocode before you start writing functions.
+Some details are given below.
+
+<p>
+<b>Scrolling:</b> Scrolling should ask the user to specify some number of pixels, and should then shift the image that many to the right.  Pixels that would fall off the edge of the image should wrap around to the other size.  Modular arithmetic may come in handy here.
+</p>
+
+<p>
+<b>Negatives:</b> The negative of an image is creating by inverting each color channel.  So if the red value of a pixel were 255, it should become 0.  If it were 254, it should become 1, and so on, down to 0, which should become 255.  Similarly for green and blue.
+</p>
+
+<p>
+<b>Zoom:</b> This method result in an image of the same size as the original, but consist of the center of the image blown up by a factor of 2.  So if the image has width w and height h, zooming should expand the middle w/2 by h/2 region to fill the whole picture.
+</p>
+
+<p>
+<b>Posterize:</b> A typical pixel can have one of 256 value for each color channel.  In a posterized image, this number is drastically decreased.  Each color channel value should be rounded to the nearest multiple of 32.  
+</p>
+
+
+<br>
+<br>
+<p>
+<b>Implement a Design:</b><br>
+This program will be a good deal larger than those you've created on previous labs.  Making a single large function that does everything will most likely end in tears.  As such, think carefully about how to break your program into logical and managable pieces using functions.   It is very important that you test your code incrementally as you build your program -- don't try to write the whole thing before you start testing.  It is also critical that you use comments to explain what each method you create does.  
+</p>
+
+<!--
+<p>
+The user will select an option by picking a corresponding number from the printed list.  To map the selected number to an action, you could use a whole mess of if statements, but for this assignment we'd like you to try out a switch statement.  Here is the syntax of a switch statement. (I don't think we have this kind of thing in python... so.. what's the best way to do this? if-then-else?)
+</p>
+
+<p>
+<pre>
+	switch(&lt;var&gt;) {     
+	   case &lt;value1&gt;:       // if var has value1, do the following
+	      &lt;statement(s)&gt;; 
+	      break;
+	   case &lt;value2&gt;:       // if var has value2, do the following
+	      &lt;statement(s)&gt;; 
+	      break;
+	   case &lt;value3&gt;:       // if var has value3, do the following
+	      &lt;statement(s)&gt;; 
+	      break;
+	   ...
+	   default:             // for any other values of var, do this
+	      &lt;statement(s)&gt;; 
+	      break;	
+	}
+</pre>
+</p>
+
+<p>
+This looks at the value of the variable &lt;var&gt; and runs the statements in the case with the matching value.  If no such case is found, the statements under "default" are executed.  If the break statements are left out, then the execution will "fall through" into the subsequent cases, even if the value of var didn't match.  In some cases, this can be handy, but you probably want to keep the break statements here.
+-->
+</p>
+
+
+<p>
+Since we're creating an image manipulation program, you'll want to save <a href="../code/picture2.py">picture2.py</a> into your working directory.  To create a new picture object, first add an <tt>import picture2</tt> statement at the top of your program. Then you'll be able to use
+</p>
+
+<p>
+<pre>
+   <tt>pic = picture2.Picture("crayons.bmp")</tt>
+</pre>
+</p>
+
+<p>
+where <tt>pic</tt> is just a variable name for the picture object (we used canvas last time, but you can use whatever name you want).  
+</p>
+
+
+<p>
+This causes a new picture object called pic to be created, but rather than starting as a blank image, pic is initialized to match the image in the file crayons.bmp.  To create a new blank image (which may be useful if you need to create a copy of the current image), you'll use almost the same syntax we had for picture.py, minus one set of parens.  In particular, 
+</p>
+
+<p>
+<pre>
+   <tt>pic = picture2.Picture(w,h)</tt>
+</pre>
+</p>
+
+<p>
+will create a new blank image with width <tt>w</tt> and height <tt>h</tt>.
+</p>
+
+<p>
+Whichever image file you use should be saved in your working directory.  You can use <a href="crayons.bmp">crayons.bmp</a> or an image of your choice, although I suggest sticking with images which are in .bmp format.  If you're looking for files on Google images, you can add filetype:bmp to your query to restrict hits to this file type.
+</p>
+
+<div class="boxed">
+<h3>Some Important Methods</h3>
+
+<p>
+The following methods will be useful in completing this lab.  For starters, you often won't know the height and width of the image you read in.  To find out, the methods <tt>getHeight()</tt> and <tt>getWidth()</tt> can be used.  Both return an integer.  Remember that to call these methods, you'll use the object name, followed by a period, followed by the method invocation.  For example,  <tt>w = pic.getWidth()</tt>.
+</p>
+
+<p>
+Keep in mind that if the width of the image is w, then the  x-coordinates of all pixels range from 0 to w-1.  Trying to access or modify a pixel with an x-coordinate of w or greater will cause an error.  Similarly for the height.
+</p> 
+
+<p>
+Since we'll be doing pixel-by-pixel modifications, we need to be able to read and set the three color channels of any given pixel.  The method <tt>getPixelRed(x, y)</tt> returns the red value of the pixel at location (x,y).  The method <tt>setPixelRed(x, y, v)</tt> assigns the pixel at (x,y) a red value of v.  This method does not return a value.
+</p>
+
+<p>
+The methods <tt>getPixelGreen(x,y)</tt>, <tt>setPixelGreen(x,y,v)</tt>, <tt>getPixelBlue(x,y)</tt> and <tt>setPixelBlue(x,y,v)</tt> behave as you'd expect.  Keep in mind that when setting any color value, you must use an integer in the range from 0 to 255 (inclusive).  
+It'll often simplify your code to use <tt>getPixelColor(x,y)</tt> (which returns three integers, one per color channel) and <tt>setPixelColor(x,y,r,g,b)</tt>.  
+As we've seen, the method <tt>display()</tt> can be used to pop open a window with the current contents of your Picture object.
+</p>
+</div>
+
+<p>
+Keep in mind that if you have a picture object <tt>pic</tt> containing your original image and another picture object <tt>picCopy</tt> of the same size that you'd like to be assigned a copy of <tt>pic</tt>, the assignment statement <tt>picCopy = pic</tt> will <em>not</em> suffice.  All this will do is give you two variable names pointing to the exact same picture object.  Instead, you'll need to loop through all pixels of <tt>pic</tt> and copy the corresponding color channels into <tt>picCopy</tt>.  You may want to create a method specifically for this task.  Only call display on your original picture object <tt>pic</tt>.  Any function that makes use of a copy of your picture should create a new variable, say, <tt>pic2</tt>, using your copy function.  Then use that copy to modify <tt>pic</tt>.  Don't assign <tt>pic2</tt> to <tt>pic</tt>, and don't display <tt>pic2</tt>.  
+
+</p>
+
+<br>
+<br>
+<b>Test the Program:</b><br>
+This is a big one, so hopefully you've been testing as you go along. Make sure each individual operation does what it is supposed to, and then make sure that combinations work as well.
+</p>
+
+<br><br>
+<h2>Handin</h2>
+
+<p> If you followed the Honor Code in this assignment, insert a
+paragraph attesting to the fact within one of your <tt>.py</tt> files.</p>
+
+<blockquote class="honor">
+  <p class="centered"> <q class="honor">I
+affirm that I have adhered to the Honor Code in this assignment.</q>
+  </p>
+</blockquote>
+
+<p> You now just need to electronically handin all your files. As
+a reminder
+</p>
+
+<pre> 
+     % <span class="typed">cd</span>             # changes to your home directory
+     % <span class="typed">cd cs150</span>       # goes to your cs150 folder
+     % <span class="typed">handin</span>         # starts the handin program
+                      # class is 150
+                      # assignment is 4
+                      # file/directory is lab04
+     % <span class="typed">lshand</span>         # should show that you've handed in something
+</pre>
+
+<p> You can also specify the options to handin from the command
+line
+</p>
+
+<pre> 
+     % <span class="typed">cd ~/cs150</span>     # goes to your cs150 folder
+     % <span class="typed">handin -c 150 -a 4 lab04</span>
+</pre>
+<br>
+<h4>File Checklist</h4>
+<br>
+
+You should have submitted the following files:
+
+<pre>
+   monte.py
+   pyramid.py
+   mastermind.py
+   sketchy.py
+   picture.py   (for ease of grading)
+   picture2.py  (for ease of grading)
+   crayons.bmp	(for ease of grading)
+   imageEdit.py
+</pre>
+<br>
+If you worked with a partner, they should submit mastermind.py and imageEdit.py, and you should submit a README with their name.<p>
+
+<hr>
+<small>T. Wexler, A. Sharp, C. Taylor</small>
+</div>
+</div>
+<br>
+
+</body>
+</html>
+

@@ -1,0 +1,9 @@
+# greetings.py
+# Get user input and print a greeting.
+#
+# <your name>
+# <date>
+
+name = input("Enter your name: ")   # Prompt user for name, store in name
+print("So, we meet again,",name,"!") # Output greeting to user
+

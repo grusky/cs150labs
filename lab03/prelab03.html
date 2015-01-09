@@ -1,0 +1,270 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>CS 150 - PreLab 03</title>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<link rel="stylesheet" type="text/css" href="labs.css">
+</head>
+<body>
+<br>
+    <div id='container'>
+	<div id='top'>
+
+
+	    <h1><a href="http://www.cs.oberlin.edu/~ctaylor/150SP14/" style="text-decoration:none; color:black">PreLab 03</a></h1>
+	    <b>Prime Egyptians</b><br>
+	    <em>Due by the beginning of lecture on Wednesday, September 17th</em>
+	    <br>
+	    <br>
+
+	</div>
+	<div id='top'>
+
+
+
+<p style="text-align:justify">
+In this prelab you will formulate some of the mathematical ideas necessary to complete Lab 03. Please type up your solutions, and hand in a paper copy before the beginning of lecture on Wednesday. Remember, no late prelabs allowed! Remember that prelabs are an individual assignment, and you should not work on them with anyone else.
+</p>
+
+<h2>Part 0 - Conditionals Practice</h2>
+<div class="boxed" style="text-align:justify">
+<!--<b>1.</b> (From the Book) Many companies pay time-and-a-half for any hours worked above 40 in a given week. Write a program that takes as input the number of hours worked and the hourly rate and calculates the total wages for the week.
+
+<br><br>
+-->
+<b>1.</b> (From the Book) A certain CS professor gives five-point quizzes that are graded on the scale 5-A, 4-B, 3-C, 2-D, 1-F, 0-F. Write a program that accepts a quiz score as an input and uses a decision structure to calculate the corresponding grade.
+<br><br>
+<b>2.</b> Consider the following code snippet:
+<pre>
+    if (n%2) == 0 :
+        print( n )
+    else :
+        print( n*2 )
+        if (n%3) == 0 :
+	    print( n/3 )
+</pre>
+What is the output of this code snippet for each of the following values of <tt>n</tt>?
+<ul>
+<li><tt>n = 10</tt>:
+<li><tt>n = 9</tt>:
+<li><tt>n = 6</tt>:
+<li><tt>n = 5</tt>:
+</ul>
+<br>
+</div>
+
+<h2>Part 1 - Monte Carlo!</h2>
+<p style="text-align:justify">
+You probably remember bumping into that peculiar number &pi; = 3.14159265..., right? It comes up when you're talking about circles and trigonometry, but also appears in a bunch unexpected places that seem to have little to do with either. As a refresher, Pi can be defined as the ratio of a circle's circumference (&pi; d) to its diameter (d).  One interesting feature of Pi is that it's an <i>irrational number</i>, meaning it cannot be expressed as a fraction m/n where both m and n are integers; consequently, its decimal representation never ends or even repeats.
+
+</p>
+
+<p style="text-align:justify">
+Since ancient times, mathematicians have been fascinated with the study of Pi and it's various properties.  Early approximations of Pi, such as 22/7 and 355/113 were accurate to 3 and 7 digits repsectively (the latter approximation was the best known for nearly a millenium).  Currently, more than the first trillion (a million million) digits are known. There are many ways to estimate Pi -- for example, you could draw as precise a circle as you can manage, measure its circumference C and diameter d, and then divide C/d; this should give you Pi. Alternatively, there is a geometry-based approach due to Archimedes. We'll investigate a third approach using what is called a <em>Monte Carlo</em> method.
+</p>
+
+<h3>Monte Carlo Method</h3>
+
+<p style="text-align:justify">
+When we say we're using a Monte Carlo method, we usually mean we're going to do a bunch of random trials and observe the fraction of those trials that have a certain property.  In our case, we're going to be throwing darts into a square region, and computing the fraction of those darts that land within a circle inscribed inside that square.  Each throw is a trial, and the property we are concerned with is whether or not the dart landed inside the circle or not.
+</p>
+
+<br>
+<p style="text-align:justify">
+<b>Describe the Problem:</b><br>
+The problem you will solve on your lab is as follows.<br>
+<b>input:</b> get a number of trials <tt>n</tt> from the user.<br>
+<b>goal:</b> compute and output an approximation to Pi using a Monte Carlo method with <tt>n</tt> trials.
+</p>
+
+<br>
+<p style="text-align:justify">
+<b>Understand the Problem:</b><br>
+More precisely, we'll begin by (theoretically) constructing a target circle inscribed in a square. This is our dart board, and the target circle reaches all the way to the edge of the square. It might look something like the following:
+</p>
+
+<p class="centered">
+    <img src="target.jpg" alt="Pi Target">
+
+</p>
+
+<p style="text-align:justify">
+Next, we'll simulate repeatedly throwing darts at random against the board above (we'll assume that our random throws alway hits the square, and are equally likely to land at any given point inside the square). We then look at the fraction of the darts that land within the circle out of all those that were thrown.  I claim that if we then multiply this fraction by 4, we should have a good approximation to Pi.  What sort of dark sorcery is this?  Let's take a closer look.
+</p>
+
+<p style="text-align:justify">
+Suppose you are throwing darts at the square board. Assuming it lands on the board, the chance that any one dart is inside the circle is the ratio of the area of the circle to the area of the square. So, if the circle had area 90 and the square area 100 (not possible, but humor me), you'd have a 90% chance of hitting the circle.
+</p>
+
+<div class="boxed">
+<b>3.</b> Suppose the circle has a radius of r.  
+<ul>
+<li>What is the length of one side of the square board in terms of r?
+<li>What is the area of the square board in terms of r?  
+<li>What is the area of the inscribed circle in terms of r?  
+<li>Use these to determine the probability that a randomly thrown dart lands within the circle.  That is, determine the ratio <b>R</b> of the two areas (the circle's area divided by that of the square).  Simplify your expression for <b>R</b> (it will have a Pi in it).  Then give an expression for Pi in terms of <b>R</b> using (simple) algebraic manipulation.  
+</ul>
+<br>
+
+</div>
+
+
+
+<h2>Part 2 - Walk Like an Egyptian</h2>
+
+<p style="text-align:justify;">
+<b>Describe the Problem:</b><br>
+The problem you will solve on your lab is as follows.<br>
+<b>input:</b> get a numbers <tt>width</tt> from the user, as well as the number of bricks tall to make the pyramid (<tt>n</tt>).<br>
+<b>goal:</b> draw a pyramid that is <tt>n</tt> bricks tall in a square canvas <tt>width</tt> wide (and thus <tt>width</tt> tall).
+
+
+<br>
+<br>
+<p style="text-align:justify;">
+<b>Understand the Problem:</b><br>
+    Here are three sample outputs for your reference. Notice that the pyramid doesn't necessarily fill the entire canvas to the right and to the top; if the canvas width is not evenly divisible by the number of bricks, then there will be extra blank space. (A question for you to ponder: why is there so <i>much</i> blank space in the third example? Seems like you could fit lots of extra bricks both to the right and up top...)
+</p>
+
+
+<b>400 x 400, 3 bricks.</b><br>
+<img src="pyramid3.bmp" alt="3 bricks" border=0><br><br>
+
+<b>400 x 400, 17 bricks.</b><br>
+<img src="pyramid17.bmp" alt="17 bricks" border=0><br><br>
+
+<b>400 x 400, 123 bricks.</b><br>
+<img src="pyramid123.bmp" alt="123 bricks" border=0><br><br>
+
+
+
+
+<div class="boxed" style="text-align:justify">
+<b>4.</b> Suppose you have a canvas that is 7 units wide and 7 units high.  It may be useful to imagine that the  canvas is made of graph paper, and is 7 squares wide by 7 squares tall. Suppose that you want a pyramid that is 3 bricks high (that is, n=3).  You'd like the bricks to be as large as possible, but they  should all be of the same size, and they must use a whole number of squares.  
+
+<ul class="padded">
+<li>Draw the canvas and the pyramid to a reasonable scale and with enough precision so that we can see the coordinates and any gaps that might remain between the top (or right side) of the pyramid and the edge of the canvas.
+<li>What is the side-length of each brick (how wide and tall is each brick)?
+<li>How many bricks are in the 0<sup>th</sup> (bottom) row?
+<li>How many bricks are in the 1<sup>st</sup> (middle) row?
+<li>How many bricks are in the 2<sup>nd</sup> (top) row?
+<li>Let the upper-left corner of the canvas be (0,0) with the x and y values increasing as you move right and down, respectively. What are the x- and y-coordinates of the upper left corner of the first brick in the 0<sup>th</sup> row?
+<li>What are the x- and y-coordinates of the upper left corner of the first brick in the 1<sup>st</sup> row?
+</ul>
+
+<!--
+<b>1.</b> Suppose you have a canvas that is 420 pixels wide and 420 pixels high. You want to evenly tile this canvas with a 7x7 grid of identical rectangles.  What are the required dimensions (width and height) of each rectangle?
+<br><br>
+
+<b>2.</b> Suppose that, tragically, you lost all but one of your rectangles.  You decide to make the most of it, placing so it sits on the bottom edge of the canvas, centered it horizontally.  It looks awesome.  What are the (x,y) coordinates for the upper-left corner of that rectangle? (Assume that the upper-left corner of the canvas is (0,0) and the x and y values increase as you move right and down, respectively.)  
+<br><br>
+
+<b>3.</b> Generalize your answers to questions <b>1</b> and <b>2</b> for a <em>W</em> pixel wide by <em>H</em> pixel high canvas, split into an <em>X</em> by <em>X</em> grid or rectangles.  That is, what are the dimensions of each rectangle, and what would the coordinates be for a single such rectangle centered at the bottom of the canvas.  Your values should be in terms of <em>W</em>, <em>H</em> and <em>X</em>.  Check your formulas by plugging in 420, 560 and 7, and checking that you get the same answers as you had for <b>1</b> and <b>2</b>.   
+<br><br>
+-->
+
+<b>5.</b> More generally, suppose your canvas is <tt>width</tt> wide and <tt>width</tt> high, and that your pyramid is <tt>n</tt> bricks tall. What is the side-length <tt>s</tt> of a brick, in terms of <tt>width</tt> and <tt>n</tt>? Use Python's integer division, or floors and ceilings, if necessary.
+<br><br>
+
+<b>6.</b> If our pyramid is <tt>n</tt> bricks tall, then it is also <tt>n</tt> bricks wide at its base. Thus we have that
+<ul>
+<li>Row 0 contains n bricks
+<li>Row 1 (just above row 0) has n-1 bricks
+<li>Row n-1 (the top row) has 1 brick.
+</ul>
+How many bricks does row i contain, in terms of <tt>n</tt> and <tt>i</tt>?
+<br><br>
+
+<b>7.</b> If our pyramid is <tt>n</tt> bricks tall and each brick has side-length <tt>s</tt>, then
+<ul>
+<li>The first brick of row 0 starts at x-coordinate 0.
+<li>The first brick of row 1 starts at x-coordinate <tt>s</tt>/2.
+</ul>
+What is the x-coordinate of the first brick of row i, in terms of <tt>s</tt> and <tt>i</tt>?
+<br><br>
+
+<b>8.</b> If your pyramid is <tt>n</tt> bricks tall, our canvas <tt>width</tt> wide and tall, and each brick has side-length <tt>s</tt>, then
+<ul>
+<li>The bricks of row 0 have y-coordinate <tt>width-s</tt>.
+<li>The bricks of row 1 have y-coordinate <tt>width-2s</tt>.
+</ul>
+What is the y-coordinate of row i, in terms of <tt>width</tt>, <tt>i</tt>, and <tt>s</tt>?
+<br><br>
+</div>
+
+ 
+
+<h2>Part 3 - Primes</h2>
+
+<p style="text-align:justify;">
+As you may know, a number <tt>x</tt> is said to be <em>prime</em> if <tt>x</tt> is at least 2, and the only proper factors of <tt>x</tt> are itself and 1.  So the first few primes are 2, 3, 5, 7, 11, 13, 17, 19, 23, etc.   4 isn't prime, since it is divisible by 2.  Same goes for 6 and 8.  9 is out thanks to 3.  And so on.  There are a lot of primes.  More precisely, there are infinitely many primes. This can actually be shown pretty easily; ask if you're curious.</p>
+
+<p style="text-align:justify;">
+A <em>twin prime</em> is a pair of prime numbers that differ by exactly 2.  So (3,5), (5,7), (11,13), (17,19) and (29, 31) are all twin primes.  Note that not every prime is part of a twin prime.  It is conjectured that there are infinitely many twin primes too, but no one knows for sure.</p>
+
+
+<br>
+<p style="text-align:justify;">
+<b>Describe the Problem:</b><br>
+The problem you will solve on your lab is as follows.<br>
+<b>input:</b> get a number <tt>n</tt> from the user that represents the number of primes to print out.<br>
+<b>output:</b> output the first <tt>n</tt> primes, and the number of twin primes amongst these <tt>n</tt>.
+
+<br>
+<br>
+<p style="text-align:justify;">
+<b>Understand the Problem:</b><br>
+If the user enters 13 then the output should be
+<p>
+<pre>
+The first 13 primes are:
+2 3 5 7 11 13 17 19 23 29 31 37 41
+Amongst these there are 5 twin primes.
+</pre>
+</p>
+
+<p style="text-align:justify;">
+Note that (41, 43) is a twin prime, but we didn't count it since 43 wasn't amongst the first 13 primes.  
+</p>
+
+<br>
+<br>
+<p style="text-align:justify;">
+<b>Design an Algorithm:</b><br>
+Write pseudocode to solve this problem. You should decompose your main algorithm into small manageable chunks. For example, you should
+<ul>
+<li>design an algorithm that takes in an integer <tt>x</tt> and determines whether <tt>x</tt> is prime. For example, "isPrime(x)" would return false, while "isPrime(31)" would return true. 
+<li>make liberal use of this isPrime method to generate the first <tt>n</tt> primes. 
+</ul>
+<p>
+
+
+<div class="boxed">
+<p style="text-align:justify;">
+<b>9.</b> Suppose <tt>x</tt> and <tt>f</tt> are both integers.  Find a boolean expression which is true if and only if <tt>f</tt> is a proper factor of <tt>x</tt>.  That is, the boolean expression should be true if <tt>x</tt> is evenly divisible by <tt>f</tt>, and false otherwise.  For example, if <tt>x</tt> and <tt>f</tt> are 18 and 6 respectively, then the expression should evaluate to true, since 6 goes evenly into 18.  For 18 and 5, however, the expression should evaluate to false, since 5 doesn't go evenly into 18.
+
+<p>
+<b>10.</b> Use the expression above to give pseudocode for an algorithm that determines whether <tt>x</tt> is prime.
+
+</div>
+
+<h2>Honor Code</h2>
+
+<p style="text-align:justify"> If you followed the Honor Code in this assignment, write the following sentence attesting to the fact at the top of your homework.</p>
+
+<blockquote class="honor">
+  <p class="centered"> <q class="honor">I
+affirm that I have adhered to the Honor Code in this assignment.</q>
+
+  </p>
+
+</blockquote>
+
+</div>
+</div>
+<br>
+
+</body>
+</html>
+

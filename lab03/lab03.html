@@ -1,0 +1,576 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>CS 150 - Lab 03</title>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<link rel="stylesheet" type="text/css" href="labs.css">
+</head>
+<body>
+<br>
+    <div id='container'>
+	<div id='top'>
+
+
+	    <h1><a href="http://www.cs.oberlin.edu/~ctaylor/150/" style="text-decoration:none; color:black">Lab 03</a></h1>
+	    <b>Loops & Graphics</b><br>
+	    <em>Due by 10pm on Tuesday, September 24th</em>
+	    <br>
+	    <br>
+
+	</div>
+	<div id='top'>
+
+
+
+<p>
+The purpose of this lab is to:
+<ul>
+	<li>Introduce basic graphics</li>
+	<li>Practice loops using graphics</li>
+	<li>Practice using conditionals (if-statements)</li>
+</ul>
+</p>
+
+<p>
+Before you begin, please create a folder called <tt>lab03</tt> inside your <tt>cs150</tt> folder (for a refresher, here's how you did this on <a href="../lab02/lab02.html">lab 02</a>). This is where you should put all files made for this lab.
+</p>
+
+
+<h2>Part 1 - Monte Carlo!</h2><p>
+<b><i>monte.py: 12 points, individual</i></b>
+<p style="text-align:justify">
+You probably remember bumping into that peculiar number &Pi; = 3.14159265..., right? It comes up when you're talking about circles and trigonometry, but also appears in a bunch unexpected places that seem to have little to do with either. As a refresher, Pi can be defined as the ratio of a circle's circumference (&Pi; d) to its diameter (d).  One interesting feature of Pi is that it's an <i>irrational number</i>, meaning it cannot be expressed as a fraction m/n where both m and n are integers; consequently, its decimal representation never ends or even repeats.
+
+</p>
+
+<p style="text-align:justify">
+Since ancient times, mathematicians have been fascinated with the study of Pi and it's various properties.  Early approximations of Pi, such as 22/7 and 355/113 were accurate to 3 and 7 digits repsectively (the latter approximation was the best known for nearly a millenium).  Currently, more than the first trillion (a million million) digits are known. There are many ways to estimate Pi -- for example, you could draw as precise a circle as you can manage, measure its circumference C and diameter d, and then divide C/d; this should give you Pi. Alternatively, there is a geometry-based approach due to Archimedes. We'll investigate a third approach using what is called a <em>Monte Carlo</em> method.
+</p>
+
+<h3>Monte Carlo Method</h3>
+
+<p style="text-align:justify">
+When we say we're using a Monte Carlo method, we usually mean we're going to do a bunch of random trials and observe the fraction of those trials that have a certain property.  In our case, we're going to be throwing darts into a square region, and computing the fraction of those darts that land within a circle inscribed inside that square.  Each throw is a trial, and the property we are concerned with is whether or not the dart landed inside the circle or not.
+</p>
+
+<br>
+<p style="text-align:justify">
+<b>Describe the Problem:</b><br>
+Write a program called <tt>monte.py</tt> that computes an approximate value of Pi.<br>
+<b>input:</b> get a number of trials <tt>n</tt> from the user.<br>
+<b>goal:</b> compute and output an approximation to Pi using a Monte Carlo method with <tt>n</tt> trials.
+</p>
+
+<br>
+<p style="text-align:justify">
+<b>Understand the Problem:</b><br>
+More precisely, we'll begin by (theoretically) constructing a target circle inscribed in a square. This is our dart board, and the target circle reaches all the way to the edge of the square. It might look something like the following:
+</p>
+
+<p class="centered">
+    <img src="target.jpg" alt="Pi Target">
+
+</p>
+
+<p style="text-align:justify">
+Next, we'll simulate repeatedly throwing darts at random against the board above (we'll assume that our random throws alway hits the square, and are equally likely to land at any given point inside the square). We then look at the fraction of the darts that land within the circle out of all those that were thrown.  I claim that if we then multiply this fraction by 4, we should have a good approximation to Pi.  What sort of dark sorcery is this?  Let's take a closer look.
+</p>
+
+<p style="text-align:justify">
+The area of a square is the length of a side squared. Thus our square, with sides of length 2, has an area of 4. The area of a circle is Pi times the radius squared, so for a unit circle (with radius 1), the area is Pi. Therefore, the ratio of the area of our circle to the area of our square is precisely Pi/4. (That is, the circle takes up a Pi/4 portion of our dart board.)
+</p>
+<p style="text-align:justify">
+Since each dart lands at a random location in the square, the probability that any one dart lands within the circle should be exactly the fraction of the square taken up by the circle: Pi/4. Thus, if we repeat this experiment over and over again, we'd expect roughly a Pi/4 fraction of the darts to land in the circle. By counting up the fraction that actually land in the circle in our experiments, we've gotten a probabilistic estimate for Pi/4, or a quarter of Pi. If we just multiply that estimate by 4, we've got our approximation for Pi itself. Restating our discussion as a formula, we have
+</p>
+<p class="centered">
+    <img src="eqn.gif" style="height: 3em;" alt="">
+</p>
+<p style="text-align:justify">
+That is, if you throw lots of darts and keep track of the fraction that land inside the circle, multiplying this fraction by 4 should give you an approximate value for Pi. Of course, it is only an approximation: suppose (by some cosmic fluke) that all the darts thrown land near the upper left corner, outside of the circle. Then your approximation for Pi would be 0 (a rather weak estimate). However, as the number of trials increases, the likelihood that your estimate is good increases as well.
+</p>
+
+<p>A run of the program might appear as follows.</p>
+<div class="boxed">
+    <h3>Sample Output</h3>
+<pre>
+
+    % python3.2 monte.pi 
+
+    This program calculates the value of Pi by
+    simulating the throwing of darts onto a round
+    target on a square background.
+
+        How many darts to throw? 1
+    The value of Pi after 1 iterations is 4.0
+    which is off by 27.32%
+    % python3.2 monte.pi 
+
+    This program calculates the value of Pi by
+    simulating the throwing of darts onto a round
+    target on a square background.
+
+        How many darts to throw? 100
+    The value of Pi after 100 iterations is 2.96
+    which is off by 5.78%
+    % python3.2 monte.pi 
+
+    This program calculates the value of Pi by
+    simulating the throwing of darts onto a round
+    target on a square background.
+
+        How many darts to throw? 1000
+    The value of Pi after 1000 iterations is 3.084
+    which is off by 1.83%
+
+</pre>
+    </div>
+
+<br>
+<p style="text-align:justify">
+<b>Design an Algorithm:</b><br>
+Write pseudocode to approximate Pi via this dart-throwing method--you'll throw random darts at a 2-by-2 board, and calculate what fraction end up within the unit circle. Try this on your own, and then confirm that your pseudocode looks something like the following:
+<ul>
+<li>Prompt the user for the number of darts <tt>n</tt> they want to throw.
+<li>Initialize a variable <tt>hits</tt> to 0. This variable keeps track of how many of the <tt>n</tt> darts actually land within the target circle.
+<li>for <tt>n</tt> iterations
+<ul>
+<li> throw a single random dart onto our board
+<li> if the dart lands within the circle, increment <tt>hits</tt>
+</ul>
+<li>Calculate the fraction of the <tt>n</tt> darts that landed within the target, that is, <tt>hits/n</tt>, and from this calculate the approximation to Pi as <tt>4*hits/n</tt>.
+</ul>
+</p>
+
+<br>
+<p style="text-align:justify">
+<b>Implement a Design:</b><br>
+Translate your pseudocode into a Python program named <tt>monte.py</tt>.
+<br>
+<br>
+In order to implement your pseudocode, you'll need to "throw a dart." Each dart's position is specified by an (x,y) coordinate, so to "throw" a dart, you just need to randomly generate two values for each dart throw (one for x and one for y). 
+</p>
+
+
+<a name="Random"></a>
+<div class="boxed">
+<h3>Generating random numbers / Throwing random darts</h3>
+<p style="text-align:justify;">
+Python has a module that will let you generate random numbers called <a href="http://docs.python.org/3.0/library/random.html">random</a>. To use it you need to:
+</p>
+<ol class="padded">
+    <li style="text-align:justify">At the top of your file, under your comments, add the line 
+    <pre>
+    <tt>import random</tt> </pre>
+</li>
+    
+    <li style="text-align:justify">You can get a random integer between 0 and 99 (inclusive) with the following call
+    <pre>
+    <tt>rInt = random.randrange(100)    # returns an integer in [0,99]</tt>
+</pre>
+Another way to get the same result is with the following call:
+<pre>
+    <tt>rInt = random.randint(0,99)</tt>
+</pre>
+If you'd like a random float between 0.0 and 1.0 (exclusive) you can do: 
+<pre>
+    <tt>rFloat = random.random()   # returns a float in [0.0, 1.0)</tt></pre></li>
+    If you'd like that random float to be between 0.0 and 1.0 (INclusive) you can do:
+<pre>
+    <tt>rFloat = random.uniform(0.0, 1.0)   # returns a float in [0.0, 1.0]</tt></pre></li>
+    <li style="text-align:justify">In order to generate a random float between -1 and 1 (which you'll do for each of the x- and y-coordinates of each dart throw), do the following.
+    <pre>
+    <tt>randX = random.uniform(-1.0, 1.0)  # randX is between -1.0 and 1.0  </tt>
+</pre></li>
+</ol>
+</div>
+
+<p style="text-align:justify;">
+Now that you have your dart throw, your next question should be: how do I know if I've hit the target? You'll do this by calculating the distance from the center of the circle to the dart and determining if it is within 1 unit and therefore in the circle.  If you center the circle at the origin (0,0) and generate x and y values ranging from -1 to 1, you can just use the distance formula to calculate the distance from (x,y) to the origin:
+</p>
+
+<!-- 
+\sqrt{x^2 + y^2}
+-->
+<p class="centered">
+<img src="equation2.gif" style="height: 1.5em" alt="distance formula" class="equation">
+</p>
+In Python, this formula is <tt>math.sqrt(x*x + y*y)</tt>.
+
+
+<!-- 
+<pre>
+  __________
+\/ x^2 + y^2
+</pre>
+-->
+
+<br><br>
+
+<div class="boxed">
+
+<a name="Math"></a>
+<h3>Math functions</h3>
+<p style="text-align:justify;">
+You can use the <a href="
+http://docs.python.org/3.0/library/math.html">math module</a>
+to do more advanced arithmetic operations and to give you a decent value of Pi. In particular, <tt>math.sqrt(exp)</tt> will return the square root of the expression <tt>exp</tt>, and <tt>math.pi</tt> is a constant representing the value of Pi.  See the <a href="http://docs.python.org/3.0/library/math.html">online documentation</a> for more details, if you need them.  You will need to import this module at the top of your file, using <tt>import math</tt>.
+</p>
+</div>
+
+
+
+<p style="text-align:justify;">
+Now in your main function's for loop, you can check whether this function returns a value less than or equal to 1 using an if statement.
+
+
+<p style="text-align:justify;">
+    You do not have to
+    calculate the percentage difference between your approximation and Python's <tt>math.pi</tt>, but it might be interesting to look at.  
+</p>
+
+<br>
+<p style="text-align: justify;">
+<b>Test the Program:</b><br>
+Try running your program with an increasing number of trials. Ideally, the more trials you have, the closer to the real value of Pi you get.
+    You should expect that
+    each run produces a slightly different value due to the fact that it is
+    using a random number generator.
+    </p>
+
+<br>
+<p style="text-align: justify;">
+<b>Handin:</b><br>
+Just another reminder to run the handin command to hand in your files.
+</p>
+<br>
+
+
+<h2>Part 2 - Walk Like an Egyptian</h2><p>
+<b><i>pyramid.py: 16 points, partner</b></i>
+
+<p style="text-align:justify;">
+<b>Describe the Problem:</b><br>
+Write a program called <tt>pyramid.py</tt> that draws a pyramid of bricks based on user input.<br>
+<b>input:</b> get a numbers <tt>width</tt> from the user, as well as the number of bricks tall to make the pyramid (<tt>n</tt>).<br>
+<b>goal:</b> draw a pyramid that is <tt>n</tt> bricks tall in a square canvas <tt>width</tt> wide (and thus <tt>width</tt> tall).
+
+
+<br>
+<br>
+<p style="text-align:justify;">
+<b>Understand the Problem:</b><br>
+    Here are three sample outputs for your reference. Notice that the pyramid doesn't necessarily fill the entire canvas to the right and to the top; if the canvas width is not evenly divisible by the number of bricks, then there will be extra blank space. (A question for you to ponder: why is there so <i>much</i> blank space in the third example? Seems like you could fit lots of extra bricks both to the right and up top...)
+</p>
+
+
+<b>400 x 400, 3 bricks.</b><br>
+<img src="pyramid3.bmp" alt="3 bricks" border=0><br><br>
+
+<b>400 x 400, 17 bricks.</b><br>
+<img src="pyramid17.bmp" alt="17 bricks" border=0><br><br>
+
+<b>400 x 400, 123 bricks.</b><br>
+<img src="pyramid123.bmp" alt="123 bricks" border=0><br>
+
+
+
+<br>
+<p style="text-align:justify;">
+<b>Design an Algorithm:</b><br>
+Write pseudocode to draw the appropriate pyramid. The algorithm is 
+<ol class="padded">
+	<li>Prompt the user for the width <tt>width</tt> of the canvas.</li>
+	<li>Prompt the user for the number of bricks tall to make the pyramid, <tt>n</tt>.</li>
+	<li>Setup a canvas of size <tt>width</tt> by <tt>width</tt>  with a cyan background. 
+	<li style="text-align:justify">Start building the pyramid in the bottom left corner of the canvas. This is the tricky part so we will walk you through it. Very broadly, the algorithm to draw the actual pyramid is:<br>
+	<br>
+	
+	<div class="boxed">
+	For each row <tt>i</tt> of the pyramid<br>
+	    <ul>
+	    <li>Draw row <tt>i</tt> of the pyramid<br>
+	    </ul>
+	</div>
+	    <br>
+	Of course, this leaves a lot of details out! The first question you should answer is "How many rows are there in the pyramid?"  Hopefully it is clear that the answer here is <tt>n</tt>.
+	<br>
+	So we can rewrite the algorithm as:<br>
+	<br>
+	<div class="boxed">
+	For each row <tt>i</tt> from <tt>0</tt> to <tt>n-1</tt> do<br>
+	    <ul>
+	    <li>Draw row <tt>i</tt> of the pyramid</li>
+	    </ul>
+	</div>
+	    <br>
+	But drawing row i of the pyramid is a whole algorithm in itself.  In order to draw row i of the pyramid, we need to answer the following questions 
+	(which you answered on your <a href="prelab03.html">prelab</a>):
+	<ul>
+	<li>How many bricks does the <tt>i<sup>th</sup></tt> row have (given that the 0<sup>th</sup> row has <tt>n</tt> bricks and the (n-1)<sup>st</sup> row has 1)? That is, <tt>numBricks<sub>i</sub> = ???</tt> Write down your answer.
+	
+	<li>What is the side length <tt>s</tt> of each brick in terms of <tt>width</tt> and <tt>n</tt>? That is, <tt>s = ???</tt>  Write down your answer.
+	</ul>
+	<br>
+	If we take another look at our pseudocode, it would look like this:<br>
+	<br>
+	<div class="boxed">
+	For each row <tt>i</tt> from <tt>0</tt> to <tt>n-1</tt> do<br>
+	<ul>
+	<li>Draw row <tt>i</tt> of the pyramid as follows
+	    <ul>
+	    <li>Draw <tt>numBricks<sub>i</sub></tt> bricks, each with side length <tt>s</tt> 
+	    </ul>
+	</ul>
+	</div>
+	<br>
+	If we were to implement this pseudocode, we would see that all the rows would be squished up against the left-hand side of the canvas... that is, we haven't taken into account that each row itself starts a little bit further to the right than the row below it. Thus, our next questions
+	(which you answered on your <a href="prelab03.html">prelab</a>):
+	<ul>
+	<li>What is the x-coordinate of the first brick of row <tt>i</tt> in terms of <tt>s</tt> and <tt>i</tt> (given that the 0<sup>th</sup> row starts at x-coord <tt>0</tt>)? That is, <tt>startX = ???</tt> Write down your answer.
+	<li>What is the y-coordinate of the first brick of row <tt>i</tt> in terms of <tt>s</tt> and <tt>i</tt> (given that the 0<sup>th</sup> row starts at y-coord <tt>width - s</tt>)? That is, <tt>startY = ???</tt> Write down your answer.
+	</ul>
+	Now we have enough to complete our pseudocode with sufficient detail:<br>
+	<br>
+	
+	<div class="boxed">
+	For each row <tt>i</tt> from <tt>0</tt> to <tt>n-1</tt> do<br>
+	<ul>
+	<li>Draw row <tt>i</tt> of the pyramid as follows<br>
+	<ul>
+	<li>Draw <tt>numBricks<sub>i</sub></tt> bricks, each with side length <tt>s</tt>
+	<li>Each brick should have y-coordinate <tt>startY</tt>
+	<li>The first brick should have x-coordinate <tt>startX</tt> and each subsequent brick should be offset by <tt>s</tt> from the previous
+	</ul>
+	</div>
+</ol>
+
+<p style="text-align:justify;">
+<b>Implement a Design:</b><br>
+<p style="text-align:justify;">
+Now that you have a detailed algorithm in pseudocode, translate it (bit by bit!) into a Python program named <tt>pyramid.py</tt>. Although your final program should get the width and number of bricks from the user, you may want to temporarily hard-code this values into your program (using the example values above, perhaps) for now because it will make testing easier for now.
+</p>
+
+
+<div class="boxed">
+<h3>Using the picture module</h3>
+<p style="text-align:justify;">
+We have provided you with a module <a href="../code/picture.py">picture</a> that lets you draw pictures. To use it you need to:
+<ol class="padded">
+    <li style="text-align:justify">Download or copy the <a href="../code/picture.py">picture</a> module into your current working directory (in this case, your lab03 directory).
+    </li>
+    <li style="text-align:justify">Before your main declaration, add the line 
+    <pre>
+    <tt>import picture</tt> </pre>
+    </li>
+    
+    <li style="text-align:justify">To get started, you need to declare and initialize a new <tt>picture</tt> object using a constructor function as follows:
+
+    <pre>
+    <tt>canvas = picture.Picture(600, 800)</tt></pre>
+
+    This creates a new <tt>picture</tt> object called <tt>canvas</tt> which you'll be able to draw upon and display.  The parameters specify the width and height of the canvas.  Naturally, you can use other values if needed.</p>
+
+    <li style="text-align:justify">
+    At any given time, picture object keeps track of an outline color (lines and edges of shapes) and a fill color (the inside of shapes).  The default values of these parameters are black and white, respectively.
+    To change the color of the lines, you'd use the <tt>setOutlineColor</tt> function, as follows:</p>
+
+<pre>
+    <tt>canvas.setOutlineColor(r, g, b)</tt></pre>
+
+<p>Here <tt>r</tt> is an expression indicating how much red the pen color should have (from 0 to 255).  Similarly, <tt>g</tt> and <tt>b</tt> indicate how much green and blue are in the pen color.  Some useful (r,g,b) values: (255, 255, 0) is yellow, (0, 0, 0) is black, and (0, 255, 255) is cyan.</p>
+
+<p> The function to set the fill color is what you might expect:</p>
+
+<pre>
+    <tt>canvas.setFillColor(r, g, b)</tt></pre>
+
+    <li style="text-align:justify">
+<p>You'll also want to use the <tt>drawRect</tt> and <tt>drawRectFill</tt> function to draw rectangles and filled rectangles.  For example,</p>
+
+<pre>
+    <tt>canvas.drawRectFill(x, y, w, h)</tt></pre>
+
+<p>would draw a filled rectangle in the current pen color.  The rectangle would be <tt>w</tt> pixels wide and <tt>h</tt> pixels tall.  The upper left corner of the rectangle would be located at position (<tt>x</tt>,<tt>y</tt>).  (Recall that the <tt>picture</tt> coordinate system, (0,0) is the upper left pixel.)</p>
+
+    <li style="text-align:justify">
+To actually display the picture, you'll need to use the <tt>display()</tt> function after you've created the image.  So you'd write
+</p>
+
+<pre>
+    <tt>canvas.display()</tt></pre>
+    
+<p> As you may recall from class, the picture window will close as soon as your program ends, so if you want to be able to admire your creation, you'll need to force the program to wait.  The easiest way to do this is by ending your program with an input statement:
+
+<pre>
+    <tt>input()</tt></pre>
+
+<p>Now when you run your program, it will open the picture window and keep it open until you press enter.  </p>
+
+
+
+</ol>
+</div>
+
+<p style="text-align:justify">
+<b>Implementation notes:</b> 
+<ul style="text-align:justify">
+
+<li>
+All the bricks you draw should be exactly the same size.  While you can pass floats to various picture functions, including drawRectFill, in the end these values end up being rounded to integers (since all pixels have integer coordinates).  To ensure your bricks are placed exactly as you intend, you may wish to do the rounding yourself.    
+</li><br>
+
+<li>
+On a related note, sometimes the brick size length won't divide evenly into the canvas size. In these cases, you will have gaps either to the right or to the top of the pyramid. This is okay. However, you should <i>not</i> have gaps to the left or on the bottom of the pyramid. <b>Always start at the bottom left</b>, putting the next brick right next to the
+previous one and right on top of the previous layer. 
+</li><br>
+<!--
+<li>Use functions where appropriate. For example, it seems natural to have a function that takes in 4 parameters <tt>x, y, numBricks, s</tt> and draws <tt>numBricks</tt> bricks each of side-length <tt>s</tt>, starting at coordinates (<tt>x</tt>, <tt>y</tt>). Use other functions where you think it is appropriate; if you don't use any functions your grade will be lowered accordingly!
+</li>-->
+
+<li> A hint on changing the background color: there is no way to actually change the color of the canvas, so to get that nice blue background, you will need to draw a big rectangle the same size as the canvas, with its x,y coordinates set to 0,0.
+</ul>
+
+<br>
+<p style="text-align:justify;">
+<b>Test the Program:</b><br>
+<p style="text-align:justify;">
+Try running the program with the examples given above as well as some others. Make sure you have gaps where you ought to, and that there aren't gaps where there shouldn't be gaps! Your pyramid should not be sloping to one side or floating in the middle. You shouldn't have some bricks that are larger than others.  If it looks fishy, go back and examine your math equations, checking that the "integer division" is being used appropriately.</p>
+
+<p style="text-align:justify;">And don't forget to let the user input the width and number of bricks, if you were testing the program with hard-coded values!</p>
+
+<br>
+<br>
+<p style="text-align:justify;">
+<b>Handin:</b><br>
+<p style="text-align:justify;">
+Please handin your lab up to this point so that we have some portion of your code submitted.
+</p>
+
+
+<br>
+<br>
+<h2>Part 3 - Primes</h2><p>
+<b><i>primes.py: 12 points, partner</i></b>
+
+<p style="text-align:justify;">
+As you may know, a number <tt>x</tt> is said to be <em>prime</em> if <tt>x</tt> is at least 2, and the only proper factors of <tt>x</tt> are itself and 1.  So the first few primes are 2, 3, 5, 7, 11, 13, 17, 19, 23, etc.   4 isn't prime, since it is divisible by 2.  Same goes for 6 and 8.  9 is out thanks to 3.  And so on.  There are a lot of primes.  More precisely, there are infinitely many primes. This can actually be shown pretty easily; ask if you're curious.</p>
+
+<p style="text-align:justify;">
+A <em>twin prime</em> is a pair of prime numbers that differ by exactly 2.  So (3,5), (5,7), (11,13), (17,19) and (29, 31) are all twin primes.  Note that not every prime is part of a twin prime.  It is conjectured that there are infinitely many twin primes too, but no one knows for sure.</p>
+
+
+<br>
+<p style="text-align:justify;">
+<b>Describe the Problem:</b><br>
+Write a program called <tt>primes.py</tt> that prints out some number of primes and the number of twin primes amongst them.<br>
+<b>input:</b> get a number <tt>n</tt> from the user that represents the number of primes to print out.<br>
+<b>output:</b> output the first <tt>n</tt> primes, and the number of twin primes amongst these <tt>n</tt>.
+
+<br>
+<br>
+<p style="text-align:justify;">
+<b>Understand the Problem:</b><br>
+If the user enters 13 then the output should be
+<p>
+<pre>
+The first 13 primes are:
+2 3 5 7 11 13 17 19 23 29 31 37 41
+Amongst these there are 5 twin primes.
+</pre>
+</p>
+
+<p style="text-align:justify;">
+Note that (41, 43) is a twin prime, but we didn't count it since 43 wasn't amongst the first 13 primes.  
+</p>
+
+<br>
+<br>
+<p style="text-align:justify;">
+<b>Design an Algorithm:</b><br>
+Write pseudocode to solve this problem. You should decompose your main algorithm into small manageable chunks. For example, you should
+<ul>
+<li>design an algorithm that takes in an integer <tt>x</tt> and determines whether <tt>x</tt> is prime. For example, it would return false if x is 10, while it would return true if x is 31. You did this on your <a href="prelab03.html">prelab</a>.
+<li>use this algorithm to generate the first n primes. 
+</ul>
+
+<br>
+<br>
+<p style="text-align:justify;">
+<b>Implement a Design:</b><br>
+You may want to use a while loop as you search for primes, since you won't know ahead of time just how far you need to go.  Ask if you're not sure what a while loop is, or feel free to google it.</p> 
+
+<br>
+<br>
+<p style="text-align:justify;">
+<b>Test the Program:</b><br>
+Try your program with a variety of inputs <tt>n</tt>. Certainly you should try <tt>n=0,1,13</tt> but you should also try <tt>n=14</tt> to get that one extra twin prime, as well as others!
+
+
+<br>
+<br>
+<p style="text-align:justify;">
+<b>Handin:</b><br>
+Please handin what you have of your lab so far.
+
+
+
+<h2>Handin</h2>
+
+<p style="text-align:justify"> If you followed the Honor Code in this assignment, insert a
+paragraph attesting to the fact within one of your <tt>.py</tt> files.</p>
+<blockquote class="honor">
+  <p class="centered"> <q class="honor">I
+affirm that I have adhered to the Honor Code in this assignment.</q>
+
+  </p>
+
+</blockquote>
+
+<p> You now just need to electronically handin all your files. As
+a reminder
+</p>
+
+<pre> 
+     % <span class="typed">cd</span>             # changes to your home directory
+     % <span class="typed">cd cs150</span>       # goes to your cs150 folder
+     % <span class="typed">handin</span>         # starts the handin program
+                      # class is 150
+                      # assignment is 3
+                      # file/directory is lab03
+     % <span class="typed">lshand</span>         # should show that you've handed in something
+</pre>
+
+<p> You can also specify the options to handin from the command
+line
+</p>
+
+<pre> 
+     % <span class="typed">cd ~/cs150</span>     # goes to your cs150 folder
+     % <span class="typed">handin -c 150 -a 3 lab03</span>
+</pre>
+<br>
+<h4>File Checklist</h4>
+<br>
+
+You should have submitted the following files:
+
+<pre>
+   monte.py
+   pyramid.py
+   primes.py
+   picture.py (you needn't have touched this, it just makes grading easier)
+</pre>
+<br>
+If you worked with a partner, one of you will turn pyramid.py and primes.py, and the other will turn in a README files with their name.
+
+
+<hr>
+<small>A. Sharp, T. Wexler, B. Kuperman, M. Davis, S. Zheng, C. Taylor</small>
+</div>
+</div>
+<br>
+
+</body>
+</html>
+

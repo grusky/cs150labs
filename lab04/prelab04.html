@@ -1,0 +1,409 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>CS 150 - PreLab 04</title>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<link rel="stylesheet" type="text/css" href="labs.css">
+</head>
+<body>
+<br>
+    <div id='container'>
+	<div id='top'>
+
+
+	    <h1><a href="http://www.cs.oberlin.edu/~ctaylor/150/index.html" style="text-decoration:none; color:black">PreLab 04</a></h1>
+	    <b>Exceptional Pictures and Images</b><br>
+	    <em>Due by the beginning of lecture on Wednesday, September 24th</em>
+	    <br>
+	    <br>
+
+	</div>
+	<div id='top'>
+
+
+
+<p>
+In this prelab you will formulate some of the ideas necessary to complete Lab 04. Please type up your solutions, and hand in a paper copy before the beginning of lecture on Wednesday. Remember, no late prelabs allowed!
+</p>
+
+<h2>Part 0 - Function Practice</h2>
+
+<div class="boxed">
+<b>1.</b> What is the output of the following program?
+
+<pre>
+      def main() : 
+         blarg(5)
+         blorf(3)
+      
+      def blarg(x) :
+         print(x*x)
+         print(x)
+      
+      def blorf(y) :
+         blarg(y+1)
+         print(y)
+         blarg(y-1)
+
+      main()
+</pre>
+
+<br>
+
+<b>2.</b> What is the output of the following program?
+<pre>
+      def main() :
+         x, y = 2, 7
+         print(x, y)
+         x = blunk(x, y)
+         print(x, y)
+      
+      def blunk(y, x) :
+         print(x, y)
+         y = y * y
+         x = x//2
+         print(x, y)
+         return x*y
+
+      main()
+</pre>
+</div>
+
+
+
+
+
+<br>
+<br>
+<h2>Part 1 - Using Exceptions</h2>
+<div class="boxed">
+<b>3.</b> (From the book.) Why is using <tt>try/except</tt> to deal with errors often preferable to using other conditional decision structures (variations on <tt>if</tt>)?  For example, if we had x = y/z, instead of catching a DivideByZero Exception, we could say "if z == 0" and print "don't enter zero".
+
+<!-- <br><br>
+<b>4.</b> When do you think the following program would throw exceptions?? Or, write a program that uses exception handling to deal with possible bad input from the user (we want an integer &gt; 0... if the user gives us 0 then we'd get a Value error, if they give us a character or a string we'd get some other error...) 
+
+<br><br>
+<b>5.</b> Give an example of a situation in which you think using exception handling would be more graceful than if statements.
+-->
+
+<br><br>
+<b>4.</b> Write a chunk of code with the following behavior.  First, it should prompt the user to enter four numbers (x1, y1, x2, y2) separated by commas.  (Note: <tt>x1,y1,x2,y2 = eval(input("please enter 4 numbers separated by commas: "))</tt> will achieve this.)  It should then compute and print the slope of the line that joins the points (x1,y1) and (x2,y2).  Your code should handle at least three possible exceptions.  
+
+
+
+</div>
+
+<br>
+<br>
+<h2>Part 3 - Mind Mastery</h2>
+
+<p style="text-align:justify;">
+Mastermind is a neat (although oftentimes frustrating) puzzle game.  It works a something like this: There are two players. One player is the codemaker (your porgram), the other is the codebreaker (the user). The codemaker chooses a sequence of four colored pegs, out of a possible six colors (red, blue, green, yellow, orange, and purple). He may repeat colors and place them in any order he wishes. This sequence is hidden from the codebreaker.  The codebreaker has 10 chances to guess the sequence.  The codebreaker places colored pegs down to indicate each of her guesses.  After each guess, the codemaker is required to reveal certain information about how close the guess was to the actual hidden sequence.</p>
+
+<p style="text-align:justify;">
+<b>Describe the Problem:</b><br>
+The problem you will solve on your lab is as follows.<br>
+<b>input:</b> repeatedly get guesses from the user, until they either guess the code, or run out of guesses.<br>
+<b>goal:</b> generate a random code, and correctly provide the user with feedback on their guesses.<br>
+
+
+<br>
+<br>
+<p style="text-align:justify;">
+<b>Understand the Problem:</b><br>
+The trickiest part of this game is determining how to provide feedback on the codebreaker's guesses.
+In particular, next to each guess that the codebreaker makes, the codemaker places up to four clue pegs.  Each clue peg is either black or white.  Each black peg indicates a correct color in a correct spot.  Each white peg indicates a correct color in an incorrect spot.  No indication is given as to which clue  corresponds to which guess.</p>
+
+<p style="text-align:justify;">
+For example, suppose that the code is RYGY (red yellow green yellow).  Then the guess GRGY (green red green yellow) would cause the codemaker to put down 2 black pegs (since guesses 3 and 4 were correct) and 1 white peg (since the red guess was correct, but out of place).  Note that no peg was given for guess 1 even though there was a green in the code; this is because that green had already been "counted" (a black peg had been given for that one).</p>
+
+<p style="text-align:justify;">
+As another example, again using RYGY as our code, the guess YBBB would generate 1 white peg and 0 black; yellow appears twice in the code, but the guess only contains one yellow peg.  Likewise, for the guess BRRR, only 1 white peg is given; there is an R in the code, but only one.  
+</p>
+
+
+<p>
+Check 
+<a href="http://www.web-games-online.com/mastermind/">here</a>
+for an online graphical version of the game.
+</p>
+
+<div class="boxed">
+
+<p style="text-align:justify;">
+<b>5.</b> Assuming the code is RYGY, fill in the appropriate number of black and white pegs for each guess.
+
+<br><br>
+
+<center>
+    <table border=1 cellpadding=2 cellspacing=0 width="60%">
+        <tr>
+	    <th align="center">guess</th>
+	    <th align="center">black pegs</th>
+
+	    <th align="center">white pegs</th>
+        </tr>
+	<tr>
+	    <td align="center">YYYY</td>
+	    <td align="center"></td>
+	    <td align="center"></td>
+	</tr>
+
+        <tr>
+	    <td align="center">YRYR</td>
+	    <td align="center"></td>
+	    <td align="center"></td>
+	</tr>
+	<tr>
+	    <td align="center">BBPO</td>
+
+	    <td align="center"></td>
+	    <td align="center"></td>
+	</tr>
+	<tr>
+	    <td align="center">PGYR</td>
+	    <td align="center"></td>
+	    <td align="center"></td>
+
+	</tr>
+	<tr>
+	    <td align="center">YYYG</td>
+	    <td align="center"></td>
+	    <td align="center"></td>
+	</tr>
+	<tr>
+
+	    <td align="center">RYGY</td>
+	    <td align="center"></td>
+	    <td align="center"></td>
+	</tr>
+    </table>
+</center>
+
+<br>
+
+
+<b>6.</b> Consider the following algorithmic approach for calculating the number of white pegs to be awarded for a given guess.
+
+<pre>
+   set a white counter to 0
+   loop through the four positions of the guess
+      loop through the four positions of the code
+         if the current code character matches the current guess character
+         and the guess and code positions are not the same, 
+         increment the white counter and exit the inner loop
+</pre>
+
+What goes wrong with this algorithm?  Give an example of a code, a guess, the value that should be generated and the value that this pseudocode would generate.
+
+<br><br>
+
+<b>7.</b> Decribe precisely how you would go about determining the appropriate number of white pegs to award.  As before, your description should be in clear, unambiguous pseudocode.  
+
+<br><br>
+</div>
+
+<br>
+<br>
+<h2>Part 2 - Picture This</h2>
+<p>
+In the lab proper, you'll be using graphical primitives (rectangles, circles, lines, etc.) to create an image of your own choosing.  
+
+<div class="boxed">
+<b>8.</b> For now, sketch a picture that you'll use as a blueprint for your eventual picture program.  Some past projects: a hippo birthday party; a cityscape; a unicorn fighting a robot; happy flowers.  Your sketch should be on its own sheet of unlined paper, and should indicate color as well as form.  You can use markers, pens, pencils, watercolors, etc.  You aren't expected to be Michelangelo (or any other TMNT for that matter), but you shouldn't just make a smiley face and call it a day.  Unless it's an undeniably awesome smiley face.  
+</div>
+</p>
+
+
+<br>
+<h2>Part 3 - Image Manipulation</h2>
+<p>
+In this (major) portion of the lab you'll create a nifty program that reads in an image and does a sequence of modifications to that image, as specified by the user.  Things like inverting the image, mirroring it, increasing or decreasing the contrast, etc.  
+</p>
+
+<br>
+<p style="text-align:justify;">
+<b>Describe the Problem:</b><br>
+The problem you will solve on your lab is as follows.<br>
+<b>input:</b> Get a string filename from the user that represents the image they would like to edit.<br>
+<b>output:</b> Allow the user to edit the image given the provided editing options. Display their results to the screen and enjoy!
+
+<br>
+<br>
+<p style="text-align:justify;">
+<b>Understand the Problem:</b><br>
+Your program should be capable of the following operations:
+
+<ol>
+ <li>Flip Horizontally
+ <li>Scroll Horizontally
+ <li>Make Negative
+ <li>Zoom
+ <li>Posterize
+ <li>Rotate 180 Degrees
+ <li>Your Own Effect
+</ol>
+
+<p>
+Examples of these operations are given below.
+</p>
+
+<table id="exampleTable">
+<tr>
+    <td>Original Image:</td>
+    <td></td>
+
+</tr>
+<tr>
+    <td><img src="crayons.bmp" alt="original" border=4></td>
+    <td></td>
+</tr>
+
+<tr>
+    <td>Flip:</td>
+    <td>Scroll:</td>
+</tr>
+<tr>
+
+    <td><img src="mirror.bmp" alt="flip" border=4></td>
+    <td><img src="scroll.bmp" alt="scroll" border=4></td>
+</tr>
+
+<tr>
+    <td>Negative:</td>
+    <td>Zoom:</td>
+</tr>
+<tr>
+
+    <td><img src="invert.bmp" alt="negative" border=4></td>
+    <td><img src="zoom.bmp" alt="zoom" border=4></td>
+</tr>
+
+<tr>
+    <td>Posterize:</td>
+    <td>Rotate 180:</td>
+</tr>
+<tr>
+
+    <td><img src="poster.bmp" alt="poster" border=4></td>
+    <td><img src="rot.bmp" alt="rotate 180" border=4></td>    
+</tr>
+
+<tr>
+    <th colspan="2"><b>Other Ideas</b></th>
+</tr>
+
+<tr>
+    <td>Find Edges:</td>
+    <td>Tiled:</td>
+</tr>
+<tr>
+
+    <td><img src="edges.bmp" alt="find edges" border=4></td>
+    <td><img src="tiled.bmp" alt="tiling" border=4></td>
+</tr>
+
+<tr>
+    <td>Shear:</td>
+    <td>Bizarre:</td>
+</tr>
+<tr>
+
+    <td><img src="shear.bmp" alt="shear" border=4></td>
+    <td><img src="psych.bmp" alt="bizarre" border=4></td>
+</tr>
+
+</table>
+
+<br>
+<br>
+<p>
+<b>Design an Algorithm:</b><br>
+Your program should begin by printing a welcome to the user, informing them just how fortunate they are to have stumbled upon your very own image editor.  You should then prompt the user in the console to pick a file to load in.  As will be standard from here on out, you'll want to be robust against bad user input, so if the user enters something that isn't a valid file and an exception is thrown, you can catch it and prompt them again for a file.  
+</p>
+
+<p>
+Once you have an image loaded, display it.  Then use a while loop to repeatedly print a table of possible operations, prompt the user to select one of these operations to apply to their image, apply the selected operation (create a distinct function for each operation), and display the resulting image.  Thus, the user might choose to reflect the image, then increase the contrast (of the now reflected image), and then blur (the now reflected and contrasty image).  At each step, the user should be able to see the resulting image.  Again, be sure to handle bad input from the user.  
+</p>
+<p>
+Of course, this still leaves out the details of each operation, for which you will want to write pseudocode before you start writing functions.
+Some details are given below.
+
+<p>
+<b>Scrolling:</b> Scrolling should ask the user to specify some number of pixels, and should then shift the image that many to the right.  Pixels that would fall off the edge of the image should wrap around to the other size.  Modular arithmetic may come in handy here.
+</p>
+
+<p>
+<b>Negatives:</b> The negative of an image is creating by inverting each color channel.  So if the red value of a pixel were 255, it should become 0.  If it were 254, it should become 1, and so on, down to 0, which should become 255.  Similarly for green and blue.
+</p>
+
+<p>
+<b>Zoom:</b> This method result in an image of the same size as the original, but consist of the center of the image blown up by a factor of 2.  So if the image has width w and height h, zooming should expand the middle w/2 by h/2 region to fill the whole picture.
+</p>
+
+<p>
+<b>Posterize:</b> A typical pixel can have one of 256 value for each color channel.  In a posterized image, this number is drastically decreased.  Each color channel value should be rounded to the nearest multiple of 32.  
+</p>
+
+
+
+
+<br>
+<br>
+<p>In this lab, you'll be writing a program that performs many of the above transformations on images. In preparation, you'll be generating pseudocode
+to perform some of these operations.  As an example, in question 0, we ask how to remove all red from an image.  A good pseudocode solution is given below.  Give your own pseudocode solutions to the remaining problems.  
+</p>
+
+<em>Hints:</em>
+
+<p>
+For some of these operations, you may want to create a new image rather than by simply modifying the existing image.<br>
+You can not change the position of a pixel.  You can read the r, g and b values for any pixel, and you can set the r, g and b values of any pixel.<br>
+In some cases, you may want to create a copy of the original image and thus be able to make changes but still have access to the original.
+
+<div class="boxed">
+
+<b>Ex.</b> Remove all red from an image.
+
+    <pre>
+    <b>Sample answer:</b>
+    
+    loop over x values from 0 to W - 1 (You can assume W is the width)
+        loop over y values from 0 to H - 1 (You can assume H is the height)
+            change the red value of the pixel at (x,y) to 0
+    </pre>
+
+
+<b>9.</b> Scroll the image over by 10 pixels.
+<br><br>
+
+<b>10.</b> Negate the image.
+<br><br>
+
+</div>
+
+
+
+
+
+<h2>Honor Code</h2>
+
+<p style="text-align:justify"> If you followed the Honor Code in this assignment, write the following sentence attesting to the fact at the top of your homework.</p>
+
+<blockquote class="honor">
+  <p class="centered"> <q class="honor">I
+affirm that I have adhered to the Honor Code in this assignment.</q>
+
+  </p>
+
+</blockquote>
+
+
+</div>
+</div>
+<br>
+
+</body>
+</html>
+
