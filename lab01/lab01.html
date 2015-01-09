@@ -415,10 +415,10 @@ Your goal is to modify the program so that it prompts the user for a number <tt>
 </p>
 
 <p>
-Note: You will want to "evaluate" the user input as an integer number because by default, what the user types is considered a string literal. You can do this by using the built-in Python "eval" function <tt>eval(expression-you-want-to-evaluate)</tt>
+Note: When the user of your program inputs an integer, <tt>input</tt> will return a string containing an integer ("14", for example) rather than an actual integer (14). You can convert a string to an integer using Python's <tt>int</tt> function: <tt>int(string-to-convert)</tt>.
 <pre>
 <span class="typed">
-   n = eval(input( "Please give me a number: "))
+   n = int(input( "Please give me a number: "))
    </span>
 </pre>
 
