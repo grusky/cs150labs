@@ -207,7 +207,7 @@ class Rectangle(Shape):
 
 class Square(Rectangle):
     def __init__(self, x, y, side, fill):
-        Rectangle.__init__(self, x, y, x+side, y+side, fill)
+        Rectangle.__init__(self, x, y, side, side, fill)
 
 class Oval(Shape):
     def __init__(self, x, y, hrad, vrad, fill=False):
