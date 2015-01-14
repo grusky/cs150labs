@@ -67,7 +67,6 @@ h4 { font-size: 10pt;
 
 #container {
     margin: auto;
-    min-height: 42em;
     min-width: 45em;
     width: 94%;
     padding: 1em;
@@ -169,3 +168,46 @@ p { text-align: justify; }
 
     p { text-align: justify; }
 }
+
+div#calgen {
+/*    margin-left: -2em; */
+    margin-right: -1em;
+    margin-bottom: -1em;
+}
+
+/*
+div#calgen table tr:hover { background-color: #bbccff; outline: solid red} 
+ */
+div#calgen table {
+    border-collapse: collapse;
+    /*
+    background-color: #dddddd;
+    */
+}
+div#calgen tr.odd {
+}
+div#calgen tr.even {
+}
+div#calgen  table td, 
+div#calgen  table tr, 
+div#calgen  table th {
+    padding: 10px;
+    border: thin solid black;
+}
+div#calgen  table th {
+    border-bottom: 2px solid black;
+    border-top: 2px solid black; /* to make up for the double */
+    background-color: #ffffff;
+}
+
+/*div#calgen table tr:hover { background-color: #ffff00; } */
+div#calgen table span.reading {font-weight: bold; text-align: center; display: block; vertical-align: bottom; }
+
+/** Quizzes **/
+div#calgen table span.quiz { display: block; padding:20px;  background-color: red; color:white; text-align:center; font-size:100%; }
+div#calgen table span.quiz a,
+div#calgen table span.quiz a:visited 
+    { color: #8888ff; }
+/* div#calgen table span.quiz a:hover { color:red; background-color: #8888ff; }*/
+
+div#calgen table span.conference { display: block; padding:10px;  background-color: yellow; color:blue; border: thin blue solid; }
