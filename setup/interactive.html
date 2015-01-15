@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<title>CS 150 - Using Interactive Python</title>
+<link rel="stylesheet" type="text/css" href="../labs.css">
+
+<style type="text/css">
+	img {
+		border: 5px solid #333333;
+		margin: 20px;
+		text-align: center;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		position: relative;
+	}
+		
+</style>
+
+</head>
+<body>
+<br>
+
+<div id="container">
+	<div id='top'>
+        <h1>Using Interactive Python</h1>
+	</div>
+
+    <div id='top'>
+        <p>
+            In this guide, you will learn how to use the interactive Python shell.
+        </p>
+
+        <p>
+            For most assignments in the class, you will be required to write out full Python programs in a text editor (<a href="../lab01/lab01.html">see Lab 1 for more about Komodo Edit</a>). However, it is often useful to test out small chunks of code to see how they work. The interactive Python shell is a perfect tool for this job.
+        </p>
+
+        <p>
+            Don't worry if you don't understand the code used on this page yet! You will soon!
+        </p>
+
+        <p>
+            <b>Note:</b> If you are using a Mac, you must <a href="python.html">install Python first</a>.
+        </p>
+
+        <h2>Running the Python Shell</h2>
+
+        <p>
+            Open a terminal and type <tt>python3</tt> without any arguments instead of supplying a file name. Instead of running a program, it will display a slightly different looking prompt. This will let you run lines of Python code instead of the usual terminal commands you use.
+        </p>
+
+        <img alt="Python prompt" src="prompt.png" />
+
+        <h2>Simple Expressions</h2>
+
+        <p>
+            The Python shell will evaluate simple arithmetic expressions, function calls, or print statements, and show the result.
+        </p>
+
+        <img alt="Mathematical expression" src="expression.png" />
+
+        <img alt="Mathematical expression" src="print.png" />
+
+        <h2>Using Indentation</h2>
+
+        <p>
+            Later on in this course, you will work with loops and conditional statements. Python uses indentation to determine whether a line of code is inside or outside one of these blocks.
+        </p>
+
+        <p>
+            The interactive Python shell will tell you when you may want to indent your code by changing the prompt from <tt>&gt;&gt;&gt;</tt> to <tt>...</tt>.
+        </p>
+
+        <img alt="Python prompt change" src="ellipsis.png" />
+
+        <p>
+            If you want to continue the <tt>if</tt> statement, indent the line by pressing the tab key, as you would in a standard text editor. If you do not press the tab key, Python will assume the next line of code is not meant to be in the block.
+        </p>
+
+        <img alt="Multi-level indentation" src="indent.png" />
+
+        <p>
+            You can also write blocks within blocks by pressing the tab key multiple times. If you have been using Komodo Edit, this should be familiar to you.
+        </p>
+
+        <h2>Exiting the Python Shell</h2>
+
+        <p>To exit the Python shell, type <tt>exit()</tt> and hit return or type Control-D.</p>
+
+    </div>
+		
+</div>
+</body>
+</html>
