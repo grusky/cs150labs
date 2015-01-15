@@ -8,7 +8,7 @@ class Picture():
 
         if TITLE!=None:
             self.root.wm_title(TITLE)
-        
+
         self.frame = Frame(self.root, None, borderwidth=0)
         self.frame.grid()
 
@@ -17,25 +17,25 @@ class Picture():
         # overload functions
         if isinstance(param, tuple) and len(param) == 2:
             canvas = Canvas(self.root, width=param[0], height=param[1],
-                            background="white", bd=0, 
+                            background="white", bd=0,
                             highlightthickness=0)
             canvas.grid()
         elif isinstance(param, int):
             canvas = Canvas(self.root, width=param, height=param2,
-                            background="white", bd=0, 
+                            background="white", bd=0,
                             highlightthickness=0)
             canvas.grid()
         elif isinstance(param, str):
             self.image = PhotoImage(file=param)
             canvas = Canvas(self.root, width=self.image.width(),
-                            height=self.image.height(), bd=0, 
+                            height=self.image.height(), bd=0,
                             highlightthickness=0)
             canvas.grid()
             canvas.create_image(0, 0, image=self.image)
         else:
             raise TypeError('Parameter to Picture() should be' +
                         'string of a .gif/pgm/ppm file name or 2-tuple!')
-        
+
         global outlineColor
         outlineColor = "black"
 
@@ -50,6 +50,9 @@ class Picture():
 
         global pen_rotation
         pen_rotation = 0
+
+    def close(self):
+        self.root.destroy()
 
     def setPosition(self, x, y):
         global pen_position
@@ -199,7 +202,7 @@ class Rectangle(Shape):
                                                 outline=outlineColor,
                                                 width=penWidth)
         else:
-            self.my_shape = canvas.create_rectangle(x, y, x+w, y+h, 
+            self.my_shape = canvas.create_rectangle(x, y, x+w, y+h,
                                                 outline=outlineColor,
                                                 width=penWidth)
 
@@ -233,7 +236,7 @@ class Polygon(Shape):
                                               outline=outlineColor,
                                               width=penWidth)
         else:
-            self.my_shape = canvas.create_polygon(vertices, 
+            self.my_shape = canvas.create_polygon(vertices,
                                               outline=outlineColor,
                                               width=penWidth)
 
@@ -251,6 +254,6 @@ class Text(Shape):
                                            font=(font_name, font_size), fill=fillColor)
 
 
-                                           
+
 def color_to_hex(color):
     return '#%02x%02x%02x'.upper() % (color[0], color[1], color[2])

@@ -11,7 +11,7 @@ import Tkinter as tk
 _IS_RUNNING = False
 
 class Picture():
-    
+
     def __init__(self, width, height=None):
         '''
         Takes either a single string for a filename, or width and
@@ -38,7 +38,7 @@ class Picture():
         # The main window, and associated widgets.
         self.root = None
         self.canvas = None
-    
+
     def display(self):
         'Displays the picture.'
         if self.root is None:
@@ -52,70 +52,70 @@ class Picture():
             self.root.title(self.title)
             self.img = tk.PhotoImage(width=self.width, height=self.height)
             self.canvas.pack()
-        self.img.put(self.data_to_string())        
+        self.img.put(self.data_to_string())
         self.canvas.create_image(0, 0, image=self.img, anchor=tk.NW)
-        
+
     def getWidth(self):
         'Returns the width of the picture.'
         return self.image.size[0]
-    
+
     def getHeight(self):
         'Returns the height of the picture.'
         return self.image.size[1]
-    
+
     def close(self):
         'Closes the picture.'
         if self.root:
             self.root.destroy()
             self.root = None
-    
+
     def getPixelColor(self, x, y):
         'Returns the color of the pixel at (x, y).'
         return self.pixel[x, y]
-    
+
     def getPixelRed(self, x, y):
         'Returns the red value of the pixel at (x, y).'
         return self.pixel[x, y][0]
-    
+
     def getPixelBlue(self, x, y):
         'Returns the blue value of the pixel at (x, y).'
         return self.pixel[x, y][2]
-    
+
     def getPixelGreen(self, x, y):
         'Returns the green value of the pixel at (x, y).'
         return self.pixel[x, y][1]
-    
+
     def setPixelColor(self, x, y, r, g, b):
         'Sets the RGB value of the pixel at (x, y).'
         self.pixel[x, y] = (r, g, b)
-        
+
     def setPixelRed(self, x, y, val):
         'Sets the red value of the pixel at (x, y).'
         green = self.pixel[x, y][1]
         blue = self.pixel[x, y][2]
         self.pixel[x, y] = (val, green, blue)
-    
+
     def setPixelBlue(self, x, y, val):
         'Sets the blue value of the pixel at (x, y).'
         red = self.pixel[x, y][0]
         green = self.pixel[x, y][1]
         self.pixel[x, y] = (red, green, val)
-    
+
     def setPixelGreen(self, x, y, val):
         'Sets the green value of the pixel at (x, y).'
         red = self.pixel[x, y][0]
         blue = self.pixel[x, y][2]
         self.pixel[x, y] = (red, val, blue)
-    
+
     def setPenColor(self, r, g, b):
         'Sets the pen color.'
         self.pen_color = (r, g, b)
-    
+
     def setPosition(self, x, y):
         'Sets the pen position.'
         self.setPenX(x)
         self.setPenY(y)
-    
+
     def setPenX(self, x):
         'Sets the x coordinate of the pen.'
         self.pen_position = (x, self.pen_position[1])
@@ -123,15 +123,15 @@ class Picture():
     def setPenY(self, y):
         'Sets the y coordinate of the pen.'
         self.pen_position = (self.pen_position[0], y)
-    
+
     def getPenWidth(self):
         'Returns the width of the pen.'
         return self.pen_width
-        
+
     def setPenWidth(self, width):
         'Sets the width of the pen.'
         self.pen_width = width
-    
+
     def rotate(self, theta):
         """
         Rotates the pen's angle of drawing by theta, where theta is in
@@ -139,7 +139,7 @@ class Picture():
         """
         self.pen_rotation += theta
         self.pen_rotation %= 360
-    
+
     def setDirection(self, theta):
         """Sets the pen's direction to theta, where theta is in degrees."""
         self.pen_rotation = theta
@@ -148,7 +148,7 @@ class Picture():
     def getDirection(self):
         "Returns the pen's direction, in degrees."
         return self.pen_rotation
-    
+
     def drawForward(self, distance):
         'Draws forward by the given distance.'
         radian = math.radians(self.pen_rotation)
@@ -180,14 +180,14 @@ class Picture():
         self.draw.ellipse((x-radius/2, y-radius/2,
                            x+radius/2, y+radius/2),
                           fill=self.pen_color)
-    
+
     def fillPoly(self, xs, ys):
         '''
         Draws a filled polygon with vertices at (x, y) for each
         element in the two lists xs and ys.
         '''
         self.draw.polygon(list(zip(xs, ys)), fill=self.pen_color)
-        
+
     def drawPoly(self, xs, ys):
         '''
         Draws an empty polygon with vertices at (x, y) for each
@@ -200,7 +200,7 @@ class Picture():
             for x in xrange(0, numVertices-1):
                 self.drawLine(xs[x], ys[x],xs[x+1], ys[x+1])
             self.drawLine(xs[numVertices-1], ys[numVertices-1], xs[0], ys[0])
-    
+
     def drawRectFill(self, x, y, w, h):
         '''
         Draws a filled rectangle with vertices at (x, y) for each
@@ -220,17 +220,15 @@ class Picture():
         else:
             for r in xrange(0, int((self.pen_width+1)/2)):
                 self.draw.rectangle(((x+r, y+r), (x-r+w, y-r+h)), outline=self.pen_color)
-    
+
     def drawString(self, x, y, string):
         'Draws a string at (x, y).'
         self.draw.text((x, y), string, fill=self.pen_color)
 
-    def writeFile(self, filename):
+    def save(self, filename, extension="bmp"):
         'Writes the image to the given filename.'
-        def write_file_func():
-            self.image.save(filename)
-        self._submit_operation(write_file_func)
-        
+        self.image.save(filename + "." + extension)
+
     def data_to_string(self):
         "Turns a PIL pixel array into tkinter's rubbish color format."
         s = ''
@@ -258,4 +256,3 @@ if __name__ == '__main__':
     pic.display()
     pic2.display()
     x = raw_input('enter:')
-    
