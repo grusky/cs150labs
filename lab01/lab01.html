@@ -20,11 +20,11 @@
 
 	</div>
 	<div id='top'>
-	
+
 
 
 <p style="text-align:justify">
-In this lab you will be learning how to use the CS lab machines and create Python 
+In this lab you will be learning how to use the CS lab machines and create Python
 programs.  At the end of this lab you should be able to:
 </p>
 <ul>
@@ -44,7 +44,7 @@ A reminder about the Honor Code - While you are encouraged to discuss the labs w
 <h2>Part 1 - Unix basics</h2>
 <b><i>0 points, individual</i></b>
 <p style="text-align:justify">
-To use these labs, you'll need a CS lab account. 
+To use these labs, you'll need a CS lab account.
 If you registered for this class before, say, Tuesday, then one is already created for you. If you registered late or haven't registered yet, please talk to the lab instructor or a TA (or go see Chris Mohler in OCTET in King 125.)
 </p>
 
@@ -122,7 +122,7 @@ you should type (without the '%'). Anything after the '#' are informational comm
 <b><i>helloworld.py: 4 points, individual</i></b>
 
 <p>
-   Alright, on to the good stuff! 
+   Alright, on to the good stuff!
    You are going to participate in a ritual that has
 <a href="http://en.wikipedia.org/wiki/Hello_world">been around since at
 least 1974</a>, the creation of your first program.
@@ -135,28 +135,28 @@ least 1974</a>, the creation of your first program.
 <table align="center" border=0 cellpadding="2" cellspacing="0" width="92%">
     <col width="90">
     <tbody>
-    
+
 	<tr>
 	    <td align="left" valign="top"><b>Describe the Problem</b></td>
 	    <td align="left" style="text-align:justify">
-	    Before writing a program, you must first decide what your program is meant to do.  This may seem obvious, but it is surprising how often this critical step is ignored. 
-	    You should know what the goal and function of the program is. 
+	    Before writing a program, you must first decide what your program is meant to do.  This may seem obvious, but it is surprising how often this critical step is ignored.
+	    You should know what the goal and function of the program is.
 	   <!-- Exactly how a problem is described is something you'll get see over and over again in this course.-->
-	    Generally, the problem description will specify what the inputs to the problem are, and what the desired outputs and behaviour are. Usually this is given to you as part of the lab specification. 
+	    Generally, the problem description will specify what the inputs to the problem are, and what the desired outputs and behaviour are. Usually this is given to you as part of the lab specification.
 	    <br>
-	    <br> 
+	    <br>
 	    For your first program we'll just be creating a program that takes in no inputs, and outputs "Hello, world!" to the screen.
 	    <br>
 	    <br>
 	    </td>
 	    </tr>
-	    
+
 	    <tr>
 	    <td align="left" valign="top"><b>Understand the Problem</b></td>
 	    <td align="left" style="text-align:justify">
-	    Try some examples, that is, solve the problem (by hand) for a variety of inputs. For one, this will either confirm or deny that you understand what problem you are trying to solve. Furthermore, by trying examples by hand, you may get ideas for how to approach the solution for the problem. 
+	    Try some examples, that is, solve the problem (by hand) for a variety of inputs. For one, this will either confirm or deny that you understand what problem you are trying to solve. Furthermore, by trying examples by hand, you may get ideas for how to approach the solution for the problem.
 	    <br>
-	    <br> 
+	    <br>
 	    For this program there isn't much to test because we don't have any input.
 	    <br>
 	    <br>
@@ -166,7 +166,7 @@ least 1974</a>, the creation of your first program.
 	    <tr>
 	    <td align="left" valign="top"><b>Design an Algorithm</b></td>
 	    <td align="left" style="text-align:justify">
-	    Once you know what problem you are trying to solve and have a feel for its intricacies, you can begin to think about the steps your program will need to take. This set of steps constitutes an algorithm.  For all but the simplest of programs, you should have a fully specified algorithm (in pseudocode, a mixture of code-like English and math) before you even think about programming.  Exactly how an algorithm should be specified is something you'll get practice with during the course. 
+	    Once you know what problem you are trying to solve and have a feel for its intricacies, you can begin to think about the steps your program will need to take. This set of steps constitutes an algorithm.  For all but the simplest of programs, you should have a fully specified algorithm (in pseudocode, a mixture of code-like English and math) before you even think about programming.  Exactly how an algorithm should be specified is something you'll get practice with during the course.
 	    <br>
 	    <br>
 
@@ -178,7 +178,7 @@ least 1974</a>, the creation of your first program.
 	<tr>
 	    <td align="left" valign="top"><b>Implement a Design</b></td>
 	    <td align="left" style="text-align:justify">
-	    Once an algorithm has been specified, we need to translate those steps into Python source code and save them to a file on the computer. This is done with a text editor.  In principle, any simple text editor would suffice, but we'll be using an editor called <a href="http://www.activestate.com/komodo-edit">Komodo Edit</a> (NOT Komodo IDE, which is larger and not free). Komodo Edit is a text editor specifically intended for the creation of Python programs. As such, it has a number of functions that streamline the process of editing code.  For example, Komodo Edit color-codes terms and instructions based on their meaning and suggests helpful indentation, both of which make reading programs easier. 
+	    Once an algorithm has been specified, we need to translate those steps into Python source code and save them to a file on the computer. This is done with a text editor.  In principle, any simple text editor would suffice, but we'll be using an editor called <a href="http://www.activestate.com/komodo-edit">Komodo Edit</a> (NOT Komodo IDE, which is larger and not free). Komodo Edit is a text editor specifically intended for the creation of Python programs. As such, it has a number of functions that streamline the process of editing code.  For example, Komodo Edit color-codes terms and instructions based on their meaning and suggests helpful indentation, both of which make reading programs easier.
 	    <br>
 <h3>Creating a file</h3>
 <p>
@@ -198,7 +198,7 @@ least 1974</a>, the creation of your first program.
 <pre>
     # helloworld.py
     # Say hello to the world.  My first Python program.
-    # 
+    #
     # &lt;your name&gt;
     # &lt;today's date&gt;
 
@@ -231,14 +231,14 @@ the files in a directory.
 <p>
 You should now use the command "<tt class="typed">python3</tt>":
 </p>
-<pre>   
+<pre>
     % <span class="typed">python3 helloworld.py</span>         # run the program
-</pre> 
+</pre>
 <p>
 The output</p>
 <pre>
     <span class="typed">Hello, world!</span></pre>
-<p>should appear in the terminal window. 
+<p>should appear in the terminal window.
     If everything went as planned, congratulations! You've just edited and executed your first Python program!		If there were any error messages, just go back to editing the file and try to make it look like the example above.
 </p>
 
@@ -277,8 +277,8 @@ You can now experiment with modifications of your program.  Try changing the con
 <b><i>fancy.py: 8 points, partner</i></b><br>
 
 <p style="text-align: justify;">
-This will be the first program in which we get input from the user.  
-Start editing a file <tt>greetings.py</tt>: 
+This will be the first program in which we get input from the user.
+Start editing a file <tt>greetings.py</tt>:
 
 <pre>
     <span class="typed">% komodo greetings.py &amp; </span>
@@ -336,17 +336,17 @@ will generate
 </pre>
 
 <p>
-Similarly, you can use \', \\, \t and \n to generate a single quote, a backslash, a tab, and a newline respectively.  Note that if the quote is at the end of the sentence, you will end up with two quote marks in a row, which will look kind of funny.  So printing 
+Similarly, you can use \', \\, \t and \n to generate a single quote, a backslash, a tab, and a newline respectively.  Note that if the quote is at the end of the sentence, you will end up with two quote marks in a row, which will look kind of funny.  So printing
 <pre>
 <span class="typed">My nickname is "The Destroyer"</span>
 </pre>
 
- will look like 
+ will look like
 <pre>
 <span class="typed">print("My nickname is \"The Destroyer\"")</span>
 </pre>
 
-Think about what it will look like if the entire string consists of one quotation mark.   
+Think about what it will look like if the entire string consists of one quotation mark.
 </p>
 
 
@@ -364,13 +364,12 @@ will generate
     <span class="typed">nowhitespace</span>
 </pre>
 
-all on one line, and the cursor will be at the end of that line (not on the next one.)  
+all on one line, and the cursor will be at the end of that line (not on the next one.)
 </p>
 
 <p>
-You may have noticed that Komodo has undersquiggled some of your code in red, even though you did everything we asked.  The problem is that by default, Komodo assumes you're working with Python 2, which has slightly different syntax.  To fix this, use the drop-down menu in the lower right corner of the editor to switch the file type from Python to Python3.  
+	<i>You may have noticed that Komodo has undersquiggled some of your code in red, even though you did everything we asked.  The problem is that by default, Komodo assumes you're working with Python 2, which has slightly different syntax.  To fix this, use the drop-down menu in the lower right corner of the editor to switch the file type from Python to Python3.</i>
 </p>
-<br>
 <br>
 
 
@@ -390,8 +389,8 @@ Here is a program called <tt>sum.py</tt> that calculates the sum of the first 4 
 <pre>
    # sum.py
    # Computes the sum of the first 4 positive integers
-   # 
-   
+   #
+
 
    sum = 0
    for i in range(1,5):
@@ -449,17 +448,17 @@ If you feel like you're getting the hang of things and want a little bit more of
 <b><i>secondconverter.py: 10 points, partner</b></i><br>
 <b><i>README: 2 points, partner</b></i>
 <p>
-In this problem, we'll think about converting units of time.  Suppose we have some number of seconds stored in a variable called <tt>sec</tt>, which may have a value of 60 or greater.  Since we're typically not used to thinking about how long 795 seconds is, we might like to improve readability by formatting the time (<tt>sec</tt>) into minutes and seconds (<tt>m</tt> and <tt>s</tt>) such that <tt>s < 60</tt>.  For example, if <tt>sec = 137</tt>, then we'd like to compute <tt>m = 2</tt> and <tt>s = 17</tt>, since 137 seconds is the same as 2 minutes and 17 seconds. 
+In this problem, we'll think about converting units of time.  Suppose we have some number of seconds stored in a variable called <tt>sec</tt>, which may have a value of 60 or greater.  Since we're typically not used to thinking about how long 795 seconds is, we might like to improve readability by formatting the time (<tt>sec</tt>) into minutes and seconds (<tt>m</tt> and <tt>s</tt>) such that <tt>s < 60</tt>.  For example, if <tt>sec = 137</tt>, then we'd like to compute <tt>m = 2</tt> and <tt>s = 17</tt>, since 137 seconds is the same as 2 minutes and 17 seconds.
 </p>
 
 <p>
-Similarly, we might want to do the same with but with hours too.  That is, suppose we're given seconds (<tt>sec</tt>).  We'd like to calculate how many hours (<tt>h</tt>), minutes (<tt>m</tt>) and seconds (<tt>s</tt>) are in <tt>sec</tt> seconds, such that <tt>m < 60</tt> and <tt>s < 60</tt>. 
+Similarly, we might want to do the same with but with hours too.  That is, suppose we're given seconds (<tt>sec</tt>).  We'd like to calculate how many hours (<tt>h</tt>), minutes (<tt>m</tt>) and seconds (<tt>s</tt>) are in <tt>sec</tt> seconds, such that <tt>m < 60</tt> and <tt>s < 60</tt>.
 </p>
 
 <br>
 <p>
 <b>Describe the Problem:</b> <br>
-The problem we are trying to solve is as follows. 
+The problem we are trying to solve is as follows.
 <br>
 <b>input:</b> get a non-negative integer <tt>sec</tt> from the user, representing some number of seconds.<br>
 <b>goal:</b> convert <tt>sec</tt> into its equivalent hours, minutes, and seconds, and output the result to the terminal window.
@@ -482,7 +481,7 @@ Or if the user enters 3601, the output should read
 </pre>
 
 <p>
-Notice I'm ignoring grammatical issues such as "hours" vs. "hour".  
+Notice I'm ignoring grammatical issues such as "hours" vs. "hour".
 </p>
 <br>
 
@@ -493,14 +492,14 @@ The program has 3 main steps:
 <li> Get the number of seconds from the user, store in a variable named <tt>sec</tt>.<br><br>
 </li>
 
-<li> Calculate the number of hours (<tt>h</tt>), minutes (<tt>m</tt>), and seconds (<tt>s</tt>) that are in <tt>sec</tt>, where <tt>m</tt> &lt; 60 and <tt>s</tt> &lt; 60.  The mod, or remainder operator (%), as well as the integer division operator (//) will be particularly useful here.  We'll be talking about these operator in class soon, but if you'd like to get started on this section of the lab now, you can either check out Section 3.1 of the text, or read on.  
+<li> Calculate the number of hours (<tt>h</tt>), minutes (<tt>m</tt>), and seconds (<tt>s</tt>) that are in <tt>sec</tt>, where <tt>m</tt> &lt; 60 and <tt>s</tt> &lt; 60.  The mod, or remainder operator (%), as well as the integer division operator (//) will be particularly useful here.  We'll be talking about these operator in class soon, but if you'd like to get started on this section of the lab now, you can either check out Section 3.1 of the text, or read on.
 <br>
 <br>
 
 <div class="boxed">
 <h4>Integer Division ( // ) and Remainder ( % ) </h4>
 <br>
-Consider dividing fourteen by four, i.e. (14/4).  We'd normally say we 14/4 equals 3.5.  But we could also think in terms of "integer division", where we'd say 14/4 equals 3 with a remainder of 2.  
+Consider dividing fourteen by four, i.e. (14/4).  We'd normally say we 14/4 equals 3.5.  But we could also think in terms of "integer division", where we'd say 14/4 equals 3 with a remainder of 2.
 <br><br>
 
 In Python 14/4 evaluates to 3.5, whereas 14//4 gives the integer component of integer division, and thus evaluates to 3.  Similarly 14%4 indicates the remainder component (also known as mod), and gives 2.  More generally, x//y evaluates to the number of times y goes wholly into x, and x%y evaluates to what's left over afterwards.  These operations turn out to be surprisingly useful, as we'll now see.
@@ -547,17 +546,17 @@ and fill in the necessary code under each corresponding comment.
 <pre>
    # secondconverter.py
    # Translate seconds into a more readable hours, minutes, and seconds.
-   # 
+   #
    # &lt;your name&gt;
    # &lt;today's date&gt;
-   
-  
-	  
+
+
+
    # Explain on the terminal (via print function) what this program does.
    # Prompt the user to enter a number of seconds, store in a variable.
    # Compute hours, mins, and seconds for this input.
    # Print the results.
-         
+
 
 </pre>
 </div>
@@ -577,8 +576,8 @@ Test your program by trying a variety of inputs. You can start with the example 
    This program will properly calculate the number of
    minutes and seconds under 60 from a given number of seconds.
 
-   How many seconds have you got? 3601 
-   3601 seconds is equal to 1 hours, 0 minutes and 1 seconds.	
+   How many seconds have you got? 3601
+   3601 seconds is equal to 1 hours, 0 minutes and 1 seconds.
 </pre>
 </div>
 </p>
@@ -595,7 +594,7 @@ Suppose that in ten years the world leaders decide that a minute should have 80 
 <h2>Part 6 - Handin</h2>
 <p>
     If you followed the Honor Code in this assignment, insert a paragraph
-    attesting to the fact within your <tt>README</tt> file. 
+    attesting to the fact within your <tt>README</tt> file.
 </p>
 <blockquote class="honor">
     <p class="centered">
@@ -671,4 +670,3 @@ Also, you need a code to get into both of the CS labs (King 201 and King 135). I
 <br>
 </body>
 </html>
-
