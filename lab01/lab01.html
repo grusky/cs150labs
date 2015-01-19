@@ -182,7 +182,7 @@ least 1974</a>, the creation of your first program.
 	    <br>
 <h3>Creating a file</h3>
 <p>
-    You need to create a file in your <span class="typed">lab01</span> folder, as follows. You'll want to append a <tt>&amp;</tt> at the end to run
+    You need to create a file in your <span class="typed">lab01</span> folder, as follows. You'll want to append an <tt>&amp;</tt> at the end to run
     the program in the background.  (This means you can still type in the
     Terminal window.)
 </p>
@@ -263,7 +263,7 @@ All text that appears after the hash tag (<tt>#</tt>) is a comment.  Komodo Edit
 
 
 <p>
-The next line is a call to the print function. Its function is probably pretty clear; it prints whatever is specified in the parentheses.  The text is contained within double quotes, which is Python's way of indicating that the text is a literal string of characters, and should be printed just as written.
+The next line is a call to the print function. Its purpose is probably pretty clear; it prints whatever is specified in the parentheses.  The text is contained within double quotes, which is Python's way of indicating that the text is a literal string of characters, and should be printed just as written.
 </p>
 
 <p>
@@ -275,6 +275,10 @@ You can now experiment with modifications of your program.  Try changing the con
 <h2>Part 3 - Callsign</h2>
 <b><i>greetings.py: 4 points, individual</i></b><br>
 <b><i>fancy.py: 8 points, partner</i></b><br>
+
+<p>
+	<i>You may have noticed that Komodo has undersquiggled some of your code in red, even though you did everything we asked.  The problem is that by default, Komodo assumes you're working with Python 2, which has slightly different syntax.  To fix this, use the drop-down menu in the lower right corner of the editor to switch the file type from Python to Python3.</i>
+</p>
 
 <p style="text-align: justify;">
 This will be the first program in which we get input from the user.
@@ -366,13 +370,7 @@ will generate
 
 all on one line, and the cursor will be at the end of that line (not on the next one.)
 </p>
-
-<p>
-	<i>You may have noticed that Komodo has undersquiggled some of your code in red, even though you did everything we asked.  The problem is that by default, Komodo assumes you're working with Python 2, which has slightly different syntax.  To fix this, use the drop-down menu in the lower right corner of the editor to switch the file type from Python to Python3.</i>
-</p>
 <br>
-
-
 
 <h2>Part 4 - Modify a Program</h2>
 <b><i>sum.py: 4 points, individual</i></b><br>
@@ -392,20 +390,20 @@ Here is a program called <tt>sum.py</tt> that calculates the sum of the first 4 
    #
 
 
-   sum = 0
+   result = 0
    for i in range(1,5):
-       sum = sum + i
-   print("The sum of the first", i, "positive integers is", sum)
+       result = result + i
+   print("The sum of the first", i, "positive integers is", result)
 
 
    </pre>
    </div>
 
-<h3>Sum</h3>
+<h3>Total</h3>
 <p>
 Your goal is to modify the program so that it prompts the user for a number <tt>n</tt> and outputs the sum of the first n positive integers. If you can figure out how to do this directly, by all means, go ahead. If you want a bit more guidance, consider the following suggestions:
 <ul>
-<li>To understand the program better, add a print statement that prints out the sum and the number added in each iteration.
+<li>To understand the program better, add a print statement that prints out the current total and the number added in each iteration.
 </li>
 <li>Change the program so that it sums the first 10 integers instead of the first 4.
 </li>
@@ -414,7 +412,7 @@ Your goal is to modify the program so that it prompts the user for a number <tt>
 </p>
 
 <p>
-Note: When the user of your program inputs an integer, <tt>input</tt> will return a string containing an integer ("14", for example) rather than an actual integer (14). You can convert a string to an integer using Python's <tt>int</tt> function: <tt>int(string-to-convert)</tt>.
+Note: When the user of your program inputs an integer, <tt>input</tt> will return a string containing an integer (<tt>"14"</tt>, for example) rather than an actual integer (<tt>14</tt>). You can convert a string to an integer using Python's <tt>int</tt> function: <tt>int(stringToConvert)</tt>.
 <pre>
 <span class="typed">
    n = int(input( "Please give me a number: "))
@@ -423,7 +421,7 @@ Note: When the user of your program inputs an integer, <tt>input</tt> will retur
 
 
 <p>
-Test your progam to make sure it's calculating the correct sums. Try a variety of numbers, such as n=5, 10, 100, as well as other critical values such as n=0, -5, etc. Is the behavior of your program on the latter examples sensical?
+Test your progam to make sure it's calculating the correct sums. Try a variety of numbers, such as n=5, 10, 100, as well as other critical values such as n=0, -5, etc. Is the behavior of your program on the latter examples sensical? (Your program will only be tested on positive integers.)
 </p>
 
 <h3>Factorial</h3>
@@ -432,7 +430,7 @@ Now create another program called <tt>factorial.py</tt> based on <tt>sum.py</tt>
 </p>
 
 <p>
-Don't forget to test your program on a variety of values of n.
+Don't forget to test your program on a variety of values of n. We will only test it on integers greater than or equal to zero (note that 0! = 1).
 </p>
 
 
@@ -664,7 +662,7 @@ Also, you need a code to get into both of the CS labs (King 201 and King 135). I
 </p>
 <br>
 <hr>
-<small>Last Modified: June 8, 2014 - A. Sharp, T. Wexler, B. Kuperman, S. Semsioglu, C. Taylor</small>
+<small>Last Modified: January 19, 2015 - A. Sharp, T. Wexler, B. Kuperman, S. Semsioglu, C. Taylor, C. Egerton</small>
 </div>
 </div>
 <br>

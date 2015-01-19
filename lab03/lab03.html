@@ -95,7 +95,7 @@ That is, if you throw lots of darts and keep track of the fraction that land ins
     <h3>Sample Output</h3>
 <pre>
 
-    % python3.2 monte.pi 
+    % python3.2 monte.pi
 
     This program calculates the value of Pi by
     simulating the throwing of darts onto a round
@@ -106,7 +106,7 @@ That is, if you throw lots of darts and keep track of the fraction that land ins
     The value of Pi after 1 iterations is 4.0
     which is off by 27.32%
 
-    % python3.2 monte.pi 
+    % python3.2 monte.pi
 
     This program calculates the value of Pi by
     simulating the throwing of darts onto a round
@@ -117,14 +117,14 @@ That is, if you throw lots of darts and keep track of the fraction that land ins
     The value of Pi after 100 iterations is 2.96
     which is off by 5.78%
 
-    % python3.2 monte.pi 
+    % python3.2 monte.pi
 
     This program calculates the value of Pi by
     simulating the throwing of darts onto a round
     target on a square background.
 
         How many darts to throw? 1000
-        
+
     The value of Pi after 1000 iterations is 3.084
     which is off by 1.83%
 
@@ -153,7 +153,7 @@ Write pseudocode to approximate Pi via this dart-throwing method--you'll throw r
 Translate your pseudocode into a Python program named <tt>monte.py</tt>.
 <br>
 <br>
-In order to implement your pseudocode, you'll need to "throw a dart." Each dart's position is specified by an (x,y) coordinate, so to "throw" a dart, you just need to randomly generate two values for each dart throw (one for x and one for y). 
+In order to implement your pseudocode, you'll need to "throw a dart." Each dart's position is specified by an (x,y) coordinate, so to "throw" a dart, you just need to randomly generate two values for each dart throw (one for x and one for y).
 </p>
 
 
@@ -164,11 +164,11 @@ In order to implement your pseudocode, you'll need to "throw a dart." Each dart'
 Python has a module that will let you generate random numbers called <a href="http://docs.python.org/3.0/library/random.html">random</a>. To use it you need to:
 </p>
 <ol class="padded">
-    <li style="text-align:justify">At the top of your file, under your comments, add the line 
+    <li style="text-align:justify">At the top of your file, under your comments, add the line
     <pre>
     <tt>import random</tt> </pre>
 </li>
-    
+
     <li style="text-align:justify">You can get a random integer between 0 and 99 (inclusive) with the following call
     <pre>
     <tt>rInt = random.randrange(100)    # returns an integer in [0,99]</tt>
@@ -177,7 +177,7 @@ Another way to get the same result is with the following call:
 <pre>
     <tt>rInt = random.randint(0,99)</tt>
 </pre>
-If you'd like a random float between 0.0 and 1.0 (exclusive) you can do: 
+If you'd like a random float between 0.0 and 1.0 (exclusive) you can do:
 <pre>
     <tt>rFloat = random.random()   # returns a float in [0.0, 1.0)</tt></pre></li>
     If you'd like that random float to be between 0.0 and 1.0 (INclusive) you can do:
@@ -194,7 +194,7 @@ If you'd like a random float between 0.0 and 1.0 (exclusive) you can do:
 Now that you have your dart throw, your next question should be: how do I know if I've hit the target? You'll do this by calculating the distance from the center of the circle to the dart and determining if it is within 1 unit and therefore in the circle.  If you center the circle at the origin (0,0) and generate x and y values ranging from -1 to 1, you can just use the distance formula to calculate the distance from (x,y) to the origin:
 </p>
 
-<!-- 
+<!--
 \sqrt{x^2 + y^2}
 -->
 <p class="centered">
@@ -203,7 +203,7 @@ Now that you have your dart throw, your next question should be: how do I know i
 In Python, this formula is <tt>math.sqrt(x*x + y*y)</tt>.
 
 
-<!-- 
+<!--
 <pre>
   __________
 \/ x^2 + y^2
@@ -231,7 +231,7 @@ Now in your main function's for loop, you can check whether this function return
 
 <p style="text-align:justify;">
     You do not have to
-    calculate the percentage difference between your approximation and Python's <tt>math.pi</tt>, but it might be interesting to look at.  
+    calculate the percentage difference between your approximation and Python's <tt>math.pi</tt>, but it might be interesting to look at.
 </p>
 
 <br>
@@ -240,7 +240,8 @@ Now in your main function's for loop, you can check whether this function return
 Try running your program with an increasing number of trials. Ideally, the more trials you have, the closer to the real value of Pi you get.
     You should expect that
     each run produces a slightly different value due to the fact that it is
-    using a random number generator.
+    using a random number generator. Your code does not need to work when the input it receives is not a positive integer; however, you can
+	and should try out some strange values like "Hello!", -5, and/or a blank line just to see what happens.
     </p>
 
 <br>
@@ -283,14 +284,14 @@ Write a program called <tt>pyramid.py</tt> that draws a pyramid of bricks based 
 <br>
 <p style="text-align:justify;">
 <b>Design an Algorithm:</b><br>
-Write pseudocode to draw the appropriate pyramid. The algorithm is 
+Write pseudocode to draw the appropriate pyramid. The algorithm is
 <ol class="padded">
 	<li>Prompt the user for the width <tt>width</tt> of the canvas.</li>
 	<li>Prompt the user for the number of bricks tall to make the pyramid, <tt>n</tt>.</li>
-	<li>Setup a canvas of size <tt>width</tt> by <tt>width</tt>  with a cyan background. 
+	<li>Setup a canvas of size <tt>width</tt> by <tt>width</tt>  with a cyan background.
 	<li style="text-align:justify">Start building the pyramid in the bottom left corner of the canvas. This is the tricky part so we will walk you through it. Very broadly, the algorithm to draw the actual pyramid is:<br>
 	<br>
-	
+
 	<div class="boxed">
 	For each row <tt>i</tt> of the pyramid<br>
 	    <ul>
@@ -309,11 +310,11 @@ Write pseudocode to draw the appropriate pyramid. The algorithm is
 	    </ul>
 	</div>
 	    <br>
-	But drawing row i of the pyramid is a whole algorithm in itself.  In order to draw row i of the pyramid, we need to answer the following questions 
+	But drawing row i of the pyramid is a whole algorithm in itself.  In order to draw row i of the pyramid, we need to answer the following questions
 	(which you answered on your <a href="prelab03.html">prelab</a>):
 	<ul>
 	<li>How many bricks does the <tt>i<sup>th</sup></tt> row have (given that the 0<sup>th</sup> row has <tt>n</tt> bricks and the (n-1)<sup>st</sup> row has 1)? That is, <tt>numBricks<sub>i</sub> = ???</tt> Write down your answer.
-	
+
 	<li>What is the side length <tt>s</tt> of each brick in terms of <tt>width</tt> and <tt>n</tt>? That is, <tt>s = ???</tt>  Write down your answer.
 	</ul>
 	<br>
@@ -324,7 +325,7 @@ Write pseudocode to draw the appropriate pyramid. The algorithm is
 	<ul>
 	<li>Draw row <tt>i</tt> of the pyramid as follows
 	    <ul>
-	    <li>Draw <tt>numBricks<sub>i</sub></tt> bricks, each with side length <tt>s</tt> 
+	    <li>Draw <tt>numBricks<sub>i</sub></tt> bricks, each with side length <tt>s</tt>
 	    </ul>
 	</ul>
 	</div>
@@ -337,7 +338,7 @@ Write pseudocode to draw the appropriate pyramid. The algorithm is
 	</ul>
 	Now we have enough to complete our pseudocode with sufficient detail:<br>
 	<br>
-	
+
 	<div class="boxed">
 	For each row <tt>i</tt> from <tt>0</tt> to <tt>n-1</tt> do<br>
 	<ul>
@@ -364,17 +365,17 @@ We have provided you with a module <a href="../code/picture.py">picture</a> that
 <ol class="padded">
     <li style="text-align:justify">Download or copy the <a href="../code/picture.py">picture</a> module into your current working directory (in this case, your lab03 directory).
     </li>
-    <li style="text-align:justify">Before your main declaration, add the line 
+    <li style="text-align:justify">Before your main declaration, add the line
     <pre>
     <tt>import picture</tt> </pre>
     </li>
-    
-    <li style="text-align:justify">To get started, you need to declare and initialize a new <tt>picture</tt> object using a constructor function as follows:
+
+    <li style="text-align:justify">To get started, you need to declare and initialize a new <tt>Picture</tt> object using a constructor function as follows:
 
     <pre>
     <tt>canvas = picture.Picture(600, 800)</tt></pre>
 
-    This creates a new <tt>picture</tt> object called <tt>canvas</tt> which you'll be able to draw upon and display.  The parameters specify the width and height of the canvas.  Naturally, you can use other values if needed.</p>
+    This creates a new <tt>Picture</tt> object called <tt>canvas</tt> which you'll be able to draw upon and display.  The parameters specify the width and height of the canvas.  Naturally, you can use other values if needed.</p>
 
     <li style="text-align:justify">
     At any given time, picture object keeps track of an outline color (lines and edges of shapes) and a fill color (the inside of shapes).  The default values of these parameters are black and white, respectively.
@@ -396,7 +397,7 @@ We have provided you with a module <a href="../code/picture.py">picture</a> that
 <pre>
     <tt>canvas.drawRectFill(x, y, w, h)</tt></pre>
 
-<p>would draw a filled rectangle in the current pen color.  The rectangle would be <tt>w</tt> pixels wide and <tt>h</tt> pixels tall.  The upper left corner of the rectangle would be located at position (<tt>x</tt>,<tt>y</tt>).  (Recall that the <tt>picture</tt> coordinate system, (0,0) is the upper left pixel.)</p>
+<p>would draw a filled rectangle in the current pen color.  The rectangle would be <tt>w</tt> pixels wide and <tt>h</tt> pixels tall.  The upper left corner of the rectangle would be located at position (<tt>x</tt>,<tt>y</tt>).  (Recall that in the <tt>Picture</tt> coordinate system, (0,0) is the upper left pixel.)</p>
 
     <li style="text-align:justify">
 To actually display the picture, you'll need to use the <tt>display()</tt> function after you've created the image.  So you'd write
@@ -404,7 +405,7 @@ To actually display the picture, you'll need to use the <tt>display()</tt> funct
 
 <pre>
     <tt>canvas.display()</tt></pre>
-    
+
 <p> As you may recall from class, the picture window will close as soon as your program ends, so if you want to be able to admire your creation, you'll need to force the program to wait.  The easiest way to do this is by ending your program with an input statement:
 
 <pre>
@@ -418,16 +419,16 @@ To actually display the picture, you'll need to use the <tt>display()</tt> funct
 </div>
 
 <p style="text-align:justify">
-<b>Implementation notes:</b> 
+<b>Implementation notes:</b>
 <ul style="text-align:justify">
 
 <li>
-All the bricks you draw should be exactly the same size.  While you can pass floats to various picture functions, including drawRectFill, in the end these values end up being rounded to integers (since all pixels have integer coordinates).  To ensure your bricks are placed exactly as you intend, you may wish to do the rounding yourself.    
+All the bricks you draw should be exactly the same size.  While you can pass floats to various picture functions, including drawRectFill, in the end these values end up being rounded to integers (since all pixels have integer coordinates).  To ensure your bricks are placed exactly as you intend, you may wish to do the rounding yourself.
 </li><br>
 
 <li>
 On a related note, sometimes the brick size length won't divide evenly into the canvas size. In these cases, you will have gaps either to the right or to the top of the pyramid. This is okay. However, you should <i>not</i> have gaps to the left or on the bottom of the pyramid. <b>Always start at the bottom left</b>, putting the next brick right next to the
-previous one and right on top of the previous layer. 
+previous one and right on top of the previous layer.
 </li><br>
 <!--
 <li>Use functions where appropriate. For example, it seems natural to have a function that takes in 4 parameters <tt>x, y, numBricks, s</tt> and draws <tt>numBricks</tt> bricks each of side-length <tt>s</tt>, starting at coordinates (<tt>x</tt>, <tt>y</tt>). Use other functions where you think it is appropriate; if you don't use any functions your grade will be lowered accordingly!
@@ -440,7 +441,7 @@ previous one and right on top of the previous layer.
 <p style="text-align:justify;">
 <b>Test the Program:</b><br>
 <p style="text-align:justify;">
-Try running the program with the examples given above as well as some others. Make sure you have gaps where you ought to, and that there aren't gaps where there shouldn't be gaps! Your pyramid should not be sloping to one side or floating in the middle. You shouldn't have some bricks that are larger than others.  If it looks fishy, go back and examine your math equations, checking that the "integer division" is being used appropriately.</p>
+Try running the program with the examples given above as well as some others. Make sure you have gaps where you ought to, and that there aren't gaps where there shouldn't be! Your pyramid should not be sloping to one side or floating in the middle. You shouldn't have some bricks that are larger than others.  If it looks fishy, go back and examine your math equations, checking that "integer division" (<tt>//</tt>, as opposed to <tt>/</tt>) is being used appropriately.</p>
 
 <p style="text-align:justify;">And don't forget to let the user input the width and number of bricks, if you were testing the program with hard-coded values!</p>
 
@@ -486,7 +487,7 @@ Amongst these there are 5 twin primes.
 </p>
 
 <p style="text-align:justify;">
-Note that (41, 43) is a twin prime, but we didn't count it since 43 wasn't amongst the first 13 primes.  
+Note that (41, 43) is a twin prime, but we didn't count it since 43 wasn't amongst the first 13 primes.
 </p>
 
 <br>
@@ -495,15 +496,15 @@ Note that (41, 43) is a twin prime, but we didn't count it since 43 wasn't among
 <b>Design an Algorithm:</b><br>
 Write pseudocode to solve this problem. You should decompose your main algorithm into small manageable chunks. For example, you should
 <ul>
-<li>design an algorithm that takes in an integer <tt>x</tt> and determines whether <tt>x</tt> is prime. For example, it would return false if x is 10, while it would return true if x is 31. You did this on your <a href="prelab03.html">prelab</a>.
-<li>use this algorithm to generate the first n primes. 
+<li>Design an algorithm that takes in an integer <tt>x</tt> and determines whether <tt>x</tt> is prime. For example, it would return false if <tt>x</tt> is 10, while it would return true if <tt>x</tt> is 31. You did this on your <a href="prelab03.html">prelab</a>.
+<li>Use this algorithm to generate the first <tt>n</tt> primes.
 </ul>
 
 <br>
 <br>
 <p style="text-align:justify;">
 <b>Implement a Design:</b><br>
-You may want to use a while loop as you search for primes, since you won't know ahead of time just how far you need to go.  Ask if you're not sure what a while loop is, or feel free to google it.</p> 
+You may want to use a while loop as you search for primes, since you won't know ahead of time just how far you need to go.  Ask if you're not sure what a while loop is, or feel free to google it.</p>
 
 <br>
 <br>
@@ -536,7 +537,7 @@ affirm that I have adhered to the Honor Code in this assignment.</q>
 a reminder
 </p>
 
-<pre> 
+<pre>
      % <span class="typed">cd</span>             # changes to your home directory
      % <span class="typed">cd cs150</span>       # goes to your cs150 folder
      % <span class="typed">handin</span>         # starts the handin program
@@ -550,7 +551,7 @@ a reminder
 line
 </p>
 
-<pre> 
+<pre>
      % <span class="typed">cd ~/cs150</span>     # goes to your cs150 folder
      % <span class="typed">handin -c 150 -a 3 lab03</span>
 </pre>
@@ -564,7 +565,7 @@ You should have submitted the following files:
    monte.py
    pyramid.py
    primes.py
-   picture.py (you needn't have touched this, it just makes grading easier)
+   picture.py (you shouldn't have touched this, it just makes grading easier)
 </pre>
 <br>
 If you worked with a partner, one of you will turn pyramid.py and primes.py, and the other will turn in a README files with their name.
@@ -578,4 +579,3 @@ If you worked with a partner, one of you will turn pyramid.py and primes.py, and
 
 </body>
 </html>
-
