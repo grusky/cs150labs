@@ -33,41 +33,6 @@ The purpose of this lab is to:
 </ul>
 </p>
 
-<h2>Getting Started</h2>
-
-<div class="boxed">
-<h2>Dictionaries</h2>
-
-<p>
-As we've seen in class, a dictionary, like a list, is one of the built-in data structures supported by Python for representing collections of data.  The entries in a dictionary are key-value pairs.  A dictionary key can be any immutable type (typically a number or a string), while a dictionary value can be anything at all.  We think of a dictionary as something that maps keys to values.  In a traditional dictionary, the keys are words, and the values are their definitions.  In a Python dictionary, your key-value pairs could be words and definitions, or usernames and passwords, or phone numbers and names.   
-</p>
-
-<p>
-Unlike a list, dictionaries are not ordered -- they are just collections of key-value pairs.  So there is no element 0, element 1, etc.  Instead, values in a dictionary are indexed by their keys.  If you print a dictionary, the elements will be listed in a seemingly random order.  One advantage of using a dictionary is that testing membership or looking up a value in a dictionary is very fast.  To evaluate the boolean expression <tt>a in myList</tt>, Python needs to look through the whole list, so this gets slower and slower as the list grows.  Evaluating <tt>a in myDictionary</tt>, however, is very fast, even for very large dictionaries.  Plus, sometimes it's just easier to have values indexed by arbitrary keys.  
-</p>
-
-<p>
-Here are some examples of syntax involving dictionaries.
-</p>
-
-
-<pre>
-<tt>  score = {} </tt>                       # set score to be an empty dictionary
-<tt>  score = {"kirk": 17, "spock": 4} </tt> # set score to be a dictionary with two key-value pairs
-<tt>  score["spock"] </tt>                   # 4
-<tt>  score["bones"] </tt>                   # error (key not found)
-<tt>  "bones" in score </tt>                 # False
-<tt>  score["bones"] =  42</tt>              # adds key "bones" with value 42
-<tt>  score["spock"] =  18</tt>              # updates value for key "spock" to 18
-<tt>  "bones" in score </tt>                 # True
-<tt>  del score["kirk"] </tt>                # remove key "kirk" and its value
-<tt>  list(score.keys()) </tt>               # returns a list of the keys
-<tt>  len(score) </tt>                       # 2 (number of keys in score)
-<tt>  for k in score : </tt>                 # iterates over the keys in score
-</pre>
-</div>
-<br>
-
 <h2>Distilling Text</h2>
 <p><b><i>20 points, individual</b></i><p>
 
@@ -133,39 +98,6 @@ The details of implementing a solution are up to you, but here is a suggested ou
 	
 	<li>Keep in mind that your output may differ slightly due to ties in word counts.
 </ul>
-<br><br>
-
-<div class="boxed">
-<h2>Sets</h2>
-<p>
-A set is another built-in data structures supported by Python for the mathematical notion of a set, i.e. a collection of elements.  Unlike a dictionary, the elements in a set don't have values associated with them.  You could simulate a set using a dictionary, but adding a key for each element, and setting that key's value to something arbitrary, like 0, or an empty string, or none.  That said, if you don't have data associated with each element, and simply whant to keep track of a set of items, using a set is the way to go.      
-</p>
-
-<p>
-Like dictionarys (and unlike lists), sets are not ordered, but testing membership and addinging or removing elements is very fast.  Sets do not store duplicate elements: adding an element to a set that already contains that element has no effect.
-</p>
-
-<p>
-Here are some examples of syntax involving sets.
-</p>
-
-
-<pre>
-<tt>  team = set()</tt>                       # makes a set with 0 elements
-<tt>  team = {"kirk", "spock"}</tt>           # makes a set with 2 elements
-<tt>  len(team) </tt>                         # 2 
-<tt>  team.add("bones") </tt>                 # adds "bones" to team
-<tt>  team.remove("kirk") </tt>               # removes "kirk" from team
-<tt>  for p in team : </tt>                   # iterates through elements of team
-<tt>  "bones" in team </tt>                   # True
-<tt>  "malcolm" in team </tt>                 # False
-<tt>  "river" not in team </tt>               # True
-</pre>
-</div>
-<br>
-
-<!--<h2>Memorable Phone Numbers</h2>-->
-
 
 <h2>Anagrams</h2><p>
 <b><i>20 points, partner</b></i>

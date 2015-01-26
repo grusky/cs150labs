@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+    <head>
+        <title>CS 150 - PreLab 10</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+        <link rel="stylesheet" type="text/css" href="../labs.css">
+    </head>
+
+    <body>
+        <br />
+        <div id='container'>
+
+        <div id='top'>
+
+            <h1><a href="http://www.cs.oberlin.edu/~ctaylor/150/" style="text-decoration:none; color:black">PreLab 10</a></h1>
+
+            <b>Wordplay</b><br />
+            <em>Due by the beginning of lecture on Wednesday, November 19th</em>
+            <br /><br />
+
+        </div>
+
+        <div id='top'>
+
+            <h2>Dictionaries</h2>
+
+            <p>
+            As we've seen in class, a dictionary, like a list, is one of the built-in data structures supported by Python for representing collections of data.  The entries in a dictionary are key-value pairs.  A dictionary key can be any immutable type (typically a number or a string), while a dictionary value can be anything at all.  We think of a dictionary as something that maps keys to values.  In a traditional dictionary, the keys are words, and the values are their definitions.  In a Python dictionary, your key-value pairs could be words and definitions, or usernames and passwords, or phone numbers and names.   
+            </p>
+
+            <p>
+            Unlike a list, dictionaries are not ordered -- they are just collections of key-value pairs.  So there is no element 0, element 1, etc.  Instead, values in a dictionary are indexed by their keys.  If you print a dictionary, the elements will be listed in a seemingly random order.  One advantage of using a dictionary is that testing membership or looking up a value in a dictionary is very fast.  To evaluate the boolean expression <tt>a in myList</tt>, Python needs to look through the whole list, so this gets slower and slower as the list grows.  Evaluating <tt>a in myDictionary</tt>, however, is very fast, even for very large dictionaries.  Plus, sometimes it's just easier to have values indexed by arbitrary keys.  
+            </p>
+
+            <p>
+            Here are some examples of syntax involving dictionaries:
+            </p>
+
+            <pre>
+    <tt>score = {} </tt>                        # set score to be an empty dictionary
+    <tt>score = {"kirk": 17, "spock": 4} </tt> # set score to be a dictionary with two key-value pairs
+    <tt>score["spock"] </tt>                    # 4
+    <tt>score["bones"] </tt>                    # error (key not found)
+    <tt>"bones" in score </tt>                  # False
+    <tt>score["bones"] =  42</tt>               # adds key "bones" with value 42
+    <tt>score["spock"] =  18</tt>               # updates value for key "spock" to 18
+    <tt>"bones" in score </tt>                  # True
+    <tt>del score["kirk"] </tt>                 # remove key "kirk" and its value
+    <tt>list(score.keys()) </tt>                # returns a list of the keys
+    <tt>len(score) </tt>                        # 2 (number of keys in score)
+    <tt>for k in score: </tt>                   # iterates over the keys in score
+            </pre>
+
+            <h2>Sets</h2>
+            <p>
+            A set is another built-in data structures supported by Python for the mathematical notion of a set, i.e. a collection of elements.  Unlike a dictionary, the elements in a set don't have values associated with them.  You could simulate a set using a dictionary, but adding a key for each element, and setting that key's value to something arbitrary, like 0, or an empty string, or none.  That said, if you don't have data associated with each element, and simply whant to keep track of a set of items, using a set is the way to go.      
+            </p>
+
+            <p>
+            Like dictionarys (and unlike lists), sets are not ordered, but testing membership and addinging or removing elements is very fast.  Sets do not store duplicate elements: adding an element to a set that already contains that element has no effect.
+            </p>
+
+            <p>
+            Here are some examples of syntax involving sets:
+            </p>
+
+
+            <pre>
+    <tt>team = set()</tt>                       # makes a set with 0 elements
+    <tt>team = {"kirk", "spock"}</tt>           # makes a set with 2 elements
+    <tt>len(team) </tt>                         # 2 
+    <tt>team.add("bones") </tt>                 # adds "bones" to team
+    <tt>team.remove("kirk") </tt>               # removes "kirk" from team
+    <tt>for p in team: </tt>                    # iterates through elements of team
+    <tt>"bones" in team </tt>                   # True
+    <tt>"malcolm" in team </tt>                 # False
+    <tt>"river" not in team </tt>               # True
+            </pre>
+
+            <div class="boxed">
+                <ol>
+                    <li>
+                        <p>Download <a href="words2.txt">words2.txt</a>. Using sets, write Python code that will condense the word list by removing words with common suffixes, such as -s, -es, -ed, -ing, -ion, and -ly, and storing only the root word (root words are words without suffixes). For example, if your program reads the word "disappointingly," it would store it under "disappoint."</p>
+                        <p>How many entries are in your condensed word list?</p>
+                    <li>
+                        <p>Look over the words stored in your condensed word list. Why are some words incomplete (e.g., "communicat")? Propose a way of solving this problem so that all entries in your list are valid words.</p>
+                        <p>Hint: What property do words with suffixes share compared to their valid root word?</p>
+
+                    <li>
+                        <p>Now, modify the code from part 1 to count the number of variations each root word has, including the original word itself. This will require you to use a dictionary rather than a set.</p>
+                        <p>Which root word has the largest number of derivatives?</p>
+                    </li>
+                </ol>
+            </div>
+
+        </div>
+
+    </body>
+</html>
+
