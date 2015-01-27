@@ -137,25 +137,31 @@ A sample run of our text-based program may look like this:
 <pre>
     %python3 master.py
     
-    I have a 4 letter code, made from 6 colours.
-    The colours are R, G, B, Y, P, or O.
+    I have a 4 letter code, made from 6 colors.
+    The colors are R, G, B, Y, P, or O.
 
-	Your guess: GGGG
+        Your guess: GGGG
+
     Not quite. You get 0 black pegs, 0 white pegs.
 
         Your guess: YYYY
+
     Not quite. You get 1 black pegs, 0 white pegs.
 
         Your guess: YOYO
+
     Not quite. You get 0 black pegs, 2 white pegs.
 
         Your guess: PPYO
+
     Not quite. You get 1 black pegs, 2 white pegs.
 
         Your guess: POYB
+
     Not quite. You get 1 black pegs, 3 white pegs.
 
         Your guess: PBOY
+
     You win! Aren't you smart.
 </pre>
 </div>
@@ -205,7 +211,7 @@ To generate the code, write a function </p>
 <pre>    <tt>generateCode()</tt> </pre>
 
 <p style="text-align:justify;">
-that generates the codemaker's code (and returns it as a <tt>String</tt> to the caller). That is, this function should randomly generate 4 colored pegs, selected from R, B, G, Y, O, and P, and return it as a 4-letter string. You'll want to use the <tt>random</tt> methods as discussed in <a href="../lab03/lab03.html#Random">lab03</a> in order to randomly generate a color for each peg. In particular, you'll generate an integer between 0 and 5 inclusive, and use if-statements to map each result to one of the 6 colours. 
+that generates the codemaker's code (and returns it as a <tt>String</tt> to the caller). That is, this function should randomly generate 4 colored pegs, selected from R, B, G, Y, O, and P, and return it as a 4-letter string. You'll want to use the <tt>random</tt> methods as discussed in <a href="../lab03/lab03.html#Random">lab03</a> in order to randomly generate a color for each peg. In particular, you'll generate an integer between 0 and 5 inclusive, and use if-statements to map each result to one of the 6 colors. 
 <!--(Or, if you're feeling up for it, read up on "switch statements", which can be used to combine a large if-statements of a specific type. This is a perfect place for a switch statement. Feel free to ask one of us about them!)</p> -->
 
 <p style="text-align:justify;">
