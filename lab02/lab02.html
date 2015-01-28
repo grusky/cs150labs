@@ -315,8 +315,10 @@ Write pseudocode that solves this problem. As with the previous problem, give en
 Translate your pseudocode into a Python program named <tt>interest.py</tt>.
 </p>
 <p style="text-align: justify;">
-As pointed out above, you'll need to truncate your output to 2 decimal places.
-One clever way to do this: first multiply your value by 100 (now your number represents cents).  Next, "cast" that number as an int (this means converting the number to an integer, which effectively tosses out any fraction of a cent that might have been there).  You use <em>int(x)</em> to produce the value of <em>x</em> cast as an integer.  You could accomplish the same thing by doing integer division by 1.  Either way, you now have a whole number of cents.  Real division by 100 should get you what you're looking for.  Note that trailing zeros after the decimal place will not print out when you print the number (so 123.10 will print as "123.1" and 123.00 will print as "123".)  This is fine.
+As pointed out above, you'll need to round your output to 2 decimal places. Conveniently, Python provides a function, <tt>round(number, decimalPlaces)</tt>, to do just this. This function takes a number you want to round and the number of decimal places you want to round to and outputs a rounded floating point number.
+</p>
+<p>
+Code for thought: The <tt>int</tt> function truncates a floating point number instead of rounding it. Can you think of a value <tt>n</tt> that would make <tt>int(number*n + 0.5)/n</tt> equivalent to <tt>round(number, 2)</tt>? What is the purpose of adding 0.5?
 </p>
 
 <br>
