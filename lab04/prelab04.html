@@ -33,15 +33,15 @@ In this prelab you will formulate some of the ideas necessary to complete Lab 04
 <b>1.</b> What is the output of the following program?
 
 <pre>
-      def main() : 
+      def main(): 
          blarg(5)
          blorf(3)
       
-      def blarg(x) :
+      def blarg(x):
          print(x*x)
          print(x)
       
-      def blorf(y) :
+      def blorf(y):
          blarg(y+1)
          print(y)
          blarg(y-1)
@@ -53,13 +53,13 @@ In this prelab you will formulate some of the ideas necessary to complete Lab 04
 
 <b>2.</b> What is the output of the following program?
 <pre>
-      def main() :
+      def main():
          x, y = 2, 7
          print(x, y)
          x = blunk(x, y)
          print(x, y)
       
-      def blunk(y, x) :
+      def blunk(y, x):
          print(x, y)
          y = y * y
          x = x//2
