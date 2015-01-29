@@ -66,7 +66,6 @@ A music note is just a sound wave. More specifically, any one note can be though
     <li style="text-align:justify">The way that humans perceive pitch is associated with the frequency of the sound wave which impinges upon the ear. A high pitch sound corresponds to a high frequency sound wave (many peaks in a small span), and a low pitch corresponds to a low frequency sound wave (few peaks in a small span).</li>
 
     <li style="text-align:justify">More specifically, frequency is vibrations per second. The unit used to measure frequency is the Hertz (abbreviated Hz), where 1 Hertz = 1 vibration / second. The human ear can detect sound waves with frequencies ranging from 20Hz to 20000 Hz.</li>
-    <!--<li>Period: Time between successive high pressure points. The higher the frequency, the shorter the period.</li> -->
     <li style="text-align:justify">Doubling a pitch's frequency increases the pitch by an octave, and halving it decreases it by an octave. There are 12 semitones in an octave, therefore, the ratio between the frequency of successive semitones is the 12th root of two (1.05946) (NOTE: this is not the same as 1 + 1/12). That is, to increase a pitch by a semitone, you only need to multiply its frequency by the 12th root of 2.  
     </li>
 </ul>
@@ -146,7 +145,7 @@ A music note is just a sound wave. More specifically, any one note can be though
 To construct a sound wave, you first need to know the frequency (H), the amplitude (A), and the length (T) of your wave. Once you have this information, you just need to calculate y(t) = A * sin( 2 Pi H t ) for all 0 <= t <= T.  Note that t is the timestep of the note you are calculating.   
 </p> 
 <p style="text-align:justify">
-Notice that y(t) is a continuous function (you can draw it without lifting your pen), and computers don't do so great with continuous stuff. Instead, the computer samples the sound wave many times per second to produce digital audio. Each sample represents the amplitude (y-value) of the sound wave at a particular instant in time (t). The sampling rate is the number of samples taken per second. Audio from CDs typically uses a sampling rate of 44100. So, instead of drawing the sound wave without lifting your pen, the computer is drawing a whole lot of dots along the same wave, with the idea that if you draw enough dots, it still <i>looks</i> (and sounds) like a continuous wave even though it isn't. The same idea is used in animation and those little flip books<!--(<a href="http://www.youtube.com/watch?v=AYeTwfyx0nw">for fun</a>)-->; a sequence of still frames when played at a high enough speed give the impression of smooth/continuous movement.  So now if you are calculating 2 seconds of audio with a sampling rate of 44100, the values for t will be 0,1,2,3,...,88198,88199,88200.
+Notice that y(t) is a continuous function (you can draw it without lifting your pen), and computers don't do so great with continuous stuff. Instead, the computer samples the sound wave many times per second to produce digital audio. Each sample represents the amplitude (y-value) of the sound wave at a particular instant in time (t). The sampling rate is the number of samples taken per second. Audio from CDs typically uses a sampling rate of 44100. So, instead of drawing the sound wave without lifting your pen, the computer is drawing a whole lot of dots along the same wave, with the idea that if you draw enough dots, it still <i>looks</i> (and sounds) like a continuous wave even though it isn't. The same idea is used in animation and for <a href="http://www.youtube.com/watch?v=AYeTwfyx0nw">flip books</a>; a sequence of still frames when played at a high enough speed give the impression of smooth/continuous movement.  So now if you are calculating 2 seconds of audio with a sampling rate of 44100, the values for t will be 0,1,2,3,...,88198,88199,88200.
 
 </p>
 
@@ -157,18 +156,6 @@ Notice that y(t) is a continuous function (you can draw it without lifting your 
     
     <b>3)</b> Write a Python function with parameters <tt>T</tt> (length in seconds), <tt>H</tt> (frequency), <tt>A</tt> (amplitude), and  <tt>R</tt> (sampling rate) that creates a list containing <tt>N</tt> samples as given by the formula y(t)=A*sin(H*2Pi*t), where <tt>N</tt> is the number calculated in the previous question.  The parameters should have default values of 1, 440, 1, and 44100 respectively.  Note that t will indicate the sample number - t will be 1 for the first element in the list, 2 for the second, and so on.
 </div>
-
-<!--
-<p style="text-align:justify">
-At second t, the amplitude (y-value) of the sound wave is given by the formula y(t) = 8000 sin( 2 PI Hz t ). Therefore, if we want to take 44100 samples per second, we need to calculate...
-Sample i is given by 8000 sin( 2 PI 440 i / 44100). The sin function is given by y(t) = A * sin( w*t+theta), where
-</p>
-<ul>
-    <li>A is the amplitude (the highest horizontal peak)</li>
-    <li>frequency w (radians per second)</li>
-    <li>phase theta - when phase is non-zero, entire waveform appears to be shifted in time by the amount theta / w seconds. a negative value represents a delay (it shifts the whole wave to the right), a positive value represents a head-start (it shifts the whole wave to the left).</li>
-</ul>
--->
 
 <p style="text-align:justify">
 In the lab proper, you will be writing your own Soundwave class that will represent the discretization of a snippet of sound.  Initially a particular Soundwave will hold a single digitized note, but eventually we'll want to be able to combine and overlay notes as well.
@@ -188,16 +175,6 @@ In the lab proper, you will be writing your own Soundwave class that will repres
 <p style="text-align:justify">
 Once you've gotten a basic Soundwave class defined, much of the remainder of the lab revolves around producing music. In particular, we're going to use .wav files (a type of sound file type, much like an .mp3) to produce a variety of scales and generate a Minuet and Trio.  Yes, <I>you</I> will write a Minuet and Trio. Sorta. But before that...</p>
 
-<!--
-<p style="text-align:justify">
-First, let's talk about music representation in MIDI files. Each musical note / pitch is represented by an integer between 0 and 127. Middle C (the centre key on a piano) has the value 60. We can define all notes relative to this one: to go up a semitone, you just increment your current note value by 1. For example, C# (C sharp, aka my cousin Casey Sharp) has the value 61, and B has the value 59. There are 12 semitones in an octave (count 'em up on a piano if you like), so to go up an octave, you add 12 to your value (e.g. high C has the value 72).
-</p>
-
-<p style="text-align:justify">
-For your convenience, here is a table listing the notes in different octaves and their corresponding numbers.
-</p>
-
--->
 <p style="text-align:justify">
 A <I>scale</I> is a sequence of notes, defined by the intervals between them. For example, the <i>major scale</i> is defined by the 7 intervals (and hence 8 notes) (2,2,1,2,2,2,1), that is, there are 2 semitones between the first and second notes, between the second and third notes, but a single semitone between the third and fourth notes, and so on. The <a href="major.wav">C major scale</a> is the major scale starting at C and is thus the sequence of notes of values starting at around 523 and ending around 1046, that is, the notes (C, D, E, F, G, A, B, C). The D major scale is the major scale starting at D: the sequence of notes (D, E, F#, G, A, B, C#, D).
 
@@ -217,30 +194,6 @@ There are many other interesting scales, such as the <a href="minor.wav">minor s
 
     <b>8)</b> Given a scale defined by its intervals <tt>(I1, I2, I3,..., In)</tt> and tonic note frequency <tt>F</tt>, give an algorithm (in pseudocode!) that produces the sequence of <i>(n+1)</i> note frequencies in the actual scale. That is, you have two input parameters: the start note and the sequence of intervals (in a list, say). You want to output the sequence of note frequencies in the appropriate scale.
 </div>
-
-<!--
-<p style="text-align:justify">
-So this is how different notes work. Unfortunately, MIDI files themselves do not transmit the sound you hear, rather, they transmit digital data 'events', such as which note to play at what volume using what instrument. Each event has a time stamp saying when the event actually occurs in the file. This means that you cannot just tell a MIDI file to play certain notes; you also have to tell it <i>when</i> to play each note. </p>
-<p style="text-align:justify">
-The MIDI file specifies time using <tt>ticks</tt>, which you can think of as the second hand ticking of a clock. The clock starts at 0; when you want to play a note, you must specify at which time (which tick) you'd like it to be played. For example, playing the notes of a scale one tick apart would be an evenly-paced scale. Similarly, playing each note 8 ticks apart or 24 ticks apart would also be evenly-paced.
-</p>
-
-<p style="text-align:justify">
-<b>5.</b> Suppose you want to play an evenly-paced A major scale starting at tick 10. At which ticks will the 8 notes occur? There are multiple correct answers, depending on how you space your notes. Just one answer will suffice.
-</p>
-
-<p style="text-align:justify">
-In music notation, the duration (time length, number of ticks) of a particular note is defined by how long it lasts compared to a whole note. For example, if a whole note lasts for 16 ticks, then a half note lasts for 8 ticks, a quarter note for 4 ticks, an eighth note for 2, and a sixteenth note for 1.
-</p>
-
-<p style="text-align:justify">
-<b>6.</b> If a 64th note lasts for 3 ticks, how many ticks are there to a whole note? 
-</p>
-
-<p style="text-align:justify">
-<b>7.</b> If a whole note lasts for 48 ticks, how many ticks are there to a 16th note?
-</p>
--->
 
 <p>
 Finally, let's talk about this Minuet and Trio business. What is a Minuet and Trio?

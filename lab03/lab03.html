@@ -194,21 +194,10 @@ If you'd like a random float between 0.0 and 1.0 (exclusive) you can do:
 Now that you have your dart throw, your next question should be: how do I know if I've hit the target? You'll do this by calculating the distance from the center of the circle to the dart and determining if it is within 1 unit and therefore in the circle.  If you center the circle at the origin (0,0) and generate x and y values ranging from -1 to 1, you can just use the distance formula to calculate the distance from (x,y) to the origin:
 </p>
 
-<!--
-\sqrt{x^2 + y^2}
--->
 <p class="centered">
 <img src="equation2.gif" style="height: 1.5em" alt="distance formula" class="equation">
 </p>
 In Python, this formula is <tt>math.sqrt(x*x + y*y)</tt>.
-
-
-<!--
-<pre>
-  __________
-\/ x^2 + y^2
-</pre>
--->
 
 <br><br>
 
@@ -430,9 +419,6 @@ All the bricks you draw should be exactly the same size.  While you can pass flo
 On a related note, sometimes the brick size length won't divide evenly into the canvas size. In these cases, you will have gaps either to the right or to the top of the pyramid. This is okay. However, you should <i>not</i> have gaps to the left or on the bottom of the pyramid. <b>Always start at the bottom left</b>, putting the next brick right next to the
 previous one and right on top of the previous layer.
 </li><br>
-<!--
-<li>Use functions where appropriate. For example, it seems natural to have a function that takes in 4 parameters <tt>x, y, numBricks, s</tt> and draws <tt>numBricks</tt> bricks each of side-length <tt>s</tt>, starting at coordinates (<tt>x</tt>, <tt>y</tt>). Use other functions where you think it is appropriate; if you don't use any functions your grade will be lowered accordingly!
-</li>-->
 
 <li> A hint on changing the background color: there is no way to actually change the color of the canvas, so to get that nice blue background, you will need to draw a big rectangle the same size as the canvas, with its x,y coordinates set to 0,0.
 </ul>

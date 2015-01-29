@@ -212,7 +212,6 @@ To generate the code, write a function </p>
 
 <p style="text-align:justify;">
 that generates the codemaker's code (and returns it as a <tt>String</tt> to the caller). That is, this function should randomly generate 4 colored pegs, selected from R, B, G, Y, O, and P, and return it as a 4-letter string. You'll want to use the <tt>random</tt> functions as discussed in <a href="../lab03/lab03.html#Random">lab03</a> in order to randomly generate a color for each peg. In particular, you'll generate an integer between 0 and 5 inclusive, and use if-statements to map each result to one of the 6 colors. 
-<!--(Or, if you're feeling up for it, read up on "switch statements", which can be used to combine a large if-statements of a specific type. This is a perfect place for a switch statement. Feel free to ask one of us about them!)</p> -->
 
 <p style="text-align:justify;">
 Test your <tt>generateCode</tt> function thoroughly before continuing. No, seriously, test it before continuing. Once it's working, write a second function</p> 
@@ -256,14 +255,6 @@ Don't forget to use the <tt>display</tt> function followed by an <tt>input</tt> 
 You can read more about different picture functions <a href="../code/picture_docs.html">here</a><p>
 
 The best sketches will be shown off in class to general acclaim.  
-<!--
-You should also include a line of code to generate an image file of your picture (or of some nice frame of your animation if that's what you decided to do).  To do that, use the <tt>writeFile</tt> function.  Name your image your username followed by <tt>.bmp</tt>.  For example, I'd save my picture using the function call
-
-<pre>
-   pic.writeFile("wexler.bmp")
-</pre>
-</p>
--->
 
 <br>
 <br>
@@ -453,34 +444,6 @@ Some details are given below.
 This program will be a good deal larger than those you've created on previous labs.  Making a single large function that does everything will most likely end in tears.  As such, think carefully about how to break your program into logical and managable pieces using functions.   It is very important that you test your code incrementally as you build your program -- don't try to write the whole thing before you start testing.  It is also critical that you use comments to explain what each function you create does.  
 </p>
 
-<!--
-<p>
-The user will select an option by picking a corresponding number from the printed list.  To map the selected number to an action, you could use a whole mess of if statements, but for this assignment we'd like you to try out a switch statement.  Here is the syntax of a switch statement. (I don't think we have this kind of thing in python... so.. what's the best way to do this? if-then-else?)
-</p>
-
-<p>
-<pre>
-	switch(&lt;var&gt;) {     
-	   case &lt;value1&gt;:       // if var has value1, do the following
-	      &lt;statement(s)&gt;; 
-	      break;
-	   case &lt;value2&gt;:       // if var has value2, do the following
-	      &lt;statement(s)&gt;; 
-	      break;
-	   case &lt;value3&gt;:       // if var has value3, do the following
-	      &lt;statement(s)&gt;; 
-	      break;
-	   ...
-	   default:             // for any other values of var, do this
-	      &lt;statement(s)&gt;; 
-	      break;	
-	}
-</pre>
-</p>
-
-<p>
-This looks at the value of the variable &lt;var&gt; and runs the statements in the case with the matching value.  If no such case is found, the statements under "default" are executed.  If the break statements are left out, then the execution will "fall through" into the subsequent cases, even if the value of var didn't match.  In some cases, this can be handy, but you probably want to keep the break statements here.
--->
 </p>
 
 
