@@ -31,7 +31,7 @@ Congratulations!  You've unlocked part 2!
 
 
 <p>
-If you haven't already, save the file <a href="code.txt">code.txt</a> to your working folder.  This file contains the instructions for the next part.  Unfortunately, some bozo has encrypted it.  Fortunately, the encryption used by said bozo wasn't too complex, so decryption should be pretty straight forward.  In particular, what we have here is what is known as a cipher shift encoding.  Each letter has been "shifted" forward some number of letters.  For example, if the shift was by 3, then 'a' would become 'd', 'b' would become 'e', etc.  Things that are in this way pushed off the end of the alphabet wrap around, so 'z' would become 'c'.  
+If you haven't already, save the file <a href="code.txt">code.txt</a> to your working folder.  This file contains the instructions for the next part.  Unfortunately, some bozo has encrypted it.  Fortunately, the encryption used by said bozo wasn't too complex, so decryption should be pretty straight forward.  In particular, what we have here is what is known as a cipher shift encoding.  Each letter has been "shifted" forward some number of letters.  For example, if the shift was by 3, then 'a' would become 'd', 'b' would become 'e', etc.  Things that are in this way pushed off the end of the alphabet wrap around, so 'z' would become 'c'.
 </p>
 
 <p>
@@ -39,11 +39,11 @@ You're going to write a program called <tt>decrypt.py</tt> to undo the shift.  Y
 </p>
 
 <p>
-But how do you tell if a particular character is a letter, rather than a space, a number or some other symbol?  Or tell what letter it is without resorting to 26 tedious if-statements?  Fortunately, every character is associated with an integer.  The two most common encodings are ASCII and Unicode.   In both of these, the letter 'a' corresponds to 97, 'b' to 98, and so on, up until 'z' which maps to 122.  You can get the associated number for a character <tt>c</tt> using the <tt>ord(c)</tt> function.  For example, <tt>ord('b')</tt> will return <tt>98</tt>.  To go in the reverse direction, <tt>chr(x)</tt> generates a string containing the character whose number is <tt>x</tt>.  So <tt>chr(121)</tt> will return <tt>'y'</tt>.  Try printing out the characters for all numbers up to 1000 to see some of the symbols your computer knows about. 
+But how do you tell if a particular character is a letter, rather than a space, a number or some other symbol?  Or tell what letter it is without resorting to 26 tedious if-statements?  Fortunately, every character is associated with an integer.  The two most common encodings are ASCII and Unicode.   In both of these, the letter 'a' corresponds to 97, 'b' to 98, and so on, up until 'z' which maps to 122.  You can get the associated number for a character <tt>c</tt> using the <tt>ord(c)</tt> function.  For example, <tt>ord('b')</tt> will return <tt>98</tt>.  To go in the reverse direction, <tt>chr(x)</tt> generates a string containing the character whose number is <tt>x</tt>.  So <tt>chr(121)</tt> will return <tt>'y'</tt>.  Try printing out the characters for all numbers up to 1000 to see some of the symbols your computer knows about.
 </p>
 
 <p>
-Now you've got the pieces needed to count the number of occurences of each character in the encrypted text.  As you read symbols from the file, you'll know you found a letter if the corresponding number lies between 97 and 122 (inclusive).  Count the number of 'a's in slot 0 of your list, 'b's in slot 1, etc.  To simply matters, this test file doesn't include any capital letters (those have their own range of numerical values).  Running through the characters in the file is most easily done using a for loop on the string returned by a file's <tt>read()</tt> function, which returns the string of all characters in the file.  
+Now you've got the pieces needed to count the number of occurences of each character in the encrypted text.  As you read symbols from the file, you'll know you found a letter if the corresponding number lies between 97 and 122 (inclusive).  Count the number of 'a's in slot 0 of your list, 'b's in slot 1, etc.  To simply matters, this test file doesn't include any capital letters (those have their own range of numerical values).  Running through the characters in the file is most easily done using a for loop on the string returned by a file's <tt>read()</tt> function, which returns the string of all characters in the file.
 </p>
 
 <p>
@@ -52,12 +52,12 @@ Once you've counted the letter frequencies, your program should find the letter 
 You should NOT hardcode your shift value, but instead should calculate it in your program.  We will test your program on a different encoded file, with a different shift value, and will expect it to work. Note that to shift your characters, you'll need to scan through the file a second time.  If <tt>f</tt> is your file variable, then using <tt>f.seek(0)</tt> will reset the virtual cursor to the beginning of the file so you can do a second pass.
 </p>
 
-<p>
+<p><b>
 A few things to keep in mind: when you're shifting, be careful about which direction you want to shift.  If 'g' was the most common letter, how do you need to shift the characters?  To actually do the shift, you'll want to convert to an integer, shift by the right amount, and then convert back to a character.  But if the shift moves the integer outside of the [97, 122] range, you'll need to add (or subtract) 26 to wrap back into the range.  If you're careful, mod can make this very clean and concise.  Finally, remember that you only want to apply the shift to letters; the spaces, numbers and other symbols should not be changed.
-</p>
+</b></p>
 
 <p>
-Your final program should print the decoded message to the screen.  You don't need to write a new file with the decoded message.  Remember, there are no capital letters to worry about, and all characters that aren't letters should be left unchanged.  
+Your final program should print the decoded message to the screen.  You don't need to write a new file with the decoded message.  Remember, there are no capital letters to worry about, and all characters that aren't letters should be left unchanged.
 </p>
 
 <p>
@@ -71,4 +71,3 @@ Once you've decrypted the code, you'll have part 3.  (Worth 10 points, and can b
 
 </body>
 </html>
-

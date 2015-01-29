@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+	<title>CS 150 - PreLab 07</title>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<link rel="stylesheet" type="text/css" href="../labs.css">
+</head>
+<body>
+<br>
+    <div id='container'>
+	<div id='top'>
+
+
+	    <h1><a href="http://www.cs.oberlin.edu/~ctaylor/150SP14/" style="text-decoration:none; color:black">PreLab 07</a></h1>
+	    <b>Scavenger Hunt</b><br>
+	    <em>Due by the beginning of lecture on Wednesday, October 15th</em>
+	    <br>
+	    <br>
+
+	</div>
+	<div id='top'>
+
+
+
+<p style="text-align:justify">
+The following lab will be a scavenger hunt that will require recursion and build and other skills you have learned thusfar. In this prelab you will begin to formulate the logic and refresh your knowledge on previous topics covered in the lab. Please type up your solutions, and hand in a paper copy before the beginning of lecture on Wednesday. Remember, no late prelabs allowed! Remember that prelabs are an individual assignment, and you should not work on them with anyone else.
+</p>
+
+
+<h2>Part 1 - Syracuse</h2>
+<p>
+The Syracuse problem (also known variously as the 3x+1 problem, the <a href="http://www.xkcd.com/710/">Collatz Conjecture</a>, or Kakutani's problem) concerns a strange collection of sequences.  For every positive integer, there is a Syracuse sequence.  For example, Syracuse sequence 17 is
+</p>
+
+<p>
+<center>
+17 52 26 13 40 20 10 5 16 8 4 2 1
+</center>
+</p>
+
+<p>
+Can you see the pattern?
+</p>
+
+<p>
+The Syracuse sequence for the number x is created by recursively applying a certain function f to x which depends on the parity of x.  In particular, f(x) = 3x+1 if x is odd, and f(x) = x/2 if x is even.  Once you get to 1, you stop (you could keep going, but at this point we'd just cycle between 4, 2 and 1, so generally we stop the sequence at 1).  As another example, Syracuse sequence 14 looks like
+</p>
+
+<p>
+<center>
+14 7 22 11 34 17 52 26 13 40 20 10 5 16 8 4 2 1
+</center>
+</p>
+
+<div class="boxed">
+<b>1.</b> Generate the following Syracuse sequence: 1, 2, 3, 4
+<br><br>
+
+<b>2.</b> Given any positive integer, how would you determine the integer's parity?
+<br>
+
+</div>
+
+<h2>Part 2 - Decryption</h2>
+<p style="text-align:justify">
+In another part of this scavenger hunt you will have to dabble into the art of decryption. </p>
+
+<p style="text-align:justify">
+On computers, every character is associated with an integer. The two most common encodings are ASCII and Unicode. In both of these, the letter 'a' corresponds to 97, 'b' to 98, and so on, up until 'z' which maps to 122. You can get the associated number for a character c using the ord(c) function. For example,ord('b') will return 98. To go in the reverse direction, chr(x) generates a string containing the character whose number is x. So chr(121) will return 'y'. Try printing out the characters for all numbers up to 1000 to see some of the symbols your computer knows about.
+
+</p>
+
+<br>
+
+<div class="boxed">
+<b>3.</b> What would the following calls to ord() and chr() return:
+<ul>
+	<li>ord(d)</li>
+	<li>ord(n)</li>
+	<li>chr(110)</li>
+	<li>chr(122)</li>
+</ul>
+<br>
+
+<b>4.</b> Using ASCII and Unicode encoding, how would you determine if a character is a lower case letter?
+<br><br>
+
+<b>5.</b> Using a list of 26 integers, all initially set to 0, to store the information, write a chunk of code that can count the number of time a letter appears in a block of text.
+<br>
+
+</div>
+
+
+<h2>Part 3 - Getting Cellular</h2>
+
+<p style="text-align:justify;">
+The scavenger hunt will require you to create a cellular automaton – something that is similar to the game of life automaton. To refresh your memory:
+</p>
+
+<div class="boxed">
+<b>6.</b> If you have a pixel whose coordinates are (x, y). Would would be the coordinates of the pixel:
+<ul>
+	<li>Directly above</li>
+	<li>Directly below</li>
+	<li>Directly above and to the right</li>
+	<li>Directly above and to the left</li>
+</ul>
+
+</div>
+
+
+<h2>Part 4 - Binary Numbers and You</h2>
+
+<p style="text-align:justify;">
+The binary number system is a base-2 number system. A base-2 number system typically uses the two numbers 0 and 1. Each place, or bit, of a binary number signifies a power of 2. </p>
+
+<p style="text-align:justify;">
+Binary numbers for the purpose of this lab has 8 bits to accommodate the 256 values of the red, blue, and green channels. Here are some example conversions from binary to decimal.
+<ul>
+	<li>00000000 = 0</li>
+	<li>00010000 = 16</li>
+	<li>00100000 = 32</li>
+	<li>00100000 = 64</li>
+	<li>11111111 = 255</li>
+</ul>
+
+</p>
+
+<div class="boxed">
+<b>7.</b> Convert the following decimal numbers into binary:
+<ul>
+	<li>1</li>
+	<li>2</li>
+	<li>2</li>
+	<li>4</li>
+</ul>
+
+</div>
+
+
+<br>
+
+
+
+<h2>Honor Code</h2>
+
+<p style="text-align:justify"> If you followed the Honor Code in this assignment, write the following sentence attesting to the fact at the top of your homework.</p>
+
+<blockquote class="honor">
+  <p class="centered"> <q class="honor">I
+affirm that I have adhered to the Honor Code in this assignment.</q>
+
+  </p>
+
+</blockquote>
+
+</div>
+</div>
+<br>
+
+</body>
+</html>
