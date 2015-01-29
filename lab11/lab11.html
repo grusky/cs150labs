@@ -231,7 +231,7 @@ l.release()
 Note that it is VERY important you always release the lock after you acquire it - otherwise, no other processes will be able to acquire the lock, and your program will hang forever.<p>
 
 <h4>Sleeping</h4><p>
-Recall that we want our customers to wait a random amount between withdrawing and adding money.  To do this, we will use the <tt>time.sleep</tt> method, which causes a process to "sleep" (i.e. do nothing) for a specified amount of time. You will need to make sure to import the time class. To sleep for n seconds:
+Recall that we want our customers to wait a random amount between withdrawing and adding money.  To do this, we will use the <tt>time.sleep</tt> function, which causes a process to "sleep" (i.e. do nothing) for a specified amount of time. You will need to make sure to import the time class. To sleep for n seconds:
 <pre>
 time.sleep(n)
 </pre> 
@@ -243,7 +243,7 @@ time.sleep(n)
 <li>Start by creating an Account class, with an init method that takes in a RawValue (used as the account balance), and a Lock, and saves them.
 <li>Create a method <tt>add(customer_number, amount)</tt> that adds the amount to the balance, and prints out the customer number, amount and balance.  Make sure you use the RawValue for the balance, and that you use locks correctly to make your code safe for multiple processes.
 <li>Create a method <tt>withdraw(customer_number, amount)</tt> that checks if amount is greater than balance, and then either withdraws all of the available funds (if the balance is smaller than amount), or the amount specified (if the balance is greater than amount).  You should update the balance (using locking), print out the customer number, amount withdrawn, and new balance, and return the amount sucessfully withdraw.  The balance should never be able to go below 0.
-<li>Outside of the Account class, create a method <tt>Customer(account)</tt>.  In this method, withdraw a random amount between 0 and 100 from account, then sleep for a random amount between 0 and 5, then add a random amount between 0 and 100 to the account.  (You will probably want to use the <tt>random.randint</tt>method.)  Do these things (withdraw, sleep, add) 3 times.  Use the pid of the current process as the customer number.
+<li>Outside of the Account class, create a method <tt>Customer(account)</tt>.  In this method, withdraw a random amount between 0 and 100 from account, then sleep for a random amount between 0 and 5, then add a random amount between 0 and 100 to the account.  (You will probably want to use the <tt>random.randint</tt> function.)  Do these things (withdraw, sleep, add) 3 times.  Use the pid of the current process as the customer number.
 <li>Create a new RawValue of type "i", and set it to 100.  Create a new Lock.  Create a new account with this RawValue and Lock.
 <li>Create 5 Processes with target Customer and argument of your new account.  You should NOT use a process pool - instead create the processes yourself.  Start the processes.
 <li>Look over your output to ensure that they are outputting the correct values.
