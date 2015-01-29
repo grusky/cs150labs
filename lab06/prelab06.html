@@ -37,23 +37,23 @@ For the following two problems, you'll work out by hand the result of function i
 <h3>Function strange</h3>
 
 <pre>
-   def strange(x) :
-      if x <= 0 :
+   def strange(x):
+      if x <= 0:
          return 1
-      else :
+      else:
          return 5 * strange(x-1) - 2
 </pre>
 
 <h3>Function weird</h3>
 
 <pre>
-   def weird(x) :
-      if x > 0 :
-         print(x,"",end='')
-         if x%2 == 0 :
+   def weird(x):
+      if x > 0:
+         print(x, "", end='')
+         if x%2 == 0:
             weird(x-3)
             weird(x-2)
-         else :
+         else:
             weird(x-1)
 </pre>
 
