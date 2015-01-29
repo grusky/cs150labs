@@ -211,7 +211,7 @@ To generate the code, write a function </p>
 <pre>    <tt>generateCode()</tt> </pre>
 
 <p style="text-align:justify;">
-that generates the codemaker's code (and returns it as a <tt>String</tt> to the caller). That is, this function should randomly generate 4 colored pegs, selected from R, B, G, Y, O, and P, and return it as a 4-letter string. You'll want to use the <tt>random</tt> methods as discussed in <a href="../lab03/lab03.html#Random">lab03</a> in order to randomly generate a color for each peg. In particular, you'll generate an integer between 0 and 5 inclusive, and use if-statements to map each result to one of the 6 colors. 
+that generates the codemaker's code (and returns it as a <tt>String</tt> to the caller). That is, this function should randomly generate 4 colored pegs, selected from R, B, G, Y, O, and P, and return it as a 4-letter string. You'll want to use the <tt>random</tt> functions as discussed in <a href="../lab03/lab03.html#Random">lab03</a> in order to randomly generate a color for each peg. In particular, you'll generate an integer between 0 and 5 inclusive, and use if-statements to map each result to one of the 6 colors. 
 <!--(Or, if you're feeling up for it, read up on "switch statements", which can be used to combine a large if-statements of a specific type. This is a perfect place for a switch statement. Feel free to ask one of us about them!)</p> -->
 
 <p style="text-align:justify;">
@@ -276,7 +276,7 @@ Please handin what you have of your lab so far.
 <h2>Part 3 - Image Manipulation</h2>
 <b><i>imageEdit.py: 21 points (3 points per effect), partner</b></i>
 <p>
-In this (major) portion of the lab you'll create a nifty program that reads in an image and does a sequence of modifications to that image, as specified by the user.  Things like inverting the image, mirroring it, increasing or decreasing the contrast, etc.  In doing so, you'll get more practice with nested for loops, while loops, creating methods and using objects.
+In this (major) portion of the lab you'll create a nifty program that reads in an image and does a sequence of modifications to that image, as specified by the user.  Things like inverting the image, mirroring it, increasing or decreasing the contrast, etc.  In doing so, you'll get more practice with nested for loops, while loops, creating functions and using objects.
 </p>
 
 <p>
@@ -438,7 +438,7 @@ Some details are given below.
 </p>
 
 <p>
-<b>Zoom:</b> This method result in an image of the same size as the original, but consist of the center of the image blown up by a factor of 2.  So if the image has width w and height h, zooming should expand the middle w/2 by h/2 region to fill the whole picture.
+<b>Zoom:</b> This function results in an image of the same size as the original, but consist of the center of the image blown up by a factor of 2.  So if the image has width w and height h, zooming should expand the middle w/2 by h/2 region to fill the whole picture.
 </p>
 
 <p>
@@ -450,7 +450,7 @@ Some details are given below.
 <br>
 <p>
 <b>Implement a Design:</b><br>
-This program will be a good deal larger than those you've created on previous labs.  Making a single large function that does everything will most likely end in tears.  As such, think carefully about how to break your program into logical and managable pieces using functions.   It is very important that you test your code incrementally as you build your program -- don't try to write the whole thing before you start testing.  It is also critical that you use comments to explain what each method you create does.  
+This program will be a good deal larger than those you've created on previous labs.  Making a single large function that does everything will most likely end in tears.  As such, think carefully about how to break your program into logical and managable pieces using functions.   It is very important that you test your code incrementally as you build your program -- don't try to write the whole thing before you start testing.  It is also critical that you use comments to explain what each function you create does.  
 </p>
 
 <!--
@@ -540,7 +540,7 @@ As we've seen, the method <tt>display()</tt> can be used to pop open a window wi
 </div>
 
 <p>
-Keep in mind that if you have a picture object <tt>pic</tt> containing your original image and another picture object <tt>picCopy</tt> of the same size that you'd like to be assigned a copy of <tt>pic</tt>, the assignment statement <tt>picCopy = pic</tt> will <em>not</em> suffice.  All this will do is give you two variable names pointing to the exact same picture object.  Instead, you'll need to loop through all pixels of <tt>pic</tt> and copy the corresponding color channels into <tt>picCopy</tt>.  You may want to create a method specifically for this task.  Only call display on your original picture object <tt>pic</tt>.  Any function that makes use of a copy of your picture should create a new variable, say, <tt>pic2</tt>, using your copy function.  Then use that copy to modify <tt>pic</tt>.  Don't assign <tt>pic2</tt> to <tt>pic</tt>, and don't display <tt>pic2</tt>.  
+Keep in mind that if you have a picture object <tt>pic</tt> containing your original image and another picture object <tt>picCopy</tt> of the same size that you'd like to be assigned a copy of <tt>pic</tt>, the assignment statement <tt>picCopy = pic</tt> will <em>not</em> suffice.  All this will do is give you two variable names pointing to the exact same picture object.  Instead, you'll need to loop through all pixels of <tt>pic</tt> and copy the corresponding color channels into <tt>picCopy</tt>.  You may want to create a function specifically for this task.  Only call display on your original picture object <tt>pic</tt>.  Any function that makes use of a copy of your picture should create a new variable, say, <tt>pic2</tt>, using your copy function.  Then use that copy to modify <tt>pic</tt>.  Don't assign <tt>pic2</tt> to <tt>pic</tt>, and don't display <tt>pic2</tt>.  
 
 </p>
 
